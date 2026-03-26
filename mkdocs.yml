@@ -55,7 +55,7 @@ extra:
     - icon: fontawesome/solid/envelope
       link: mailto:baptiste.ravina@cern.ch
 
-copyright: "&copy; 2026 Baptiste Ravina &middot; Built with MkDocs Material"
+copyright: "&copy; 2026 Baptiste Ravina"
 
 markdown_extensions:
   - pymdownx.arithmatex:
@@ -93,7 +93,7 @@ plugins:
       blog_dir: blog
       post_date_format: long
       archive: false
-      categories_name: Categories
+      categories_name: Topics
       categories_allowed:
         - ATLAS
         - Machine learning

@@ -564,8 +564,11 @@ a.talk-title:hover {
   object-fit: cover;
 }
 
-/* --- Blog category pills on post metadata --- */
-.md-typeset .md-meta__link {
+/* --- Blog category pills --- */
+/* Blog index: categories in post metadata */
+.md-typeset .md-meta__link,
+/* Individual post: categories in sidebar metadata */
+.md-post__meta .md-meta__link {
   font-size: 0.72rem !important;
   padding: 3px 10px;
   border-radius: 6px;
@@ -574,10 +577,37 @@ a.talk-title:hover {
   text-decoration: none !important;
   font-weight: 500;
   margin-left: 2px;
+  display: inline-block;
+  line-height: 1;
 }
-.md-typeset .md-meta__link:hover {
+.md-typeset .md-meta__link:hover,
+.md-post__meta .md-meta__link:hover {
   background: var(--accent);
   color: #fff !important;
+}
+/* Individual post page: category links inside nav */
+.md-nav__link a[href*="category/"] {
+  font-size: 0.72rem !important;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--accent-light);
+  color: var(--accent-dark) !important;
+  text-decoration: none !important;
+  font-weight: 500;
+  display: inline-block;
+  line-height: 1;
+}
+.md-nav__link a[href*="category/"]:hover {
+  background: var(--accent);
+  color: #fff !important;
+}
+
+/* Hide the "in" text before categories but keep it accessible */
+.md-meta__item:has(.md-meta__link) {
+  font-size: 0;
+}
+.md-meta__item:has(.md-meta__link) .md-meta__link {
+  font-size: 0.72rem !important;
 }
 
 /* --- Bottom page padding before footer --- */

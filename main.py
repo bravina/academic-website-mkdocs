@@ -430,6 +430,6 @@ def define_env(env):
 <div class="hp-blog-tags">{post['categories_html']}</div>
 </div>""")
 
-        return f"""<div class="hp-ey">Latest from the blog</div>
+        return f"""<div class="hp-ey">Latest news</div>
 {"".join(cards)}
 <p style="margin-top:.5rem;"><a href="blog/" style="font-size:.88rem;color:var(--teal-600);text-decoration:none;font-weight:500;">All posts →</a></p>"""

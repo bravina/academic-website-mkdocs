@@ -39,22 +39,16 @@ if (typeof document$ !== 'undefined') {
       };
     }
 
-    // Blog sidebar: auto-expand Categories, hide Archive
+    // Blog sidebar: auto-expand Categories
     document.querySelectorAll('.md-nav__link').forEach(function(label) {
       var text = label.textContent.trim();
-      if (text === 'Categories') {
+      if (text === 'Topics') {
         var toggleId = label.getAttribute('for');
         if (toggleId) {
           var checkbox = document.getElementById(toggleId);
           if (checkbox && !checkbox.checked) {
             checkbox.checked = true;
           }
-        }
-      }
-      if (text === 'Archive') {
-        var parent = label.closest('.md-nav__item');
-        if (parent) {
-          parent.style.display = 'none';
         }
       }
     });
