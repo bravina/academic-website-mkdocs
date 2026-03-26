@@ -6,13 +6,7 @@ window.MathJax = {
     processEnvironments: true
   },
   options: {
-    ignoreHtmlClass: ".*|",
-    processHtmlClass: "arithmatex|pub-title|talk-title|hp-rc|md-content|md-typeset"
-  },
-  startup: {
-    ready: function() {
-      MathJax.startup.defaultReady();
-    }
+    ignoreHtmlClass: "mermaid|nomath"
   }
 };
 

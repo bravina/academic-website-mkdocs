@@ -23,6 +23,15 @@
   --text-faint: #8a8a86;
   --border: #e4e3df;
   --font-display: 'Playfair Display', Georgia, serif;
+  /* Extended palette for research cards */
+  --amber-50: #faeeda; --amber-800: #633806;
+  --red-50: #fcebeb; --red-800: #791f1f;
+  --green-50: #eaf3de; --green-800: #27500a;
+  --pink-50: #fbeaf0; --pink-800: #72243e;
+  --gray-50: #f1efe8; --gray-800: #444441;
+  --slate-50: #f8f7f5; --slate-800: #2a2a28;
+  --indigo-50: #e8e6fb; --indigo-800: #2d2878;
+  --cyan-50: #e0f4f8; --cyan-800: #0a4d5c;
 }
 
 [data-md-color-scheme="slate"] {

@@ -31,18 +31,11 @@ hide:
 
 <div class="hp-sec">
 <hr class="hp-divider"><div style="padding-top:2rem;">
-<div class="hp-ey">Latest from the blog</div>
-<a class="hp-blog-card" href="blog/2024/09/02/quantum-entanglement-observed-in-top-quarks--published-in-nature/">
-<div class="hp-blog-date">September 2024</div>
-<h4>Quantum entanglement observed in top quarks — published in Nature</h4>
-<p>Our paper on the first observation of quantum entanglement with top quarks has been published. The entanglement marker was measured more than five standard deviations from a no-entanglement scenario.</p>
-<div class="hp-blog-tags"><span>Quantum information</span><span>ATLAS</span></div>
-</a>
-<p style="margin-top:.5rem;"><a href="blog/" style="font-size:.88rem;color:var(--teal-600);text-decoration:none;font-weight:500;">All posts →</a></p>
+{{ landing_blog() }}
 </div>
 </div>
 
-<div class="hp-sec">
+<div class="hp-sec" style="padding-bottom:3rem;">
 <hr class="hp-divider">
 <div class="hp-cta">
 <div class="hp-ey">Get in touch</div>

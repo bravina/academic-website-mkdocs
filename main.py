@@ -196,10 +196,18 @@ def define_env(env):
     # ==================================================================
 
     color_map = {
-        "teal":   ("--teal-50", "--teal-900", "--teal-800"),
-        "purple": ("--purple-50", "--purple-800", "--purple-800"),
-        "coral":  ("--coral-50", "--coral-800", "--coral-800"),
-        "blue":   ("--blue-50", "--blue-800", "--blue-800"),
+        "teal":    ("--teal-50",   "--teal-900",   "--teal-800"),
+        "purple":  ("--purple-50", "--purple-800",  "--purple-800"),
+        "coral":   ("--coral-50",  "--coral-800",   "--coral-800"),
+        "blue":    ("--blue-50",   "--blue-800",    "--blue-800"),
+        "amber":   ("--amber-50",  "--amber-800",   "--amber-800"),
+        "red":     ("--red-50",    "--red-800",     "--red-800"),
+        "green":   ("--green-50",  "--green-800",   "--green-800"),
+        "pink":    ("--pink-50",   "--pink-800",    "--pink-800"),
+        "gray":    ("--gray-50",   "--gray-800",    "--gray-800"),
+        "slate":   ("--slate-50",  "--slate-800",   "--slate-800"),
+        "indigo":  ("--indigo-50", "--indigo-800",  "--indigo-800"),
+        "cyan":    ("--cyan-50",   "--cyan-800",    "--cyan-800"),
     }
 
     @env.macro
@@ -322,3 +330,106 @@ def define_env(env):
     @env.macro
     def talk_count():
         return len(talks)
+
+    @env.macro
+    def landing_blog(count=1):
+        """Render the latest blog post(s) from docs/blog/posts/."""
+        import glob
+        import re
+
+        posts_dir = os.path.join(env.project_dir, "docs", "blog", "posts")
+        post_files = sorted(glob.glob(os.path.join(posts_dir, "*.md")), reverse=True)
+
+        posts = []
+        for pf in post_files:
+            with open(pf) as f:
+                content = f.read()
+            parts = content.split("---")
+            if len(parts) < 3:
+                continue
+            try:
+                meta = yaml.safe_load(parts[1])
+            except Exception:
+                continue
+            if not meta:
+                continue
+
+            # Extract title from first # heading after frontmatter
+            body = "---".join(parts[2:])
+            title_match = re.search(r'^#\s+(.+)$', body, re.MULTILINE)
+            title = title_match.group(1).strip() if title_match else os.path.basename(pf)
+
+            # Extract summary (first paragraph after title, before <!-- more -->)
+            summary = ""
+            if "<!-- more -->" in body:
+                intro = body.split("<!-- more -->")[0]
+            else:
+                intro = body
+            # Get first non-empty paragraph after the title
+            paras = re.split(r'\n\n+', intro)
+            for p in paras:
+                p = p.strip()
+                if p and not p.startswith("#") and not p.startswith("!"):
+                    # Strip markdown image syntax
+                    p = re.sub(r'!\[.*?\]\(.*?\)\{.*?\}', '', p).strip()
+                    if p:
+                        # Strip markdown links to just their text
+                        p = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', p)
+                        # Convert **bold** and *italic*
+                        p = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', p)
+                        p = re.sub(r'\*([^*]+)\*', r'<em>\1</em>', p)
+                        summary = p
+                        break
+
+            # Build the URL slug from filename
+            filename = os.path.basename(pf).replace(".md", "")
+            d = meta.get("date")
+            if isinstance(d, date):
+                date_obj = d
+            else:
+                try:
+                    from datetime import datetime
+                    date_obj = datetime.strptime(str(d)[:10], "%Y-%m-%d").date()
+                except Exception:
+                    date_obj = None
+
+            if date_obj:
+                # Match mkdocs-material blog slug: each non-alnum → dash, keep double dashes
+                slug = re.sub(r'[^a-z0-9]', '-', title.lower()).strip('-')
+                slug = re.sub(r'-{3,}', '--', slug)
+                url = f"blog/{date_obj.year}/{date_obj.month:02d}/{date_obj.day:02d}/{slug}/"
+                display_date = date_obj.strftime("%B %Y")
+            else:
+                url = "blog/"
+                display_date = ""
+
+            categories = meta.get("categories", [])
+            cat_html = "".join(f'<span>{c}</span>' for c in categories)
+
+            posts.append({
+                "title": title,
+                "summary": summary,
+                "url": url,
+                "date": display_date,
+                "categories_html": cat_html,
+                "date_obj": date_obj,
+            })
+
+        # Sort by date
+        posts.sort(key=lambda p: p.get("date_obj") or date(1970, 1, 1), reverse=True)
+
+        if not posts:
+            return '<p style="color:var(--s400);">No blog posts yet.</p>'
+
+        cards = []
+        for post in posts[:count]:
+            cards.append(f"""<div class="hp-blog-card" onclick="window.location.href='{post['url']}'" style="cursor:pointer;">
+<div class="hp-blog-date">{post['date']}</div>
+<h4>{post['title']}</h4>
+<p>{post['summary']}</p>
+<div class="hp-blog-tags">{post['categories_html']}</div>
+</div>""")
+
+        return f"""<div class="hp-ey">Latest from the blog</div>
+{"".join(cards)}
+<p style="margin-top:.5rem;"><a href="blog/" style="font-size:.88rem;color:var(--teal-600);text-decoration:none;font-weight:500;">All posts →</a></p>"""
