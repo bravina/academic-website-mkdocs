@@ -602,6 +602,64 @@ a.talk-title:hover {
   color: #fff !important;
 }
 
+/* --- Category colors: posts and nav --- */
+
+/* Atlas */
+.md-typeset .md-meta__link[href*="category/atlas"],
+.md-post__meta .md-meta__link[href*="category/atlas"],
+.md-nav__link a[href*="category/atlas"] {
+  background: var(--accent-light);
+  color: var(--accent-dark) !important;
+}
+.md-typeset .md-meta__link[href*="category/atlas"]:hover,
+.md-post__meta .md-meta__link[href*="category/atlas"]:hover,
+.md-nav__link a[href*="category/atlas"]:hover {
+  background: var(--accent-dark);
+  color: #fff !important;
+}
+
+/* Machine Learning */
+.md-typeset .md-meta__link[href*="category/machine-learning"],
+.md-post__meta .md-meta__link[href*="category/machine-learning"],
+.md-nav__link a[href*="category/machine-learning"] {
+  background: var(--purple-light);
+  color: #3c3489 !important;
+}
+.md-typeset .md-meta__link[href*="category/machine-learning"]:hover,
+.md-post__meta .md-meta__link[href*="category/machine-learning"]:hover,
+.md-nav__link a[href*="category/machine-learning"]:hover {
+  background: #3c3489;
+  color: #fff !important;
+}
+
+/* Quantum Information */
+.md-typeset .md-meta__link[href*="category/quantum-information"],
+.md-post__meta .md-meta__link[href*="category/quantum-information"],
+.md-nav__link a[href*="category/quantum-information"] {
+  background: var(--blue-light);
+  color: var(--blue) !important;
+}
+.md-typeset .md-meta__link[href*="category/quantum-information"]:hover,
+.md-post__meta .md-meta__link[href*="category/quantum-information"]:hover,
+.md-nav__link a[href*="category/quantum-information"]:hover {
+  background: var(--blue);
+  color: #fff !important;
+}
+
+/* Top Physics */
+.md-typeset .md-meta__link[href*="category/top-physics"],
+.md-post__meta .md-meta__link[href*="category/top-physics"],
+.md-nav__link a[href*="category/top-physics"] {
+  background: var(--amber-light);
+  color: var(--amber) !important;
+}
+.md-typeset .md-meta__link[href*="category/top-physics"]:hover,
+.md-post__meta .md-meta__link[href*="category/top-physics"]:hover,
+.md-nav__link a[href*="category/top-physics"]:hover {
+  background: var(--amber);
+  color: #fff !important;
+}
+
 /* Hide the "in" text before categories but keep it accessible */
 .md-meta__item:has(.md-meta__link) {
   font-size: 0;
