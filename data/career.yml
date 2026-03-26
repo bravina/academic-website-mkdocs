@@ -1,0 +1,39 @@
+# ============================================================
+# Career timeline — displayed in order provided (no auto-sort)
+# Required: title, organization, start
+# Optional: end, location, description
+# ============================================================
+
+- title: "Senior Research Fellow"
+  organization: "CERN · ATLAS & FCC-ee ALLEGRO"
+  start: "2024"
+  end: ""
+  description: "Leading the ATLAS Top Properties & Mass subgroup. Quantum information in top quarks and Higgs bosons."
+
+- title: "Humboldt Research Fellow"
+  organization: "Alexander von Humboldt Foundation · Göttingen"
+  start: "2022"
+  end: "2024"
+  description: "EFT interpretations. First ATLAS+CMS top+X combination. Quantum entanglement in top quarks."
+
+- title: "Saltire Early Career Fellow"
+  organization: "Royal Society of Edinburgh · Glasgow"
+  start: "2021"
+  end: "2022"
+
+- title: "Post-Doctoral Research Associate"
+  organization: "University of Glasgow"
+  start: "2020"
+  end: "2021"
+
+- title: "PhD, Experimental Particle Physics"
+  organization: "University of Sheffield"
+  start: "2020"
+
+- title: "Part III Mathematics"
+  organization: "University of Cambridge, DAMTP"
+  start: "2016"
+
+- title: "BSc Physics & Philosophy"
+  organization: "King's College London"
+  start: "2015"

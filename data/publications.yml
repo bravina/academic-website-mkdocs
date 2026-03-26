@@ -1,0 +1,143 @@
+# ============================================================
+# Publications data file
+# Required: title, authors, venue, date
+# Optional: doi, arxiv, hepdata, atlas_url, briefing, courier,
+#           featured, type (for custom grouping)
+#
+# type: use any string for grouping, e.g.:
+#   "featured"  — highlight papers
+#   "top"       — top quark physics
+#   "search"    — BSM searches
+#   "ml"        — machine learning
+#   "thesis"    — PhD/MSc thesis
+#   "proceedings" — conference proceedings
+#
+# A paper can appear in multiple categories via the
+# publications_from_atlas() macro (matches "ATLAS" in authors).
+# ============================================================
+
+- title: "Observation of quantum entanglement with top quarks at the ATLAS detector"
+  authors: "ATLAS Collaboration (B. Ravina, J. Howarth, E. Simpson)"
+  venue: "Nature"
+  date: 2024-09
+  doi: "10.1038/s41586-024-07824-z"
+  arxiv: "2311.07288"
+  atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/TOPQ-2021-24/"
+  briefing: "https://atlas.cern/Updates/Briefing/Top-Entanglement"
+  courier: "https://cerncourier.com/a/highest-energy-observation-of-entanglement/"
+  featured: true
+  type: "top"
+
+- title: "Inclusive and differential cross section measurements of $t\\bar{t}Z$ production in $pp$ collisions at $\\sqrt{s}=13$ TeV with the ATLAS detector, including EFT and spin correlations interpretations"
+  authors: "ATLAS Collaboration (B. Ravina, S. Korn, E. Shabalina)"
+  venue: "JHEP"
+  date: 2024-07
+  doi: "10.1007/JHEP07(2024)163"
+  arxiv: "2312.04450"
+  hepdata: "https://www.hepdata.net/record/ins2744513"
+  atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/TOPQ-2020-20/"
+  featured: true
+  type: "top"
+
+- title: "Observation of quantum entanglement in top quark pairs at the ATLAS experiment"
+  authors: "B. Ravina"
+  venue: "PoS"
+  date: 2024-10
+  arxiv: "2410.04590"
+  type: "proceedings"
+
+- title: "Measurements of inclusive and differential cross-sections of $t\\bar{t}\\gamma$ production in $pp$ collisions at $\\sqrt{s}=13$ TeV with the ATLAS detector"
+  authors: "ATLAS Collaboration (B. Ravina)"
+  venue: "JHEP"
+  date: 2024-03
+  arxiv: "2403.09452"
+  hepdata: "https://www.hepdata.net/record/ins2768921"
+  atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/TOPQ-2018-24/"
+  type: "top"
+
+- title: "Roadmap towards future combinations and Effective Field Theory interpretations of top+X processes"
+  authors: "ATLAS Collaboration (B. Ravina)"
+  venue: "ATL-PHYS-PUB-2023-030"
+  date: 2023-09
+  atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2023-030/"
+  type: "top"
+
+- title: "Constraints on spin-0 dark matter mediators and invisible Higgs decays using ATLAS 13 TeV $pp$ collision data with two top quarks and missing energy in the final state"
+  authors: "ATLAS Collaboration (B. Ravina)"
+  venue: "Eur. Phys. J. C"
+  date: 2023-03
+  doi: "10.1140/epjc/s10052-023-11477-z"
+  arxiv: "2211.05426"
+  atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2019-12/"
+  type: "search"
+
+- title: "Observing $t\\bar{t}Z$ spin correlations at the LHC"
+  authors: "B. Ravina, E. Simpson, J. Howarth"
+  venue: "Eur. Phys. J. C"
+  date: 2021-06
+  doi: "10.1140/epjc/s10052-021-09605-8"
+  arxiv: "2106.09690"
+  featured: true
+  type: "top"
+
+- title: "The Dark Machines Anomaly Score Challenge: Benchmark Data and Model Independent Event Classification for the Large Hadron Collider"
+  authors: "T. Aarrestad, C. Doglioni, B. Ravina, et al."
+  venue: "SciPost Phys"
+  date: 2021-05
+  doi: "10.21468/SciPostPhys.12.1.043"
+  arxiv: "2105.14027"
+  courier: "https://cerncourier.com/a/whats-in-the-box/"
+  featured: true
+  type: "ml"
+
+- title: "Measurements of the inclusive and differential production cross sections of a top-quark-antiquark pair in association with a $Z$ boson at $\\sqrt{s} = 13$ TeV with the ATLAS detector"
+  authors: "ATLAS Collaboration (B. Ravina)"
+  venue: "Eur. Phys. J. C"
+  date: 2021-03
+  doi: "10.1140/epjc/s10052-021-09439-4"
+  arxiv: "2103.12603"
+  atlas_url: "http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/TOPQ-2018-08/"
+  briefing: "https://atlas.cern/updates/briefing/probes-heavyweights-standard-model"
+  featured: true
+  type: "top"
+
+- title: "Search for a scalar partner of the top quark in the all-hadronic $t\\bar{t}$ plus missing transverse momentum final state at $\\sqrt{s}=13$ TeV with the ATLAS detector"
+  authors: "ATLAS Collaboration (B. Ravina)"
+  venue: "Eur. Phys. J. C"
+  date: 2020-04
+  doi: "10.1140/epjc/s10052-020-8102-8"
+  arxiv: "2004.14060"
+  atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-12/"
+  type: "search"
+
+- title: "Top quark pair properties & top mass measurements at the LHC"
+  authors: "B. Ravina"
+  venue: "PoS"
+  date: 2019-08
+  doi: "10.22323/1.352.0162"
+  type: "proceedings"
+
+- title: "Measurement of the $t\\bar{t}Z$ and $t\\bar{t}W$ cross sections in proton-proton collisions at $\\sqrt{s}=13$ TeV with the ATLAS detector"
+  authors: "ATLAS Collaboration (B. Ravina)"
+  venue: "Phys. Rev. D"
+  date: 2019-01
+  doi: "10.1103/PhysRevD.99.072009"
+  arxiv: "1901.03584"
+  atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/TOPQ-2016-11/"
+  type: "top"
+
+- title: "Search for a scalar partner of the top quark in the jets plus missing transverse momentum final state at $\\sqrt{s}=13$ TeV with the ATLAS detector"
+  authors: "ATLAS Collaboration (B. Ravina)"
+  venue: "JHEP"
+  date: 2017-09
+  doi: "10.1007/JHEP12(2017)085"
+  arxiv: "1709.04183"
+  atlas_url: "http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2016-15/"
+  briefing: "https://atlas.cern/updates/briefing/searching-signs-stop"
+  type: "search"
+
+- title: "Measurement of the top quark coupling to the Z boson, and applications to searches for physics beyond the Standard Model"
+  authors: "B. Ravina"
+  venue: "PhD thesis, University of Sheffield"
+  date: 2020-04
+  type: "thesis"

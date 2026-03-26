@@ -1,0 +1,160 @@
+# ============================================================
+# Talks data file
+# To add a new talk, append an entry at the top of the list.
+# Required: title, date, venue
+# Optional: location, indico, slides_url, recording_url
+# ============================================================
+
+- title: "Report from the Analysis Model Group"
+  date: 2024-10-18
+  venue: "ATLAS Week"
+  location: "CERN"
+
+- title: "Measurement of the $t\\bar{t}Z$ cross sections"
+  date: 2024-06-28
+  venue: "RAMP Seminar"
+  location: "CERN"
+
+- title: "ATLAS results on top spin and entanglement"
+  date: 2024-06-04
+  venue: "LHCP"
+  location: "Boston"
+  slides_url: "https://talks.baptisteravina.com/2024-lhcp"
+
+- title: "Quantum information at the LHC"
+  date: 2024-05-30
+  venue: "Seminar"
+  location: "TU Dresden"
+  slides_url: "https://talks.baptisteravina.com/2024-dresden"
+
+- title: "TopCPToolkit: analysis software for Run 3 and beyond"
+  date: 2024-04-29
+  venue: "Top Workshop"
+  location: "Benasque"
+
+- title: "Fundamental tests of the Standard Model at ATLAS and CMS"
+  date: 2024-03-06
+  venue: "DPG"
+  location: "Karlsruhe"
+
+- title: "A modular framework for analysis with PHYSLITE"
+  date: 2023-12-13
+  venue: "ATLAS End-of-Year"
+  location: "CERN"
+
+- title: "Quantum information at the LHC"
+  date: 2023-11-29
+  venue: "Seminar"
+  location: "Harvard"
+
+- title: "Top-antitop reconstruction"
+  date: 2023-11-10
+  venue: "Workshop"
+  location: "GGI Florence"
+
+- title: "Precision top physics and entanglement with the ATLAS experiment"
+  date: 2023-10-24
+  venue: "CERN Seminar"
+  location: "CERN"
+  indico: "https://indico.cern.ch/event/1325795/"
+  recording_url: "https://cds.cern.ch/record/2878456"
+
+- title: "Entanglement measurements at the LHC"
+  date: 2023-10-02
+  venue: "Workshop"
+  location: "Benasque"
+
+- title: "The LHC as a quantum information laboratory"
+  date: 2023-09-22
+  venue: "ATLAS-D"
+  location: "Bonn"
+
+- title: "Software tutorial (AnalysisTop) 2023"
+  date: 2023-05-10
+  venue: "Top Workshop"
+  location: "NIKHEF Amsterdam"
+
+- title: "Quantum entanglement in $t\\bar{t}$ with ATLAS"
+  date: 2023-03-21
+  venue: "Workshop"
+  location: "Merton College, Oxford"
+
+- title: "Quantum Information with Top Quarks and Higgs Bosons"
+  date: 2022-11-22
+  venue: "Joint Forum Scotland × Lower Saxony"
+  location: ""
+
+- title: "Future combinations: inputs from the top sector"
+  date: 2022-09-14
+  venue: "SM Workshop"
+  location: "DESY Hamburg"
+
+- title: "Outlook to the ATLAS top physics programme in Run 3 and beyond"
+  date: 2022-09-08
+  venue: "Top Conference"
+  location: "University of Durham"
+
+- title: "Software tutorial (AnalysisTop) 2022"
+  date: 2022-05-04
+  venue: "Top Workshop"
+  location: "ADEIT Valencia"
+
+- title: "Top quark mass & properties"
+  date: 2021-09-16
+  venue: "HQL"
+  location: "University of Warwick"
+
+- title: "Machine learning and anomaly detection at ATLAS"
+  date: 2021-02-22
+  venue: "Seminar"
+  location: "King's College London"
+
+- title: "Anomaly detection and a summer project with Google+IBM"
+  date: 2020-07-17
+  venue: "Seminar"
+  location: "University of Glasgow"
+
+- title: "Rare top processes"
+  date: 2020-01-09
+  venue: "ATLAS UK"
+  location: "University of Cambridge"
+
+- title: "Machine learning for collider physics"
+  date: 2019-10-28
+  venue: "Seminar"
+  location: "University of Sheffield"
+
+- title: "Unfolded measurements in SUSY signal and control regions"
+  date: 2019-09-25
+  venue: "ATLAS SUSY"
+  location: "Lecce"
+
+- title: "Full Run 2 differential measurement of the $t\\bar{t}Z$ cross section"
+  date: 2019-07-02
+  venue: "ATLAS UK Top"
+  location: "University of Sussex"
+
+- title: "Inclusive and differential measurements of the $t\\bar{t}Z$ cross section with the full Run 2 ATLAS dataset"
+  date: 2019-05-21
+  venue: "ATLAS Top"
+  location: "Roma Tor Vergata"
+
+- title: "Top quark pair properties & top mass measurements at the LHC"
+  date: 2019-04-09
+  venue: "DIS"
+  location: "Torino"
+
+- title: "Prospects for $t\\bar{t}Z$ measurements at ATLAS with the full LHC Run 2 dataset"
+  date: 2019-04-08
+  venue: "IOP HEPP"
+  location: "Imperial College London"
+
+- title: "Unfolding techniques for the differential $t\\bar{t}Z$ analysis"
+  date: 2019-02-26
+  venue: "$t\\bar{t}Z$ Workshop"
+  location: "CERN"
+
+- title: "New techniques for new physics"
+  date: 2019-01-06
+  venue: "YETI"
+  location: "Durham University"

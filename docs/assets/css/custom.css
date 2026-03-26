@@ -1,0 +1,585 @@
+/* ============================================
+   Baptiste Ravina — Academic Portfolio
+   Aesthetic: Editorial scientific · Clean density
+   ============================================ */
+
+/* --- Color system --- */
+:root {
+  --accent: #0f6e56;
+  --accent-light: #e1f5ee;
+  --accent-dark: #04342c;
+  --accent-mid: #1d9e75;
+  --purple: #534ab7;
+  --purple-light: #eeedfe;
+  --coral: #d85a30;
+  --coral-light: #faece7;
+  --amber: #854f0b;
+  --amber-light: #faeeda;
+  --blue: #185fa5;
+  --blue-light: #e6f1fb;
+  --surface-dim: #f8f7f5;
+  --text-main: #1a1a1a;
+  --text-muted: #5a5a58;
+  --text-faint: #8a8a86;
+  --border: #e4e3df;
+  --font-display: 'Playfair Display', Georgia, serif;
+}
+
+[data-md-color-scheme="slate"] {
+  --surface-dim: #1e1e1e;
+  --text-main: #e0dfd8;
+  --text-muted: #a0a09a;
+  --text-faint: #6a6a66;
+  --border: #333;
+}
+
+/* --- Theme overrides --- */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #0f6e56;
+  --md-primary-bg-color: #fff;
+  --md-accent-fg-color: #1d9e75;
+}
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #1d9e75;
+  --md-accent-fg-color: #5dcaa5;
+}
+
+/* --- Typography --- */
+.md-typeset h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+.md-typeset h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+  margin-top: 2.5rem;
+}
+
+/* --- Hero section (index.md) --- */
+.hero-section {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin: 1rem 0 2.5rem;
+}
+.hero-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 3px solid var(--accent-light);
+}
+.hero-text h1 {
+  font-family: var(--font-display) !important;
+  font-size: 2rem !important;
+  margin: 0 0 0.25rem !important;
+  border: none !important;
+  padding: 0 !important;
+}
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+.hero-subtitle a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+.hero-bio {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: 600px;
+}
+.hero-bio em {
+  font-style: normal;
+  font-family: var(--font-display);
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.92rem;
+}
+
+/* --- Pills / tags --- */
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 0.75rem;
+}
+.pill {
+  font-size: 0.78rem;
+  padding: 3px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.pill-teal { background: var(--accent-light); color: var(--accent-dark); }
+.pill-purple { background: var(--purple-light); color: #3c3489; }
+.pill-coral { background: var(--coral-light); color: #712b13; }
+.pill-blue { background: var(--blue-light); color: #0c447c; }
+
+/* --- Featured card --- */
+.featured-card {
+  background: var(--surface-dim);
+  border-left: 3px solid var(--accent);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0 2.5rem;
+  border-radius: 0;
+}
+.featured-card .badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+.featured-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0.25rem 0;
+  border: none;
+  padding: 0;
+}
+.featured-card .journal {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.featured-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+/* --- Timeline --- */
+.timeline {
+  position: relative;
+  padding-left: 24px;
+  margin: 1rem 0 2rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--border);
+}
+.timeline-item {
+  position: relative;
+  padding: 0 0 1.5rem 1rem;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -22px;
+  top: 8px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--accent-light);
+}
+.timeline-item.current::before {
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+.timeline-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  margin-bottom: 2px;
+}
+.timeline-item h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+}
+.timeline-org {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.timeline-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+  line-height: 1.6;
+}
+
+/* --- Publication list --- */
+.pub-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.pub-item {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.pub-item:last-child {
+  border-bottom: none;
+}
+.pub-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.45;
+  margin-bottom: 2px;
+}
+.pub-authors {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.pub-venue {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+.pub-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+.pub-links a {
+  font-size: 0.75rem;
+  padding: 2px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: all 0.15s;
+}
+.pub-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.pub-links .bibtex-btn {
+  cursor: pointer;
+  background: none;
+  font-family: inherit;
+}
+
+/* --- Talk list --- */
+.talk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin: 1rem 0;
+}
+.talk-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  transition: border-color 0.15s;
+}
+.talk-card:hover {
+  border-color: var(--accent);
+}
+.talk-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+.talk-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 4px 0;
+  line-height: 1.4;
+  display: block;
+}
+a.talk-title {
+  text-decoration: none;
+  color: inherit;
+}
+a.talk-title:hover {
+  color: var(--accent);
+}
+.talk-venue {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.talk-links {
+  margin-top: 6px;
+}
+.talk-links a {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+.talk-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* --- Team grid --- */
+.team-section h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-weight: 400;
+  font-size: 0.75rem;
+  border: none;
+  padding: 0;
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 2rem;
+}
+.team-card {
+  text-align: center;
+  padding: 1rem 0.5rem;
+}
+.team-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 0.5rem;
+  display: block;
+  background: var(--surface-dim);
+  border: 2px solid var(--border);
+}
+.team-initials {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: var(--accent-light);
+}
+.team-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.team-role {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.team-affiliation {
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+
+/* --- Milestone blog cards --- */
+.milestone-card {
+  background: var(--surface-dim);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin: 1rem 0;
+}
+.milestone-card .milestone-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+.milestone-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin: 0 0 0.4rem;
+  border: none;
+  padding: 0;
+}
+.milestone-card p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* --- BibTeX modal --- */
+.bibtex-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
+}
+.bibtex-modal.active {
+  display: flex;
+}
+.bibtex-content {
+  background: var(--md-default-bg-color, #fff);
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: auto;
+  position: relative;
+}
+.bibtex-content pre {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.bibtex-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+.bibtex-copy {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.bibtex-copy:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .hero-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-avatar {
+    width: 90px;
+    height: 90px;
+  }
+  .pill-row {
+    justify-content: center;
+  }
+  .talk-grid {
+    grid-template-columns: 1fr;
+  }
+  .team-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
+
+/* --- Video embeds --- */
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  margin: 1rem 0;
+}
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+/* --- Section labels --- */
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-faint);
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* --- Contact row --- */
+.contact-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+.contact-row a {
+  font-size: 0.85rem;
+  padding: 6px 18px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--accent);
+  transition: all 0.15s;
+}
+.contact-row a:hover {
+  background: var(--accent-light);
+}
+
+/* --- Import display font --- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+/* --- Blog hero images --- */
+.blog-hero {
+  width: 100%;
+  border-radius: 8px;
+  margin: 1rem 0;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+/* --- Blog category pills on post metadata --- */
+.md-typeset .md-meta__link {
+  font-size: 0.72rem !important;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--accent-light);
+  color: var(--accent-dark) !important;
+  text-decoration: none !important;
+  font-weight: 500;
+  margin-left: 2px;
+}
+.md-typeset .md-meta__link:hover {
+  background: var(--accent);
+  color: #fff !important;
+}
+
+/* --- Bottom page padding before footer --- */
+.md-content__inner {
+  padding-bottom: 3rem !important;
+}
+
+/* --- Sticky nav: logo + site name link home --- */
+.md-header__button.md-logo {
+  cursor: pointer;
+}
+.md-header__topic > .md-ellipsis {
+  cursor: pointer;
+}

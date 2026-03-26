@@ -1,0 +1,35 @@
+# ============================================================
+# Research cards — displayed on the landing page and linked
+# to anchors on the research.md page.
+# logo: inline SVG string (keep simple, 24x24 viewBox)
+# ============================================================
+
+- title: "Quantum entanglement at colliders"
+  link: "research/#quantum-entanglement-at-colliders"
+  description: "First observation of entanglement at TeV energies. Extending to Bell inequalities and the Higgs sector via quantumTANGO."
+  color: teal
+  logo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/><circle cx="12" cy="12" r="9" stroke-dasharray="4 3"/></svg>'
+
+- title: "Top quark electroweak couplings"
+  link: "research/#top-quark-electroweak-couplings"
+  description: "Precision measurements of rare top processes. SMEFT interpretations and first ATLAS+CMS top+X combination."
+  color: purple
+  logo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16M8 16l4-12 4 12"/><line x1="7" y1="13" x2="17" y2="13"/></svg>'
+
+- title: "ML & anomaly detection"
+  link: "research/#machine-learning-anomaly-detection"
+  description: "Dark Machines initiative: benchmarking unsupervised models for model-independent new physics searches at the LHC."
+  color: coral
+  logo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M17.5 14v7m-3.5-3.5h7"/></svg>'
+
+- title: "Analysis software for Run 3"
+  link: "research/#analysis-software-for-run-3"
+  description: "TopCPToolkit and next-gen analysis pipelines for ATLAS towards the High-Luminosity LHC."
+  color: blue
+  logo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>'
+
+- title: "Some other bullshit probably"
+  link: "google.com"
+  description: "Who even cares"
+  color: pink
+  logo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>'

@@ -1,0 +1,148 @@
+# ============================================================
+# Team data
+# group: "collaborator" gets profile cards, "alumni" gets table row
+# For collaborators: name, role, affiliation required
+# For alumni: name, role_type (PhD/MSc/BSc/GSoC/Intern/Postdoc),
+#             project, location, year required
+# Optional: photo (filename in docs/assets/team/)
+# ============================================================
+
+collaborators:
+  - name: "James Howarth"
+    role: "Royal Society URF"
+    affiliation: "University of Glasgow"
+
+  - name: "Jonathan Jamieson"
+    role: "Postdoc (quantumTANGO)"
+    affiliation: "University of Glasgow"
+
+  - name: "Steffen Korn"
+    role: "Postdoc (quantumTANGO)"
+    affiliation: "University of Göttingen"
+
+  - name: "Arnulf Quadt"
+    role: "Professor"
+    affiliation: "University of Göttingen"
+
+  - name: "Elizaveta Shabalina"
+    role: "Senior Researcher"
+    affiliation: "University of Göttingen"
+
+  - name: "Caterina Doglioni"
+    role: "Professor"
+    affiliation: "University of Manchester"
+
+alumni:
+  - name: "Stephen Eggebrecht"
+    role_type: "PhD"
+    project: "$t\\bar{t}H$ in the $4\\ell$ channel"
+    location: "Göttingen"
+    year: "2025"
+
+  - name: "Sreelakshmi Sindhu"
+    role_type: "PhD"
+    project: "EFT in top+X processes"
+    location: "Göttingen"
+    year: "2025"
+
+  - name: "Ethan Simpson"
+    role_type: "PhD"
+    project: "EFT & spin correlations"
+    location: "Glasgow"
+    year: "2023"
+
+  - name: "Theresa Reisch"
+    role_type: "MSc"
+    project: "$t\\bar{t}$ quantum entanglement"
+    location: "Göttingen"
+    year: "2024"
+
+  - name: "Tim Schlömer"
+    role_type: "MSc"
+    project: "ML for lepton isolation"
+    location: "Göttingen"
+    year: "2024"
+
+  - name: "Sebastian Preuth"
+    role_type: "MSc"
+    project: "$t\\bar{t}Z$ and $tZq$"
+    location: "Göttingen"
+    year: "2024"
+
+  - name: "Ireas Tom Raschke"
+    role_type: "MSc"
+    project: "$t\\bar{t}H(\\to WW^*)$ with 1 lepton"
+    location: "Göttingen"
+    year: "2024"
+
+  - name: "Daniel Werner"
+    role_type: "MSc"
+    project: "Run 3 software & top+X EFT"
+    location: "Göttingen"
+    year: "2024"
+
+  - name: "Clinton Gonsalves"
+    role_type: "Intern"
+    project: "$t\\bar{t}H(\\to WW^*)$"
+    location: "CERN"
+    year: "2024"
+
+  - name: "Siemen Aulich"
+    role_type: "BSc"
+    project: "Quantum entanglement in $H^*\\to ZZ$"
+    location: "Göttingen"
+    year: "2023"
+
+  - name: "Tobias Henne"
+    role_type: "BSc"
+    project: "$t\\bar{t}$ modelling for entanglement"
+    location: "Göttingen"
+    year: "2023"
+
+  - name: "Kia-Jung Yang"
+    role_type: "BSc"
+    project: "Graph neural networks, $t\\bar{t}Z$"
+    location: "Göttingen"
+    year: "2022–23"
+
+  - name: "Sophia Pennuttis"
+    role_type: "BSc"
+    project: "Background modelling in $t\\bar{t}\\gamma\\gamma$"
+    location: "Göttingen"
+    year: "2022"
+
+  - name: "Craig Shewry"
+    role_type: "MSc"
+    project: "EFT & machine learning"
+    location: "Glasgow"
+    year: "2021–22"
+
+  - name: "Hassan Shahid"
+    role_type: "MSc"
+    project: "Anomaly detection"
+    location: "Glasgow"
+    year: "2021–22"
+
+  - name: "George Dialektakis"
+    role_type: "GSoC"
+    project: "Anomaly detection"
+    location: "CERN"
+    year: "2021"
+
+  - name: "Marija Vaškevičiūtė"
+    role_type: "MSc"
+    project: "Anomaly detection"
+    location: "Glasgow"
+    year: "2020–21"
+
+  - name: "Honey Gupta"
+    role_type: "GSoC"
+    project: "Anomaly detection"
+    location: "CERN"
+    year: "2020"
+
+  - name: "Varsha Senthilkumar"
+    role_type: "MSc"
+    project: "ML in SUSY"
+    location: "Glasgow"
+    year: "2019"

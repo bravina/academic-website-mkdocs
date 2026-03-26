@@ -1,0 +1,29 @@
+# ============================================================
+# Profile data — displayed on the landing page hero section
+# ============================================================
+
+name: "Baptiste Ravina"
+role: "Senior Research Fellow"
+affiliations:
+  - name: "CERN"
+    url: "https://home.cern"
+  - name: "ATLAS Experiment"
+    url: "https://atlas.cern"
+
+bio: >-
+  Searching for new physics at the Large Hadron Collider — through
+  precision measurements of the top quark, quantum entanglement at
+  high energies, and machine learning. Led the first
+  *observation of entanglement in top quarks*, published in Nature.
+
+tags:
+  - label: "Top quark physics"
+    color: teal
+  - label: "Quantum entanglement"
+    color: purple
+  - label: "Machine learning"
+    color: coral
+  - label: "Effective field theory"
+    color: blue
+
+email: "baptiste.ravina@cern.ch"
