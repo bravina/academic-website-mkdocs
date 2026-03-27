@@ -1,67 +1,145 @@
-/* ============================================
-   Baptiste Ravina — Academic Portfolio
-   Aesthetic: Editorial scientific · Clean density
-   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
-/* --- Color system --- */
+/* ============================================================
+   Baptiste Ravina — Academic Portfolio
+   custom.css — single source of truth for all styles
+   ============================================================
+
+   TABLE OF CONTENTS
+   -----------------
+   1.  Design tokens (colors, fonts)
+   2.  Dark-mode overrides
+   3.  MkDocs theme overrides
+   4.  Global typography
+       Note: body font (Source Sans 3) and code font (JetBrains Mono) are
+       set via mkdocs.yml theme.font and applied site-wide by MkDocs Material.
+       Only the serif display font (--font-serif) is declared here.
+   5.  Pills / tags          [hp- prefix = homepage only]
+   6.  Homepage layout       [hp- prefix]
+     6a. Hero
+     6b. Section chrome (eyebrow, headings, dividers)
+     6c. Featured publication block
+     6d. Research-area cards
+     6e. Timeline / CV
+     6f. Blog cards
+     6g. CTA strip
+   7.  Publication list       [site-wide]
+   8.  Talk grid              [site-wide]
+   9.  Team grid              [site-wide]
+   10. Milestone blog cards   [site-wide]
+   11. BibTeX modal           [site-wide]
+   12. Section labels         [site-wide]
+   13. Contact row            [site-wide]
+   14. Video embeds           [site-wide]
+   15. Responsive overrides
+   ============================================================ */
+
+
+/* ============================================================
+   1. DESIGN TOKENS
+   ============================================================ */
+
 :root {
-  --accent: #0f6e56;
-  --accent-light: #e1f5ee;
-  --accent-dark: #04342c;
-  --accent-mid: #1d9e75;
-  --purple: #534ab7;
+  /* — Teal (primary accent) — */
+  --accent:       #0f6e56;   /* teal-600 */
+  --accent-mid:   #1d9e75;   /* teal-400 */
+  --accent-light: #e1f5ee;   /* teal-50  */
+  --accent-dark:  #04342c;   /* teal-900 */
+  --accent-800:   #085041;   /* teal-800 */
+
+  /* — Aliases used by main.py color_map (do not remove) — */
+  --teal-50:  #e1f5ee; --teal-400: #1d9e75;
+  --teal-600: #0f6e56; --teal-800: #085041; --teal-900: #04342c;
+  --purple-50:  #eeedfe; --purple-800: #3c3489;
+  --coral-50:   #faece7; --coral-800:  #712b13;
+  --blue-50:    #e6f1fb; --blue-800:   #0c447c;
+  --amber-50:   #faeeda; --amber-800:  #633806;
+  --red-50:     #fcebeb; --red-800:    #791f1f;
+  --green-50:   #eaf3de; --green-800:  #27500a;
+  --pink-50:    #fbeaf0; --pink-800:   #72243e;
+  --gray-50:    #f1efe8; --gray-800:   #444441;
+  --slate-50:   #f8f7f5; --slate-800:  #2a2a28;
+  --indigo-50:  #e8e6fb; --indigo-800: #2d2878;
+  --cyan-50:    #e0f4f8; --cyan-800:   #0a4d5c;
+
+  /* — Secondary palette (semantic names for site-wide CSS) — */
+  --purple:       #534ab7;
   --purple-light: #eeedfe;
-  --coral: #d85a30;
-  --coral-light: #faece7;
-  --amber: #854f0b;
-  --amber-light: #faeeda;
-  --blue: #185fa5;
-  --blue-light: #e6f1fb;
-  --surface-dim: #f8f7f5;
-  --text-main: #1a1a1a;
-  --text-muted: #5a5a58;
-  --text-faint: #8a8a86;
-  --border: #e4e3df;
-  --font-display: 'Playfair Display', Georgia, serif;
-  /* Extended palette for research cards */
-  --amber-50: #faeeda; --amber-800: #633806;
-  --red-50: #fcebeb; --red-800: #791f1f;
-  --green-50: #eaf3de; --green-800: #27500a;
-  --pink-50: #fbeaf0; --pink-800: #72243e;
-  --gray-50: #f1efe8; --gray-800: #444441;
-  --slate-50: #f8f7f5; --slate-800: #2a2a28;
-  --indigo-50: #e8e6fb; --indigo-800: #2d2878;
-  --cyan-50: #e0f4f8; --cyan-800: #0a4d5c;
+  --coral:        #d85a30;
+  --coral-light:  #faece7;
+  --amber:        #854f0b;
+  --amber-light:  #faeeda;
+  --blue:         #185fa5;
+  --blue-light:   #e6f1fb;
+
+  /* — Neutrals / surface — */
+  --surface-dim: #f8f7f5;   /* s50  */
+  --s100:        #efeee9;
+  --border:      #e4e3df;   /* s200 */
+  --text-faint:  #8a8a86;   /* s400 */
+  --text-muted:  #5a5a58;   /* s600 */
+  --text-dark:   #2a2a28;   /* s800 */
+  --text-main:   #1a1a1a;   /* s900 */
+
+  /* — Font stacks — */
+  --font-serif: 'Source Serif 4', Georgia, serif;        /* headings, display: site-wide */
 }
+
+
+/* ============================================================
+   2. DARK-MODE OVERRIDES
+   ============================================================ */
 
 [data-md-color-scheme="slate"] {
   --surface-dim: #1e1e1e;
-  --text-main: #e0dfd8;
-  --text-muted: #a0a09a;
-  --text-faint: #6a6a66;
-  --border: #333;
+  --s100:        #242422;
+  --border:      #333;
+  --text-faint:  #6a6a66;
+  --text-muted:  #a0a09a;
+  --text-dark:   #d8d8d0;
+  --text-main:   #e0dfd8;
 }
 
-/* --- Theme overrides --- */
+
+/* ============================================================
+   3. MKDOCS THEME OVERRIDES
+   ============================================================ */
+
 [data-md-color-scheme="default"] {
   --md-primary-fg-color: #0f6e56;
   --md-primary-bg-color: #fff;
-  --md-accent-fg-color: #1d9e75;
+  --md-accent-fg-color:  #1d9e75;
 }
 [data-md-color-scheme="slate"] {
   --md-primary-fg-color: #1d9e75;
-  --md-accent-fg-color: #5dcaa5;
+  --md-accent-fg-color:  #5dcaa5;
 }
 
-/* --- Typography --- */
+/* Strip default inner padding on the homepage (hp- layout owns it) */
+.md-content__inner {
+  max-width: none !important;
+  padding-bottom: 3rem !important;
+}
+
+/* Logo + site-name link clickable */
+.md-header__button.md-logo,
+.md-header__topic > .md-ellipsis {
+  cursor: pointer;
+}
+
+
+/* ============================================================
+   4. GLOBAL TYPOGRAPHY (non-homepage pages)
+   ============================================================ */
+
 .md-typeset h1 {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-weight: 700;
   letter-spacing: -0.5px;
   line-height: 1.2;
 }
 .md-typeset h2 {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-weight: 600;
   letter-spacing: -0.3px;
   border-bottom: 1px solid var(--border);
@@ -69,165 +147,420 @@
   margin-top: 2.5rem;
 }
 
-/* --- Hero section (index.md) --- */
-.hero-section {
+
+/* ============================================================
+   5. PILLS / TAGS
+   hp- prefix: used on the homepage; safe to reuse site-wide
+   via the same classes if needed in the future.
+   ============================================================ */
+
+.hp-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 0.8rem;
+}
+.hp-pill {
+  font-size: 0.75rem;
+  padding: 3px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+.hp-pill-t { background: var(--accent-light); color: var(--accent-dark); }
+.hp-pill-p { background: var(--purple-light); color: #3c3489; }
+.hp-pill-c { background: var(--coral-light);  color: #712b13; }
+.hp-pill-b { background: var(--blue-light);   color: #0c447c; }
+
+
+/* ============================================================
+   6. HOMEPAGE LAYOUT  (hp- prefix throughout)
+   ============================================================ */
+
+/* Reset MkDocs content wrapper on homepage */
+.hp * { box-sizing: border-box; }
+.hp {
+  color: var(--text-main);
+  line-height: 1.6;
+}
+.hp a { color: inherit; }
+
+
+/* --- 6a. Hero ------------------------------------------------ */
+
+.hp-hero {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 3rem 2rem 2rem;
+}
+.hp-hero-row {
   display: flex;
   gap: 2rem;
   align-items: flex-start;
-  margin: 1rem 0 2.5rem;
 }
-.hero-avatar {
-  width: 110px;
-  height: 110px;
+
+/* Avatar wrapper — grows with viewport */
+.hp-avatar-wrap {
+  flex-shrink: 0;
+  width: 200px;
+  height: 200px;
+  display: flex;
+}
+@media (min-width: 651px) {
+  .hp-avatar-wrap {
+    width: 260px;
+    height: 260px;
+    margin-left: -40px;
+  }
+}
+@media (min-width: 870px) {
+  .hp-avatar-wrap {
+    width: 300px;
+    height: 300px;
+    margin-left: -60px;
+  }
+}
+@media (min-width: 1600px) {
+  .hp-avatar-wrap {
+    margin-left: -150px;
+  }
+}
+
+.hp-avatar {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  flex-shrink: 0;
   border: 3px solid var(--accent-light);
+  display: block;
 }
-.hero-text h1 {
-  font-family: var(--font-display) !important;
-  font-size: 2rem !important;
-  margin: 0 0 0.25rem !important;
-  border: none !important;
-  padding: 0 !important;
+.hp-avatar-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent), var(--purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  color: #fff;
 }
-.hero-subtitle {
-  font-size: 1.05rem;
+
+.hp-hero h1 {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.3rem;
+}
+.hp-sub {
+  font-size: 1rem;
   color: var(--text-muted);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
-.hero-subtitle a {
+.hp-sub a {
   color: var(--accent);
   text-decoration: none;
   font-weight: 500;
 }
-.hero-bio {
+.hp-bio {
   font-size: 0.95rem;
-  line-height: 1.7;
-  max-width: 600px;
+  line-height: 1.65;
+  max-width: 560px;
+  color: var(--text-dark);
 }
-.hero-bio em {
+.hp-bio em {
   font-style: normal;
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
+  font-weight: 600;
   background: var(--accent-light);
   color: var(--accent-dark);
   padding: 1px 6px;
   border-radius: 4px;
-  font-size: 0.92rem;
 }
 
-/* --- Pills / tags --- */
-.pill-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 0.75rem;
-}
-.pill {
-  font-size: 0.78rem;
-  padding: 3px 12px;
-  border-radius: 6px;
-  font-weight: 500;
-  letter-spacing: 0.2px;
-}
-.pill-teal { background: var(--accent-light); color: var(--accent-dark); }
-.pill-purple { background: var(--purple-light); color: #3c3489; }
-.pill-coral { background: var(--coral-light); color: #712b13; }
-.pill-blue { background: var(--blue-light); color: #0c447c; }
 
-/* --- Featured card --- */
-.featured-card {
-  background: var(--surface-dim);
-  border-left: 3px solid var(--accent);
-  padding: 1.25rem 1.5rem;
-  margin: 1.5rem 0 2.5rem;
-  border-radius: 0;
+/* --- 6b. Section chrome (eyebrow labels, headings, dividers) - */
+
+.hp-sec {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 2rem 2rem 0;
 }
-.featured-card .badge {
-  font-size: 0.7rem;
-  font-weight: 600;
+.hp-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2.5rem 0 0;
+}
+.hp-ey {
+  font-family: var(--md-code-font);
+  font-size: 0.68rem;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.hp-sect {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  margin-bottom: 1rem;
+  line-height: 1.25;
+}
+
+
+/* --- 6c. Featured publication block -------------------------- */
+
+.hp-feat {
+  border-left: 3px solid var(--accent-mid);
+  padding: 1.25rem 1.5rem;
+  background: var(--surface-dim);
+  margin: 0.75rem 0;
+}
+[data-md-color-scheme="slate"] .hp-feat {
+  background: var(--s100);
+}
+.hp-feat-lab {
+  font-family: var(--md-code-font);
+  font-size: 0.62rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   color: var(--accent);
   margin-bottom: 0.4rem;
 }
-.featured-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
+.hp-feat h3 {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
   font-weight: 600;
-  margin: 0.25rem 0;
-  border: none;
-  padding: 0;
+  margin-bottom: 0.15rem;
+  line-height: 1.3;
 }
-.featured-card .journal {
-  font-family: var(--font-display);
-  font-style: italic;
-  color: var(--text-muted);
-  font-size: 0.9rem;
+.hp-feat .hp-jnl {
+  font-size: 0.82rem;
+  color: var(--text-faint);
+  margin-bottom: 0.3rem;
 }
-.featured-card p {
-  font-size: 0.9rem;
-  color: var(--text-muted);
+.hp-lnks {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
   margin-top: 0.5rem;
-  line-height: 1.6;
+}
+.hp-lnks a {
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 3px 12px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: all 0.15s;
+}
+.hp-lnks a:hover {
+  border-color: var(--accent-mid);
+  color: var(--accent);
 }
 
-/* --- Timeline --- */
-.timeline {
-  position: relative;
-  padding-left: 24px;
-  margin: 1rem 0 2rem;
+
+/* --- 6d. Research-area cards --------------------------------- */
+
+.hp-rg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 1rem 0;
 }
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 5px;
-  top: 8px;
-  bottom: 8px;
-  width: 1px;
-  background: var(--border);
+.hp-rc {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: border-color 0.15s;
+  text-decoration: none;
+  display: block;
+  color: inherit;
 }
-.timeline-item {
-  position: relative;
-  padding: 0 0 1.5rem 1rem;
+.hp-rc:hover { border-color: var(--accent-mid); }
+.hp-rc-i {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
 }
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: -22px;
-  top: 8px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 2px solid var(--accent-light);
+.hp-rc-i svg { width: 20px; height: 20px; }
+.hp-rc h4 {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
 }
-.timeline-item.current::before {
-  box-shadow: 0 0 0 3px var(--accent-light);
-}
-.timeline-date {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
+.hp-rc p {
+  font-size: 0.82rem;
   color: var(--text-faint);
-  margin-bottom: 2px;
+  line-height: 1.5;
 }
-.timeline-item h4 {
+
+
+/* --- 6e. Timeline / CV -------------------------------------- */
+
+.hp-tl {
+  position: relative;
+  padding-left: 40px;
+  margin: 1rem 0 1.5rem;
+}
+.hp-tl::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+  border-radius: 1px;
+}
+.hp-tl-item {
+  position: relative;
+  padding: 0 0 1.75rem 0;
+}
+.hp-tl-item:last-child { padding-bottom: 0; }
+.hp-tl-item::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  left: -34px;
+  top: 7px;
+  background: var(--accent-light);
+  border: 2.5px solid var(--accent-mid);
+  z-index: 1;
+}
+.hp-tl-item.current::before {
+  width: 16px;
+  height: 16px;
+  left: -36px;
+  top: 5px;
+  background: var(--accent-mid);
+  border: 3px solid var(--accent-light);
+  box-shadow: 0 0 0 5px rgba(29, 158, 117, 0.12);
+}
+@keyframes tl-pulse {
+  0%, 100% { box-shadow: 0 0 0 5px rgba(29, 158, 117, 0.12); }
+  50%       { box-shadow: 0 0 0 12px rgba(29, 158, 117, 0.04); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hp-tl-item.current::before {
+    animation: tl-pulse 2.5s ease-in-out infinite;
+  }
+}
+.hp-tl-d {
+  font-family: var(--md-code-font);
+  font-size: 0.72rem;
+  color: var(--text-faint);
+}
+.hp-tl-item h4 {
   font-size: 0.95rem;
   font-weight: 600;
-  margin: 0;
+  margin: 1px 0;
 }
-.timeline-org {
+.hp-tl-o {
   font-size: 0.85rem;
   color: var(--text-muted);
 }
-.timeline-desc {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  margin-top: 0.3rem;
-  line-height: 1.6;
+.hp-tl-desc {
+  font-size: 0.82rem;
+  color: var(--text-faint);
+  margin-top: 0.25rem;
+  line-height: 1.5;
 }
 
-/* --- Publication list --- */
+
+/* --- 6f. Blog preview cards ---------------------------------- */
+
+.hp-blog-card {
+  padding: 1.25rem 1.5rem;
+  background: var(--surface-dim);
+  border-radius: 10px;
+  margin: 0.75rem 0;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+  transition: box-shadow 0.15s;
+}
+[data-md-color-scheme="slate"] .hp-blog-card {
+  background: var(--s100);
+}
+.hp-blog-card:hover {
+  box-shadow: 0 0 0 1px var(--accent-mid);
+}
+.hp-blog-date {
+  font-family: var(--md-code-font);
+  font-size: 0.68rem;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+.hp-blog-card h4 {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  line-height: 1.3;
+}
+.hp-blog-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+.hp-blog-tags {
+  display: flex;
+  gap: 5px;
+  margin-top: 0.5rem;
+}
+.hp-blog-tags span {
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+}
+
+
+/* --- 6g. CTA strip ------------------------------------------ */
+
+.hp-cta {
+  text-align: center;
+  padding: 2rem 0 1rem;
+}
+.hp-cta .hp-sect { margin-bottom: 0.5rem; }
+.hp-cta-sub {
+  font-size: 0.92rem;
+  color: var(--text-faint);
+  margin-bottom: 1.5rem;
+}
+.hp-btn-p {
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 10px 24px;
+  border-radius: 100px;
+  text-decoration: none;
+  background: var(--accent);
+  color: #fff !important;
+  transition: background 0.2s;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+.hp-btn-p:hover { background: var(--accent-800); }
+
+
+/* ============================================================
+   7. PUBLICATION LIST  (site-wide)
+   ============================================================ */
+
 .pub-list {
   list-style: none;
   padding: 0;
@@ -237,9 +570,7 @@
   padding: 0.9rem 0;
   border-bottom: 1px solid var(--border);
 }
-.pub-item:last-child {
-  border-bottom: none;
-}
+.pub-item:last-child { border-bottom: none; }
 .pub-title {
   font-size: 0.95rem;
   font-weight: 600;
@@ -252,7 +583,7 @@
   margin-bottom: 2px;
 }
 .pub-venue {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-style: italic;
   font-size: 0.88rem;
   color: var(--text-muted);
@@ -282,7 +613,11 @@
   font-family: inherit;
 }
 
-/* --- Talk list --- */
+
+/* ============================================================
+   8. TALK GRID  (site-wide)
+   ============================================================ */
+
 .talk-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -295,11 +630,9 @@
   padding: 1rem 1.25rem;
   transition: border-color 0.15s;
 }
-.talk-card:hover {
-  border-color: var(--accent);
-}
+.talk-card:hover { border-color: var(--accent); }
 .talk-date {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--md-code-font);
   font-size: 0.75rem;
   color: var(--text-faint);
 }
@@ -314,16 +647,12 @@ a.talk-title {
   text-decoration: none;
   color: inherit;
 }
-a.talk-title:hover {
-  color: var(--accent);
-}
+a.talk-title:hover { color: var(--accent); }
 .talk-venue {
   font-size: 0.82rem;
   color: var(--text-muted);
 }
-.talk-links {
-  margin-top: 6px;
-}
+.talk-links { margin-top: 6px; }
 .talk-links a {
   font-size: 0.72rem;
   padding: 2px 8px;
@@ -338,17 +667,20 @@ a.talk-title:hover {
   color: var(--accent);
 }
 
-/* --- Team grid --- */
+
+/* ============================================================
+   9. TEAM GRID  (site-wide)
+   ============================================================ */
+
 .team-section h3 {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
-  color: var(--text-faint);
+  font-family: var(--font-serif);
+  font-size: 0.75rem;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  font-weight: 400;
-  font-size: 0.75rem;
+  color: var(--text-faint);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
   border: none;
   padding: 0;
 }
@@ -380,7 +712,7 @@ a.talk-title:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--accent-dark);
@@ -400,7 +732,11 @@ a.talk-title:hover {
   color: var(--text-faint);
 }
 
-/* --- Milestone blog cards --- */
+
+/* ============================================================
+   10. MILESTONE BLOG CARDS  (site-wide)
+   ============================================================ */
+
 .milestone-card {
   background: var(--surface-dim);
   border-radius: 8px;
@@ -408,13 +744,13 @@ a.talk-title:hover {
   margin: 1rem 0;
 }
 .milestone-card .milestone-date {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--md-code-font);
   font-size: 0.75rem;
   color: var(--accent);
   margin-bottom: 0.3rem;
 }
 .milestone-card h3 {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-size: 1.05rem;
   margin: 0 0 0.4rem;
   border: none;
@@ -426,19 +762,21 @@ a.talk-title:hover {
   line-height: 1.6;
 }
 
-/* --- BibTeX modal --- */
+
+/* ============================================================
+   11. BIBTEX MODAL  (site-wide)
+   ============================================================ */
+
 .bibtex-modal {
   display: none;
   position: fixed;
   inset: 0;
   z-index: 999;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   align-items: center;
   justify-content: center;
 }
-.bibtex-modal.active {
-  display: flex;
-}
+.bibtex-modal.active { display: flex; }
 .bibtex-content {
   background: var(--md-default-bg-color, #fff);
   border-radius: 12px;
@@ -481,29 +819,49 @@ a.talk-title:hover {
   color: var(--accent);
 }
 
-/* --- Responsive --- */
-@media (max-width: 600px) {
-  .hero-section {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .hero-avatar {
-    width: 90px;
-    height: 90px;
-  }
-  .pill-row {
-    justify-content: center;
-  }
-  .talk-grid {
-    grid-template-columns: 1fr;
-  }
-  .team-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  }
+
+/* ============================================================
+   12. SECTION LABELS  (site-wide)
+   ============================================================ */
+
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-faint);
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
 }
 
-/* --- Video embeds --- */
+
+/* ============================================================
+   13. CONTACT ROW  (site-wide)
+   ============================================================ */
+
+.contact-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+.contact-row a {
+  font-size: 0.85rem;
+  padding: 6px 18px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--accent);
+  transition: all 0.15s;
+}
+.contact-row a:hover { background: var(--accent-light); }
+
+
+/* ============================================================
+   14. VIDEO EMBEDS  (site-wide)
+   ============================================================ */
+
 .video-container {
   position: relative;
   width: 100%;
@@ -520,54 +878,13 @@ a.talk-title:hover {
   border-radius: 8px;
 }
 
-/* --- Section labels --- */
-.section-label {
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--text-faint);
-  margin: 2rem 0 0.75rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid var(--border);
-}
 
-/* --- Contact row --- */
-.contact-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 1rem 0;
-}
-.contact-row a {
-  font-size: 0.85rem;
-  padding: 6px 18px;
-  border: 1px solid var(--accent);
-  border-radius: 6px;
-  text-decoration: none;
-  color: var(--accent);
-  transition: all 0.15s;
-}
-.contact-row a:hover {
-  background: var(--accent-light);
-}
+/* ============================================================
+   15. BLOG CATEGORY PILLS  (MkDocs Material blog plugin)
+   ============================================================ */
 
-/* --- Import display font --- */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
-
-/* --- Blog hero images --- */
-.blog-hero {
-  width: 100%;
-  border-radius: 8px;
-  margin: 1rem 0;
-  max-height: 300px;
-  object-fit: cover;
-}
-
-/* --- Blog category pills --- */
-/* Blog index: categories in post metadata */
+/* Blog index + individual post metadata */
 .md-typeset .md-meta__link,
-/* Individual post: categories in sidebar metadata */
 .md-post__meta .md-meta__link {
   font-size: 0.72rem !important;
   padding: 3px 10px;
@@ -585,6 +902,7 @@ a.talk-title:hover {
   background: var(--accent);
   color: #fff !important;
 }
+
 /* Individual post page: category links inside nav */
 .md-nav__link a[href*="category/"] {
   font-size: 0.72rem !important;
@@ -602,7 +920,11 @@ a.talk-title:hover {
   color: #fff !important;
 }
 
-/* --- Category colors: posts and nav --- */
+/* Hide the "in" text before categories but keep it accessible */
+.md-meta__item:has(.md-meta__link) { font-size: 0; }
+.md-meta__item:has(.md-meta__link) .md-meta__link { font-size: 0.72rem !important; }
+
+/* Per-category colors */
 
 /* Atlas */
 .md-typeset .md-meta__link[href*="category/atlas"],
@@ -660,23 +982,28 @@ a.talk-title:hover {
   color: #fff !important;
 }
 
-/* Hide the "in" text before categories but keep it accessible */
-.md-meta__item:has(.md-meta__link) {
-  font-size: 0;
-}
-.md-meta__item:has(.md-meta__link) .md-meta__link {
-  font-size: 0.72rem !important;
-}
 
-/* --- Bottom page padding before footer --- */
-.md-content__inner {
-  padding-bottom: 3rem !important;
-}
+/* ============================================================
+   16. RESPONSIVE OVERRIDES
+   ============================================================ */
 
-/* --- Sticky nav: logo + site name link home --- */
-.md-header__button.md-logo {
-  cursor: pointer;
-}
-.md-header__topic > .md-ellipsis {
-  cursor: pointer;
+@media (max-width: 650px) {
+  /* Homepage hero stacks vertically */
+  .hp-hero-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .hp-pills { justify-content: center; }
+
+  /* Research cards go single column */
+  .hp-rg { grid-template-columns: 1fr; }
+
+  /* Talk grid goes single column */
+  .talk-grid { grid-template-columns: 1fr; }
+
+  /* Team grid tightens */
+  .team-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
 }
