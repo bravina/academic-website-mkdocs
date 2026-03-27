@@ -29,19 +29,43 @@
   display: flex;
   gap: 2rem;
   align-items: flex-start;
-  overflow: visible; /* important */
 }
 .hp-avatar-wrap {
+  /* Base wrapper for all formats */
   flex-shrink: 0;
-  width: 280px; 
-  margin-left: calc(-1 * min(2rem, 5vw));
+  width: 200px;
+  height: 200px;
+  display: flex;
+}
+@media (min-width: 651px) {
+  /* On laptop/desktop, increase size and pull to the left */
+  .hp-avatar-wrap {
+    width: 260px;
+    height: 260px;
+    margin-left: -40px; 
+  }
+}
+@media (min-width: 870px) {
+  /* On laptop/desktop, increase size and pull to the left */
+  .hp-avatar-wrap {
+    width: 300px;
+    height: 300px;
+    margin-left: -60px; 
+  }
+}
+@media (min-width: 1600px) {
+  /* On large monitors, pull more to the left to balance increase in font size */
+  .hp-avatar-wrap {
+    margin-left: -150px;
+  }
 }
 .hp-avatar {
-  width: 280px;
-  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--teal-50);
+  display: block;
 }
 .hp-avatar-placeholder{width:120px;height:120px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--teal-600),var(--purple-800));display:flex;align-items:center;justify-content:center;font-family:var(--hf);font-size:2.4rem;color:#fff}
 .hp-hero h1{font-family:var(--hf);font-size:2.2rem;font-weight:700;line-height:1.15;letter-spacing:-.5px;margin-bottom:.3rem}
@@ -99,13 +123,6 @@
 .hp-btn-p{font-size:.85rem;font-weight:500;padding:10px 24px;border-radius:100px;text-decoration:none;background:var(--teal-600);color:#fff!important;transition:background .2s;display:inline-block;margin-bottom:1rem}
 .hp-btn-p:hover{background:var(--teal-800)}
 @media(max-width:650px){.hp-hero-row{flex-direction:column;align-items:center;text-align:center}.hp-pills{justify-content:center}.hp-rg{grid-template-columns:1fr}
-.hp-avatar-wrap {
-    margin-left: 0;
-    width: 180px;
-  }
-  .hp-avatar {
-    width: 100%;
-  }
 }
 </style>
 {% endblock %}
