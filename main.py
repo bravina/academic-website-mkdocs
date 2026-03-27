@@ -235,7 +235,8 @@ def define_env(env):
 
         return f"""<div class="hp-hero">
   <div class="hp-hero-row">
-    <div class="hp-avatar-placeholder">{"".join(w[0] for w in name.split()[:2])}</div>
+    <!--<div class="hp-avatar-placeholder">{"".join(w[0] for w in name.split()[:2])}</div> -->
+    <img class="hp-avatar" src="assets/team/baptiste_ravina.jpg">
     <div>
       <h1>{name}</h1>
       <div class="hp-sub">{role} · {aff_html}</div>
