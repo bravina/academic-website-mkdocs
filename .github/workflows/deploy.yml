@@ -19,12 +19,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # required for git-revision-date-localized
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: pip  # cache pip dependencies
 
-      - run: pip install mkdocs-material mkdocs-macros-plugin
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'  # explicit version avoids outdated Node warnings
+
+      - run: pip install \
+              mkdocs-material \
+              mkdocs-macros-plugin \
+              mkdocs-minify-plugin \
+              mkdocs-git-revision-date-localized-plugin
 
       - run: |
           mkdocs build
