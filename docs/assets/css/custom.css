@@ -957,3 +957,20 @@ a.talk-title:hover { color: var(--accent); }
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   }
 }
+
+/* =====
+    FOOTER: GIT VERSION DATE
+  ===== */
+
+.md-footer .md-source-file {
+  background-color: transparent;
+  color: var(--md-footer-fg-color--light);
+}
+
+.md-footer .md-source-file__fact {
+  color: var(--md-footer-fg-color--light);
+}
+
+.md-footer .md-source-file__fact .md-icon svg {
+  fill: var(--md-footer-fg-color--light);
+}
