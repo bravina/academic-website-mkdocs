@@ -31,11 +31,7 @@ jobs:
         with:
           node-version: '20'  # explicit version avoids outdated Node warnings
 
-      - run: pip install \
-              mkdocs-material \
-              mkdocs-macros-plugin \
-              mkdocs-minify-plugin \
-              mkdocs-git-revision-date-localized-plugin
+      - run: pip install -r requirements.txt
 
       - run: |
           mkdocs build
