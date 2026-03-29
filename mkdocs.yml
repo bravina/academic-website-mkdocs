@@ -97,7 +97,7 @@ plugins:
       categories_allowed:
         - ATLAS
         - Machine learning
-        - Top physics
+        - Top quark physics
         - Quantum information
 
 nav:

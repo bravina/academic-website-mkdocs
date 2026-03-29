@@ -17,13 +17,17 @@ bio: >-
   and *quantum entanglement in top quarks* <br>&mdash; what else is hidden in the data?
 
 tags:
-  - label: "Top quark physics"
-    color: teal
-  - label: "Quantum entanglement"
-    color: purple
-  - label: "Machine learning"
-    color: coral
-  - label: "Effective field theory"
+  - label: "Top quark"
+    color: amber
+  - label: "Quantum information"
     color: blue
+  - label: "Beyond the Standard Model"
+    color: indigo
+  - label: "Machine learning"
+    color: purple
+  - label: "Effective field theory"
+    color: pink
+  - label: "Simulations"
+    color: cyan
 
 email: "baptiste.ravina@cern.ch"

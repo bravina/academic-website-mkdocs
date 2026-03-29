@@ -1,7 +1,7 @@
 ---
 date: 2024-07-15
 categories:
-  - Top physics
+  - Top quark physics
   - ATLAS
 ---
 

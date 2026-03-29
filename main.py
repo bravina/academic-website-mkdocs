@@ -192,6 +192,17 @@ def define_env(env):
         return header + "\n".join(rows)
 
     # ==================================================================
+    # PILL HELPER
+    # ==================================================================
+
+    def _pill(label, color, url=None):
+        """Render a coloured pill. Linked pills get a hover effect; unlinked don't."""
+        attrs = f'class="pill" data-color="{color}"'
+        if url:
+            return f'<a href="{url}" {attrs}>{label}</a>'
+        return f'<span {attrs}>{label}</span>'
+
+    # ==================================================================
     # LANDING PAGE HELPERS
     # ==================================================================
 
@@ -210,12 +221,21 @@ def define_env(env):
         "cyan":    ("--cyan-50",   "--cyan-800",    "--cyan-800"),
     }
 
+    # Maps blog category slugs to pill colours.
+    # Add a new entry here whenever you create a new blog category.
+    category_color_map = {
+        "atlas":                  "teal",
+        "top-quark-physics":      "amber",
+        "quantum-information":    "blue",
+        "machine-learning":       "purple",
+        "effective-field-theory": "pink",
+    }
+
     @env.macro
     def landing_hero():
         """Render the hero section from profile.yml."""
         name = profile.get("name", "")
         role = profile.get("role", "")
-        email = profile.get("email", "")
         bio = profile.get("bio", "")
         # Convert *text* to <em> for the highlight
         import re
@@ -227,11 +247,10 @@ def define_env(env):
         )
 
         tags = profile.get("tags", [])
-        pills = []
-        for t in tags:
-            c = t.get("color", "teal")
-            pills.append(f'<span class="hp-pill hp-pill-{c[0]}">{t["label"]}</span>')
-        pills_html = "\n".join(pills)
+        pills_html = "\n".join(
+            _pill(t["label"], t.get("color", "teal"))
+            for t in tags
+        )
 
         return f"""<div class="hp-hero">
   <div class="hp-hero-row">
@@ -242,7 +261,7 @@ def define_env(env):
       <h1>{name}</h1>
       <div class="hp-sub">{role} · {aff_html}</div>
       <p class="hp-bio">{bio}</p>
-      <div class="hp-pills">{pills_html}</div>
+      <div class="pill-row">{pills_html}</div>
     </div>
   </div>
 </div>"""
@@ -300,7 +319,6 @@ def define_env(env):
         for i, c in enumerate(career):
             end = c.get("end", "")
             start = c.get("start", "")
-            date_display = f"{start} – {'present' if not end else end}" if end != "" or i == 0 else start
             if end == "" and i == 0:
                 date_display = f"{start} – present"
             elif end:
@@ -339,6 +357,9 @@ def define_env(env):
         import glob
         import re
 
+        def _cat_slug(name):
+            return re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')
+
         posts_dir = os.path.join(env.project_dir, "docs", "blog", "posts")
         post_files = sorted(glob.glob(os.path.join(posts_dir, "*.md")), reverse=True)
 
@@ -367,24 +388,19 @@ def define_env(env):
                 intro = body.split("<!-- more -->")[0]
             else:
                 intro = body
-            # Get first non-empty paragraph after the title
             paras = re.split(r'\n\n+', intro)
             for p in paras:
                 p = p.strip()
                 if p and not p.startswith("#") and not p.startswith("!"):
-                    # Strip markdown image syntax
                     p = re.sub(r'!\[.*?\]\(.*?\)\{.*?\}', '', p).strip()
                     if p:
-                        # Strip markdown links to just their text
                         p = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', p)
-                        # Convert **bold** and *italic*
                         p = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', p)
                         p = re.sub(r'\*([^*]+)\*', r'<em>\1</em>', p)
                         summary = p
                         break
 
             # Build the URL slug from filename
-            filename = os.path.basename(pf).replace(".md", "")
             d = meta.get("date")
             if isinstance(d, date):
                 date_obj = d
@@ -396,7 +412,6 @@ def define_env(env):
                     date_obj = None
 
             if date_obj:
-                # Match mkdocs-material blog slug: each non-alnum → dash, keep double dashes
                 slug = re.sub(r'[^a-z0-9]', '-', title.lower()).strip('-')
                 slug = re.sub(r'-{3,}', '--', slug)
                 url = f"blog/{date_obj.year}/{date_obj.month:02d}/{date_obj.day:02d}/{slug}/"
@@ -406,7 +421,14 @@ def define_env(env):
                 display_date = ""
 
             categories = meta.get("categories", [])
-            cat_html = "".join(f'<span>{c}</span>' for c in categories)
+            cat_html = "".join(
+                _pill(
+                    c,
+                    category_color_map.get(_cat_slug(c), "teal"),
+                    f"/blog/category/{_cat_slug(c)}/"
+                )
+                for c in categories
+            )
 
             posts.append({
                 "title": title,
@@ -417,11 +439,10 @@ def define_env(env):
                 "date_obj": date_obj,
             })
 
-        # Sort by date
         posts.sort(key=lambda p: p.get("date_obj") or date(1970, 1, 1), reverse=True)
 
         if not posts:
-            return '<p style="color:var(--s400);">No blog posts yet.</p>'
+            return '<p style="color:var(--text-faint);">No blog posts yet.</p>'
 
         cards = []
         for post in posts[:count]:
@@ -429,7 +450,7 @@ def define_env(env):
 <div class="hp-blog-date">{post['date']}</div>
 <h4>{post['title']}</h4>
 <p>{post['summary']}</p>
-<div class="hp-blog-tags">{post['categories_html']}</div>
+<div class="pill-row">{post['categories_html']}</div>
 </div>""")
 
         return f"""<div class="hp-ey">Latest news</div>

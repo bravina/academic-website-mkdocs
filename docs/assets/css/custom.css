@@ -150,26 +150,75 @@
 
 /* ============================================================
    5. PILLS / TAGS
-   hp- prefix: used on the homepage; safe to reuse site-wide
-   via the same classes if needed in the future.
+   Site-wide component. Use <span class="pill" data-color="teal">
+   for unlinked pills, <a class="pill" data-color="teal"> for linked.
+   Hover effect only applies to <a> pills.
    ============================================================ */
 
-.hp-pills {
+.pill-row {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   margin-top: 0.8rem;
 }
-.hp-pill {
+.pill {
+  display: inline-block;
   font-size: 0.75rem;
   padding: 3px 12px;
   border-radius: 6px;
   font-weight: 500;
+  text-decoration: none;
+  vertical-align: baseline;
+  transition: background 0.15s, color 0.15s;
 }
-.hp-pill-t { background: var(--accent-light); color: var(--accent-dark); }
-.hp-pill-p { background: var(--purple-light); color: #3c3489; }
-.hp-pill-c { background: var(--coral-light);  color: #712b13; }
-.hp-pill-b { background: var(--blue-light);   color: #0c447c; }
+
+/* — Teal — */
+.pill[data-color="teal"]   { background: var(--teal-50);    color: var(--teal-900); }
+a.pill[data-color="teal"]:hover  { background: var(--teal-600);   color: #fff; }
+
+/* — Purple — */
+.pill[data-color="purple"] { background: var(--purple-50);  color: var(--purple-800); }
+a.pill[data-color="purple"]:hover { background: var(--purple-800); color: #fff; }
+
+/* — Coral — */
+.pill[data-color="coral"]  { background: var(--coral-50);   color: var(--coral-800); }
+a.pill[data-color="coral"]:hover  { background: var(--coral-800);  color: #fff; }
+
+/* — Blue — */
+.pill[data-color="blue"]   { background: var(--blue-50);    color: var(--blue-800); }
+a.pill[data-color="blue"]:hover   { background: var(--blue-800);   color: #fff; }
+
+/* — Amber — */
+.pill[data-color="amber"]  { background: var(--amber-50);   color: var(--amber-800); }
+a.pill[data-color="amber"]:hover  { background: var(--amber-800);  color: #fff; }
+
+/* — Red — */
+.pill[data-color="red"]    { background: var(--red-50);     color: var(--red-800); }
+a.pill[data-color="red"]:hover    { background: var(--red-800);    color: #fff; }
+
+/* — Green — */
+.pill[data-color="green"]  { background: var(--green-50);   color: var(--green-800); }
+a.pill[data-color="green"]:hover  { background: var(--green-800);  color: #fff; }
+
+/* — Pink — */
+.pill[data-color="pink"]   { background: var(--pink-50);    color: var(--pink-800); }
+a.pill[data-color="pink"]:hover   { background: var(--pink-800);   color: #fff; }
+
+/* — Gray — */
+.pill[data-color="gray"]   { background: var(--gray-50);    color: var(--gray-800); }
+a.pill[data-color="gray"]:hover   { background: var(--gray-800);   color: #fff; }
+
+/* — Slate — */
+.pill[data-color="slate"]  { background: var(--slate-50);   color: var(--slate-800); }
+a.pill[data-color="slate"]:hover  { background: var(--slate-800);  color: #fff; }
+
+/* — Indigo — */
+.pill[data-color="indigo"] { background: var(--indigo-50);  color: var(--indigo-800); }
+a.pill[data-color="indigo"]:hover { background: var(--indigo-800); color: #fff; }
+
+/* — Cyan — */
+.pill[data-color="cyan"]   { background: var(--cyan-50);    color: var(--cyan-800); }
+a.pill[data-color="cyan"]:hover   { background: var(--cyan-800);   color: #fff; }
 
 
 /* ============================================================
@@ -516,18 +565,7 @@
   color: var(--text-muted);
   line-height: 1.55;
 }
-.hp-blog-tags {
-  display: flex;
-  gap: 5px;
-  margin-top: 0.5rem;
-}
-.hp-blog-tags span {
-  font-size: 0.65rem;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: var(--accent-light);
-  color: var(--accent-dark);
-}
+
 
 
 /* --- 6g. CTA strip ------------------------------------------ */
@@ -881,105 +919,17 @@ a.talk-title:hover { color: var(--accent); }
 
 /* ============================================================
    15. BLOG CATEGORY PILLS  (MkDocs Material blog plugin)
+   Category links are rendered via template overrides in
+   overrides/partials/post.html and overrides/blog-post.html,
+   which inject class="pill" data-color="..." so the pill
+   component in section 5 handles all colour and hover styling.
    ============================================================ */
 
-/* Blog index + individual post metadata */
-.md-typeset .md-meta__link,
-.md-post__meta .md-meta__link {
-  font-size: 0.72rem !important;
-  padding: 3px 10px;
-  border-radius: 6px;
-  background: var(--accent-light);
-  color: var(--accent-dark) !important;
-  text-decoration: none !important;
-  font-weight: 500;
-  margin-left: 2px;
-  display: inline-block;
-  line-height: 1;
-}
-.md-typeset .md-meta__link:hover,
-.md-post__meta .md-meta__link:hover {
-  background: var(--accent);
-  color: #fff !important;
-}
-
-/* Individual post page: category links inside nav */
-.md-nav__link a[href*="category/"] {
-  font-size: 0.72rem !important;
-  padding: 3px 10px;
-  border-radius: 6px;
-  background: var(--accent-light);
-  color: var(--accent-dark) !important;
-  text-decoration: none !important;
-  font-weight: 500;
-  display: inline-block;
-  line-height: 1;
-}
-.md-nav__link a[href*="category/"]:hover {
-  background: var(--accent);
-  color: #fff !important;
-}
-
-/* Hide the "in" text before categories but keep it accessible */
-.md-meta__item:has(.md-meta__link) { font-size: 0; }
-.md-meta__item:has(.md-meta__link) .md-meta__link { font-size: 0.72rem !important; }
-
-/* Per-category colors */
-
-/* Atlas */
-.md-typeset .md-meta__link[href*="category/atlas"],
-.md-post__meta .md-meta__link[href*="category/atlas"],
-.md-nav__link a[href*="category/atlas"] {
-  background: var(--accent-light);
-  color: var(--accent-dark) !important;
-}
-.md-typeset .md-meta__link[href*="category/atlas"]:hover,
-.md-post__meta .md-meta__link[href*="category/atlas"]:hover,
-.md-nav__link a[href*="category/atlas"]:hover {
-  background: var(--accent-dark);
-  color: #fff !important;
-}
-
-/* Machine Learning */
-.md-typeset .md-meta__link[href*="category/machine-learning"],
-.md-post__meta .md-meta__link[href*="category/machine-learning"],
-.md-nav__link a[href*="category/machine-learning"] {
-  background: var(--purple-light);
-  color: #3c3489 !important;
-}
-.md-typeset .md-meta__link[href*="category/machine-learning"]:hover,
-.md-post__meta .md-meta__link[href*="category/machine-learning"]:hover,
-.md-nav__link a[href*="category/machine-learning"]:hover {
-  background: #3c3489;
-  color: #fff !important;
-}
-
-/* Quantum Information */
-.md-typeset .md-meta__link[href*="category/quantum-information"],
-.md-post__meta .md-meta__link[href*="category/quantum-information"],
-.md-nav__link a[href*="category/quantum-information"] {
-  background: var(--blue-light);
-  color: var(--blue) !important;
-}
-.md-typeset .md-meta__link[href*="category/quantum-information"]:hover,
-.md-post__meta .md-meta__link[href*="category/quantum-information"]:hover,
-.md-nav__link a[href*="category/quantum-information"]:hover {
-  background: var(--blue);
-  color: #fff !important;
-}
-
-/* Top Physics */
-.md-typeset .md-meta__link[href*="category/top-physics"],
-.md-post__meta .md-meta__link[href*="category/top-physics"],
-.md-nav__link a[href*="category/top-physics"] {
-  background: var(--amber-light);
-  color: var(--amber) !important;
-}
-.md-typeset .md-meta__link[href*="category/top-physics"]:hover,
-.md-post__meta .md-meta__link[href*="category/top-physics"]:hover,
-.md-nav__link a[href*="category/top-physics"]:hover {
-  background: var(--amber);
-  color: #fff !important;
+/* The meta list is inline-flex with default align-items:stretch,
+   which causes pills to misalign with surrounding text items.
+   Center-aligning fixes this cleanly. */
+.md-meta__list {
+  align-items: center;
 }
 
 
@@ -994,7 +944,7 @@ a.talk-title:hover { color: var(--accent); }
     align-items: center;
     text-align: center;
   }
-  .hp-pills { justify-content: center; }
+  .pill-row { justify-content: center; }
 
   /* Research cards go single column */
   .hp-rg { grid-template-columns: 1fr; }

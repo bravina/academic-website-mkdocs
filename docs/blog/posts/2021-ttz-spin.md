@@ -1,7 +1,7 @@
 ---
 date: 2021-06-17
 categories:
-  - Top physics
+  - Top quark physics
   - Quantum information
 ---
 
