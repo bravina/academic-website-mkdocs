@@ -24,22 +24,46 @@ collaborators:
     photo: "yoav_afik.png"
 
 alumni:
+  - name: "Matthias Drescher"
+    role_type: "PhD"
+    project: "Monte Carlo modelling for the Physics Modelling Group"
+    location: "Göttingen"
+    year: "2026"
+
+  - name: "Ghaida Aldhahri"
+    role_type: "Summer student"
+    project: "Event classification for rare $t\\bar{t}Z$ decays"
+    location: "CERN"
+    year: "2025"
+
+  - name: "Alejandro Pérez García"
+    role_type: "MSc"
+    project: "Machine learning for neutrino kinematics in $t\\bar{t}$ events"
+    location: "Valencia IFIC"
+    year: "2025"
+
   - name: "Stephen Eggebrecht"
     role_type: "PhD"
     project: "$t\\bar{t}H$ in the $4\\ell$ channel"
     location: "Göttingen"
-    year: "2025"
+    year: "2024"
 
   - name: "Sreelakshmi Sindhu"
     role_type: "PhD"
     project: "EFT in top+X processes"
     location: "Göttingen"
-    year: "2025"
+    year: "2024"
 
   - name: "Ethan Simpson"
     role_type: "PhD"
     project: "EFT & spin correlations"
     location: "Glasgow"
+    year: "2023"
+
+  - name: "Steffen Korn"
+    role_type: "PhD"
+    project: "Refined $t\\bar{t}Z$ measurement"
+    location: "Göttingen"
     year: "2023"
 
   - name: "Theresa Reisch"
