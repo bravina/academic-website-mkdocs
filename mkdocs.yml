@@ -50,6 +50,8 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/bravina
+    - icon: fontawesome/brands/gitlab
+      link: https://gitlab.cern.ch/ravinab/
     - icon: fontawesome/brands/orcid
       link: https://orcid.org/0000-0002-1622-6640
     - icon: fontawesome/solid/envelope
