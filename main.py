@@ -163,7 +163,7 @@ def define_env(env):
             initials = "".join(w[0].upper() for w in c["name"].split()[:2])
             photo = c.get("photo", "")
             if photo:
-                avatar = f'<img class="team-avatar" src="assets/team/{photo}" alt="{c["name"]}">'
+                avatar = f'<img class="team-avatar" src="/assets/team/{photo}" alt="{c["name"]}">'
             else:
                 avatar = f'<div class="team-initials">{initials}</div>'
             cards.append(f"""<div class="team-card">
@@ -357,10 +357,20 @@ def define_env(env):
         import glob
         import re
 
+        # Check if blog plugin is enabled
+        plugins = env.conf.get("plugins", {})
+        if "blog" not in plugins or not plugins["blog"]:
+            return ""  # Return empty string if blog is disabled
+
         def _cat_slug(name):
             return re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')
 
         posts_dir = os.path.join(env.project_dir, "docs", "blog", "posts")
+
+        # Also check if directory exists
+        if not os.path.isdir(posts_dir):
+            return ""
+
         post_files = sorted(glob.glob(os.path.join(posts_dir, "*.md")), reverse=True)
 
         posts = []

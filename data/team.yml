@@ -11,26 +11,17 @@ collaborators:
   - name: "James Howarth"
     role: "Royal Society URF"
     affiliation: "University of Glasgow"
-
-  - name: "Jonathan Jamieson"
-    role: "Postdoc (quantumTANGO)"
-    affiliation: "University of Glasgow"
+    photo: "james_howarth.jpg"
 
   - name: "Steffen Korn"
-    role: "Postdoc (quantumTANGO)"
+    role: "Postdoc"
     affiliation: "University of Göttingen"
+    photo: "steffen_korn.jpg"
 
-  - name: "Arnulf Quadt"
-    role: "Professor"
-    affiliation: "University of Göttingen"
-
-  - name: "Elizaveta Shabalina"
-    role: "Senior Researcher"
-    affiliation: "University of Göttingen"
-
-  - name: "Caterina Doglioni"
-    role: "Professor"
-    affiliation: "University of Manchester"
+  - name: "Yoav Afik"
+    role: "Postdoc"
+    affiliation: "University of Chicago,<br>Enrico Fermi Institute"
+    photo: "yoav_afik.png"
 
 alumni:
   - name: "Stephen Eggebrecht"

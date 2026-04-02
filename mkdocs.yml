@@ -49,8 +49,6 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/bravina
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/BaptisteRavina
     - icon: fontawesome/brands/orcid
       link: https://orcid.org/0000-0002-1622-6640
     - icon: fontawesome/solid/envelope
@@ -99,16 +97,16 @@ plugins:
       module_name: main
   - git-revision-date-localized:
       enable_creation_date: false
-  - blog:
-      blog_dir: blog
-      post_date_format: long
-      archive: false
-      categories_name: Topics
-      categories_allowed:
-        - ATLAS
-        - Machine learning
-        - Top quark physics
-        - Quantum information
+  # - blog:
+  #     blog_dir: blog
+  #     post_date_format: long
+  #     archive: false
+  #     categories_name: Topics
+  #     categories_allowed:
+  #       - ATLAS
+  #       - Machine learning
+  #       - Top quark physics
+  #       - Quantum information
 
 nav:
   - Home: index.md
@@ -116,7 +114,7 @@ nav:
   - Publications: publications.md
   - Talks: talks.md
   - Team: team.md
-  - Teaching: teaching.md
-  - Outreach: outreach.md
-  - Blog:
-    - blog/index.md
+  # - Teaching: teaching.md
+  # - Outreach: outreach.md
+  # - Blog:
+  #  - blog/index.md
