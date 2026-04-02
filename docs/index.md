@@ -40,7 +40,7 @@ hide:
 <div class="hp-cta">
 <div class="hp-ey">Get in touch</div>
 <div class="hp-sect">Let's work together</div>
-<p class="hp-cta-sub">Interested in a collaboration, a student project, or a seminar invitation?</p>
+<p class="hp-cta-sub">Open to new collaborations and student projects.</p>
 <a href="mailto:baptiste.ravina@cern.ch" class="hp-btn-p">baptiste.ravina@cern.ch</a>
 </div>
 </div>

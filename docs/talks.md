@@ -11,6 +11,4 @@ hide:
 @media (max-width: 550px) { .talk-grid { grid-template-columns: 1fr !important; } }
 </style>
 
-Slides for most talks are available on [talks.baptisteravina.com](https://talks.baptisteravina.com). Links to Indico pages are provided where available.
-
 {{ talks_by_year() }}

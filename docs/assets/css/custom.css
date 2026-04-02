@@ -606,9 +606,7 @@ a.pill[data-color="cyan"]:hover   { background: var(--cyan-800);   color: #fff; 
 }
 .pub-item {
   padding: 0.9rem 0;
-  border-bottom: 1px solid var(--border);
 }
-.pub-item:last-child { border-bottom: none; }
 .pub-title {
   font-size: 0.95rem;
   font-weight: 600;

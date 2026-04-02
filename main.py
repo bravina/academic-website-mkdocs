@@ -67,22 +67,25 @@ def define_env(env):
         html = "\n".join(_render_pub(p) for p in items_sorted)
         return f'<ul class="pub-list">\n{html}\n</ul>'
 
+    def _pub_has_type(pub, type_name):
+        """Return True if pub's type field equals type_name or contains it in a list."""
+        t = pub.get("type")
+        if t is None:
+            return False
+        if isinstance(t, list):
+            return type_name in t
+        return t == type_name
+
     @env.macro
     def publications_of_type(type_name):
-        """Render publications matching a specific type."""
-        matched = [p for p in pubs if p.get("type") == type_name]
+        """Render publications matching a specific type (string or list)."""
+        matched = [p for p in pubs if _pub_has_type(p, type_name)]
         return _render_pub_list(matched)
 
     @env.macro
     def publications_featured():
         """Render publications with featured: true."""
         matched = [p for p in pubs if p.get("featured")]
-        return _render_pub_list(matched)
-
-    @env.macro
-    def publications_from_atlas():
-        """Render all publications with 'ATLAS' in the authors field."""
-        matched = [p for p in pubs if "ATLAS" in p.get("authors", "")]
         return _render_pub_list(matched)
 
     @env.macro
@@ -222,7 +225,6 @@ def define_env(env):
     }
 
     # Maps blog category slugs to pill colours.
-    # Add a new entry here whenever you create a new blog category.
     category_color_map = {
         "atlas":                  "teal",
         "top-quark-physics":      "amber",

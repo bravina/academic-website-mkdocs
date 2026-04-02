@@ -5,7 +5,7 @@ hide:
   - navigation
 ---
 
-Full list on [INSPIRE-HEP](https://inspirehep.net/authors/1794058) and [ORCID](https://orcid.org/0000-0002-1622-6640). Click **BibTeX** to export citations.
+Full list on [INSPIRE-HEP](https://inspirehep.net/authors/1794058) and [ORCID](https://orcid.org/0000-0002-1622-6640).
 
 ## Highlights
 
@@ -14,6 +14,10 @@ Full list on [INSPIRE-HEP](https://inspirehep.net/authors/1794058) and [ORCID](h
 ## Top quark physics
 
 {{ publications_of_type('top') }}
+
+## Quantum information
+
+{{ publications_of_type('quantum') }}
 
 ## BSM searches
 
@@ -30,10 +34,6 @@ Full list on [INSPIRE-HEP](https://inspirehep.net/authors/1794058) and [ORCID](h
 ## Thesis
 
 {{ publications_of_type('thesis') }}
-
-## All ATLAS publications
-
-{{ publications_from_atlas() }}
 
 ---
 
