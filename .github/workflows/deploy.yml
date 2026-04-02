@@ -35,7 +35,7 @@ jobs:
 
       - run: |
           mkdocs build
-          echo "new.baptisteravina.com" > site/CNAME
+          echo "baptisteravina.com" > site/CNAME
 
       - uses: actions/upload-pages-artifact@v3
         with:
