@@ -5,6 +5,76 @@
 # Optional: location, indico, slides_url, recording_url
 # ============================================================
 
+- title: "EFT interpretations of top measurements at ATLAS and CMS"
+  date: 2026-06-01
+  venue: "HEFT workshop"
+  location: "Valencia (ES)"
+
+- title: "Top cross sections at ATLAS and CMS, including threshold and off-shell measurements"
+  date: 2026-03-01
+  venue: "60th Moriond EW"
+  location: "La Thuile (IT)"
+
+- title: "Quantum tops at the LHC"
+  date: 2025-12-01
+  venue: "DEPP Seminar, FZU"
+  location: "Prague (CZ)"
+
+- title: "Toponium at the LHC: a new frontier in top-quark physics"
+  date: 2025-12-01
+  venue: "Physics Seminar, CEA"
+  location: "Saclay (FR)"
+
+- title: "Toponium at the LHC: a new frontier in top-quark physics"
+  date: 2025-11-01
+  venue: "Physics Seminar, Sorbonne LPNHE"
+  location: "Paris (FR)"
+
+- title: "Quantum tops at the LHC"
+  date: 2025-11-01
+  venue: "HEP Seminar"
+  location: "Sheffield (UK)"
+
+- title: "Quantum tops at the LHC"
+  date: 2025-10-01
+  venue: "Physics Seminar, Geneva DPNC"
+  location: "Geneva (CH)"
+
+- title: "ATLAS and CMS measurements of the $t\\bar{t}$ threshold"
+  date: 2025-09-01
+  venue: "QCD at the Extremes"
+  location: "Online"
+
+- title: "Quantum tops at the LHC"
+  date: 2025-09-01
+  venue: "Physics Seminar"
+  location: "Zurich (CH)"
+
+- title: "Quantum uncertainties with top quarks"
+  date: 2025-07-01
+  venue: "Wilczek Quantum Center Workshop"
+  location: "Shanghai (CN)"
+
+- title: "Modelling $t\\bar{t}$ at threshold"
+  date: 2025-06-01
+  venue: "PhysTeV XIII, Les Houches"
+  location: "Les Houches (FR)"
+
+- title: "Bound to be discovered: $t\\bar{t}$ at threshold"
+  date: 2025-06-01
+  venue: "ATLAS Plenary"
+  location: "CERN"
+
+- title: "Quantum uncertainties with top quarks"
+  date: 2025-04-01
+  venue: "Quantum Observables for Collider Physics Workshop"
+  location: "Florence (IT)"
+
+- title: "Quantum tops at the LHC"
+  date: 2025-03-01
+  venue: "AEC Seminar"
+  location: "Bern (CH)"
+
 - title: "Report from the Analysis Model Group"
   date: 2024-10-18
   venue: "ATLAS Week"
