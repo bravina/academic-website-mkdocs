@@ -332,10 +332,22 @@ def define_env(env):
             desc = c.get("description", "")
             desc_html = f'<div class="hp-tl-desc">{desc}</div>' if desc else ""
 
+            logo = c.get("logo", "")
+            if logo:
+                header_html = f"""<div class="hp-tl-header">
+        <img class="hp-tl-logo" src="/assets/logos/{logo}" alt="{c['organization']}">
+        <div>
+          <h4>{c["title"]}</h4>
+          <div class="hp-tl-o">{c["organization"]}</div>
+        </div>
+      </div>"""
+            else:
+                header_html = f"""<h4>{c["title"]}</h4>
+      <div class="hp-tl-o">{c["organization"]}</div>"""
+
             items.append(f"""<div class="hp-tl-item{current_cls}">
       <div class="hp-tl-d">{date_display}</div>
-      <h4>{c["title"]}</h4>
-      <div class="hp-tl-o">{c["organization"]}</div>
+      {header_html}
       {desc_html}
     </div>""")
 
@@ -465,6 +477,8 @@ def define_env(env):
 <div class="pill-row">{post['categories_html']}</div>
 </div>""")
 
-        return f"""<div class="hp-ey">Latest news</div>
+        return f"""<hr class="hp-divider"><div style="padding-top:2rem;">
+<div class="hp-ey">Latest news</div>
 {"".join(cards)}
-<p style="margin-top:.5rem;"><a href="blog/" style="font-size:.88rem;color:var(--teal-600);text-decoration:none;font-weight:500;">All posts →</a></p>"""
+<p style="margin-top:.5rem;"><a href="blog/" style="font-size:.88rem;color:var(--teal-600);text-decoration:none;font-weight:500;">All posts →</a></p>
+</div>"""

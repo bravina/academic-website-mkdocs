@@ -30,9 +30,7 @@ hide:
 </div>
 
 <div class="hp-sec">
-<hr class="hp-divider"><div style="padding-top:2rem;">
 {{ landing_blog() }}
-</div>
 </div>
 
 <div class="hp-sec" style="padding-bottom:3rem;">
