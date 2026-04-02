@@ -527,7 +527,20 @@ a.pill[data-color="cyan"]:hover   { background: var(--cyan-800);   color: #fff; 
   margin-top: 0.25rem;
   line-height: 1.5;
 }
-
+.hp-tl-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hp-tl-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  flex-shrink: 0;
+  background: #fff;
+  border-radius: 3px;
+  padding: 1px;
+}
 
 /* --- 6f. Blog preview cards ---------------------------------- */
 
