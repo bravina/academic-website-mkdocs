@@ -2,9 +2,12 @@
 # Team data
 # group: "collaborator" gets profile cards, "alumni" gets table row
 # For collaborators: name, role, affiliation required
-# For alumni: name, role_type (PhD/MSc/BSc/GSoC/Intern/Postdoc),
+# For alumni (single degree): name, role_type (PhD/MSc/BSc/GSoC/Intern/Postdoc),
 #             project, location, year required
+# For alumni (multiple degrees): name required, plus an "entries" list where
+#             each entry has role_type, project, location, year
 # Optional: photo (filename in docs/assets/team/)
+#           next_position (for alumni, top-level or per entry)
 # ============================================================
 
 collaborators:
@@ -30,10 +33,11 @@ collaborators:
 
 alumni:
   - name: "Matthias Drescher"
-    role_type: "PhD"
-    project: "Monte Carlo modelling for the Physics Modelling Group"
+    role_type: "ATLAS QT"
+    project: "$t\\bar{t}W$ modelling with Sherpa"
     location: "Göttingen"
-    year: "2026"
+    year: "2023-24"
+    next_position: "PhD Göttingen"
 
   - name: "Ghaida Aldhahri"
     role_type: "Summer student"
@@ -46,42 +50,67 @@ alumni:
     project: "Machine learning for neutrino kinematics in $t\\bar{t}$ events"
     location: "Valencia IFIC"
     year: "2025"
+    next_position: "PhD Valencia IFIC"
 
   - name: "Stephen Eggebrecht"
     role_type: "PhD"
     project: "$t\\bar{t}H$ in the $4\\ell$ channel"
     location: "Göttingen"
     year: "2024"
+    next_position: "Data scientist"
 
   - name: "Sreelakshmi Sindhu"
     role_type: "PhD"
     project: "EFT in top+X processes"
     location: "Göttingen"
     year: "2024"
+    next_position: "AI scientist"
 
   - name: "Ethan Simpson"
     role_type: "PhD"
     project: "EFT & spin correlations"
     location: "Glasgow"
     year: "2023"
+    next_position: "Postdoc Manchester"
 
   - name: "Steffen Korn"
-    role_type: "PhD"
-    project: "Refined $t\\bar{t}Z$ measurement"
-    location: "Göttingen"
-    year: "2023"
+    entries:
+      - role_type: "Postdoc"
+        project: "quantumTANGO"
+        location: "Göttingen"
+        year: "2023"
+        next_position: "Junior faculty Göttingen"
+      - role_type: "PhD"
+        project: "Refined $t\\bar{t}Z$ measurement"
+        location: "Göttingen"
+        year: "2023"
+        next_position: "Postdoc Göttingen"
 
   - name: "Theresa Reisch"
-    role_type: "MSc"
-    project: "$t\\bar{t}$ quantum entanglement"
-    location: "Göttingen"
-    year: "2024"
+    entries:
+      - role_type: "MSc"
+        project: "$t\\bar{t}$ quantum entanglement"
+        location: "Göttingen"
+        year: "2024"
+        next_position: "PhD Geneva"
+      - role_type: "BSc"
+        project: "t\\bar{t}$ spin correlations"
+        location: "Göttingen"
+        year: "2022"
+        next_position: "MSc Göttingen"
 
   - name: "Tim Schlömer"
-    role_type: "MSc"
-    project: "ML for lepton isolation"
-    location: "Göttingen"
-    year: "2024"
+    entries:
+      - role_type: "MSc"
+        project: "ML for lepton isolation"
+        location: "Göttingen"
+        year: "2024"
+        next_position: "PhD Göttingen"
+      - role_type: "BSc"
+        project: "$tZq$ EFT"
+        location: "Göttingen"
+        year: "2022"
+        next_position: "MSc Göttingen"
 
   - name: "Sebastian Preuth"
     role_type: "MSc"
@@ -90,28 +119,44 @@ alumni:
     year: "2024"
 
   - name: "Ireas Tom Raschke"
-    role_type: "MSc"
-    project: "$t\\bar{t}H(\\to WW^*)$ with 1 lepton"
-    location: "Göttingen"
-    year: "2024"
+    entries:
+      - role_type: "MSc"
+        project: "$t\\bar{t}H(\\to WW^*)$ with 1 lepton"
+        location: "Göttingen"
+        year: "2024"
+        next_position: "Software engineer"
+      - role_type: "BSc"
+        project: "$t\\bar{t}Z$ and $t\\bar{t}W$"
+        location: "Göttingen"
+        year: "2022"
+        next_position: "MSc Göttingen"
 
   - name: "Daniel Werner"
-    role_type: "MSc"
-    project: "Run 3 software & top+X EFT"
-    location: "Göttingen"
-    year: "2024"
+    entries:
+      - role_type: "MSc"
+        project: "Run 3 software development & top+X EFT"
+        location: "Göttingen"
+        year: "2024"
+        next_position: "PhD DESY"
+      - role_type: "BSc"
+        project: "$tZq$ polarisation"
+        location: "Göttingen"
+        year: "2022"
+        next_position: "MSc Göttingen"
 
   - name: "Clinton Gonsalves"
     role_type: "Intern"
     project: "$t\\bar{t}H(\\to WW^*)$"
-    location: "CERN"
+    location: "Göttingen"
     year: "2024"
+    next_position: "MSc Göttingen"
 
   - name: "Siemen Aulich"
     role_type: "BSc"
     project: "Quantum entanglement in $H^*\\to ZZ$"
     location: "Göttingen"
     year: "2023"
+    next_position: "MSc Göttingen"
 
   - name: "Tobias Henne"
     role_type: "BSc"
@@ -120,22 +165,31 @@ alumni:
     year: "2023"
 
   - name: "Kia-Jung Yang"
-    role_type: "BSc"
-    project: "Graph neural networks, $t\\bar{t}Z$"
-    location: "Göttingen"
-    year: "2022–23"
+    entries:
+      - role_type: "Intern"
+        project: "Graph neural networks"
+        location: "Göttingen"
+        year: "2023"
+        next_position: "PhD Göttingen"
+      - role_type: "BSc"
+        project: "$t\\bar{t}Z$ and $tZq$"
+        location: "Göttingen"
+        year: "2022"
+        next_position: "MSc Göttingen"
 
   - name: "Sophia Pennuttis"
     role_type: "BSc"
     project: "Background modelling in $t\\bar{t}\\gamma\\gamma$"
     location: "Göttingen"
     year: "2022"
+    next_position: "MSc Göttingen"
 
   - name: "Craig Shewry"
     role_type: "MSc"
     project: "EFT & machine learning"
     location: "Glasgow"
     year: "2021–22"
+    next_position: "Software engineer"
 
   - name: "Hassan Shahid"
     role_type: "MSc"
@@ -146,23 +200,27 @@ alumni:
   - name: "George Dialektakis"
     role_type: "GSoC"
     project: "Anomaly detection"
-    location: "CERN"
+    location: "Glasgow"
     year: "2021"
+    next_position: "Data scientist"
 
   - name: "Marija Vaškevičiūtė"
     role_type: "MSc"
     project: "Anomaly detection"
     location: "Glasgow"
     year: "2020–21"
+    next_position: "PhD Glasgow"
 
   - name: "Honey Gupta"
     role_type: "GSoC"
     project: "Anomaly detection"
-    location: "CERN"
+    location: "Glasgow"
     year: "2020"
+    next_position: "Applied scientist, Amazon"
 
   - name: "Varsha Senthilkumar"
     role_type: "MSc"
     project: "ML in SUSY"
-    location: "Glasgow"
+    location: "Sheffield"
     year: "2019"
+    next_position: "PhD Valencia IFIC"
