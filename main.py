@@ -190,21 +190,42 @@ def define_env(env):
 </div>""")
         return f'<div class="team-grid">\n{"".join(cards)}\n</div>'
 
+    def _year_sort_key(a):
+        year_str = str(a.get("year", "0"))
+        parts = year_str.replace("–", "-").split("-")
+        # Use last part if compound (e.g. "2022-23" → 23 → expand to 2023), else the year itself
+        if len(parts) > 1:
+            suffix = parts[-1]
+            prefix = parts[0][:2]  # e.g. "20"
+            return int(prefix + suffix)
+        return int(parts[0])
+
     @env.macro
     def team_alumni():
         """Render alumni table from team.yml."""
         alumni = team.get("alumni", [])
         if not alumni:
             return ""
-        rows = []
+        # Flatten multi-entry alumni into individual rows, carrying the name forward
+        flat = []
         for a in alumni:
+            if "entries" in a:
+                for e in a["entries"]:
+                    flat.append({**e, "name": a["name"]})
+            else:
+                flat.append(a)
+
+        flat = sorted(flat, key=_year_sort_key, reverse=True)
+        rows = []
+        for a in flat:
             rows.append(
                 f'| {a["name"]} | {a.get("role_type", "")} '
                 f'| {a.get("project", "")} '
                 f'| {a.get("location", "")} '
-                f'| {a.get("year", "")} |'
+                f'| {a.get("year", "")} '
+                f'| {a.get("next_position", "")} |'
             )
-        header = "| Name | Role | Project | Location | Year |\n|------|------|---------|----------|------|\n"
+        header = "| Name | Role | Project | Location | Year | Next position |\n|------|------|---------|----------|------|---------------|\n"
         return header + "\n".join(rows)
 
     # ==================================================================
