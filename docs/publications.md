@@ -5,7 +5,7 @@ hide:
   - navigation
 ---
 
-Full list on [INSPIRE-HEP](https://inspirehep.net/authors/1794058) and [ORCID](https://orcid.org/0000-0002-1622-6640).
+Full list on [INSPIRE-HEP](https://inspirehep.net/authors/1495662) and [ORCID](https://orcid.org/0000-0002-1622-6640).
 
 ## Highlights
 
