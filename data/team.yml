@@ -20,8 +20,13 @@ collaborators:
 
   - name: "Yoav Afik"
     role: "Postdoc"
-    affiliation: "University of Chicago,<br>Enrico Fermi Institute"
+    affiliation: "University of Chicago<br>Enrico Fermi Institute"
     photo: "yoav_afik.png"
+
+  - name: "Benjamin Fuks"
+    role: "Professor"
+    affiliation: "Sorbonne Université<br>LPTHE"
+    photo: "benjamin_fuks.jpg"
 
 alumni:
   - name: "Matthias Drescher"
