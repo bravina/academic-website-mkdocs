@@ -19,7 +19,7 @@ Full list on [INSPIRE-HEP](https://inspirehep.net/authors/1495662) and [ORCID](h
 
 {{ publications_of_type('quantum') }}
 
-## BSM searches
+## Searches for New Physics
 
 {{ publications_of_type('search') }}
 
@@ -47,21 +47,30 @@ Full list on [INSPIRE-HEP](https://inspirehep.net/authors/1495662) and [ORCID](h
 </div>
 
 <script>
-async function fetchBibtex(el, arxivId) {
+async function fetchBibtex(el, arxivId, inspireId) {
   var modal = document.getElementById('bibtex-modal');
   var pre = document.getElementById('bibtex-text');
   modal.classList.add('active');
   pre.textContent = 'Loading from INSPIRE-HEP...';
   try {
-    var resp = await fetch('https://inspirehep.net/api/arxiv/' + arxivId + '?format=bibtex');
-    if (resp.ok) {
-      pre.textContent = await resp.text();
+    var resp, url;
+    if (arxivId) {
+      // arXiv path: direct lookup, then fallback query
+      resp = await fetch('https://inspirehep.net/api/arxiv/' + arxivId + '?format=bibtex');
+      if (!resp.ok) {
+        resp = await fetch('https://inspirehep.net/api/literature?q=find+eprint+' + arxivId + '&format=bibtex');
+      }
+    } else if (inspireId) {
+      // InspireHEP literature ID path: direct lookup by ID
+      resp = await fetch('https://inspirehep.net/api/literature/' + inspireId + '?format=bibtex');
     } else {
-      var resp2 = await fetch('https://inspirehep.net/api/literature?q=find+eprint+' + arxivId + '&format=bibtex');
-      pre.textContent = resp2.ok ? await resp2.text() : 'Could not fetch BibTeX. Try INSPIRE-HEP directly.';
+      pre.textContent = 'No arXiv or InspireHEP ID available for this entry.';
+      return;
     }
+    pre.textContent = resp.ok ? await resp.text() : 'Could not fetch BibTeX. Try INSPIRE-HEP directly.';
   } catch (e) {
-    pre.textContent = 'Network error. Visit https://inspirehep.net/literature?q=' + arxivId;
+    var id = arxivId || inspireId;
+    pre.textContent = 'Network error. Visit https://inspirehep.net/literature?q=' + id;
   }
 }
 function closeBibtex() { document.getElementById('bibtex-modal').classList.remove('active'); }

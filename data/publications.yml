@@ -2,7 +2,8 @@
 # Publications data file
 # Required: title, authors, venue, date
 # Optional: doi, arxiv, hepdata, atlas_url, briefing, courier,
-#           featured, type (string OR list of strings)
+#           featured, type (string OR list of strings),
+#           inspirehep (fallback for arxiv), rivet
 #
 # type: use any string or list for grouping, e.g.:
 #   "top"         — top quark physics
@@ -29,7 +30,9 @@
   venue: "Submitted to Rept. Prog. Phys."
   date: 2026-01
   arxiv: "2601.11780"
-  atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/TOPQ-2024-XX/"
+  atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/TOPQ-2025-11/"
+  briefing: "https://atlas.cern/Updates/Briefing/Quasi-Bound-Tops"
+  courier: "https://cerncourier.com/atlas-confirms-top-antitop-excess/"
   featured: true
   type: top
 
@@ -37,7 +40,9 @@
   authors: "ATLAS Collaboration"
   venue: "ATLAS-CONF-2025-008"
   date: 2025-07
-  atlas_url: "https://cds.cern.ch/record/2937636"
+  atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2025-008/"
+  briefing: "https://atlas.cern/Updates/Briefing/Quasi-Bound-Tops"
+  inspirehep: 2944310
   type: top
 
 - title: "Quantum Information meets High-Energy Physics: Input to the update of the European Strategy for Particle Physics"
@@ -52,7 +57,8 @@
   authors: "ATLAS Collaboration"
   venue: "ATL-PHYS-PUB-2025-015"
   date: 2025-03
-  atlas_url: "https://cds.cern.ch/record/2927962"
+  atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2025-015/"
+  inspirehep: 2909574
   type: top
 
 - title: "Highlights of the HL-LHC physics projections by ATLAS and CMS"
@@ -60,6 +66,7 @@
   venue: "ATL-PHYS-PUB-2025-018 / CMS-HIG-25-002"
   date: 2025-04
   arxiv: "2504.00672"
+  atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2025-018/"
   type: top
 
 - title: "Observation of quantum entanglement with top quarks at the ATLAS detector"
@@ -88,7 +95,7 @@
 
 - title: "Observation of quantum entanglement in top quark pairs at the ATLAS experiment"
   authors: "B. Ravina"
-  venue: "PoS(LHCP2024)"
+  venue: "Proceedings of Science (LHCP)"
   date: 2024-10
   doi: "10.22323/1.478.0327"
   arxiv: "2410.04590"
@@ -97,10 +104,11 @@
 - title: "Measurements of inclusive and differential cross-sections of $t\\bar{t}\\gamma$ production in $pp$ collisions at $\\sqrt{s}=13$ TeV with the ATLAS detector"
   authors: "ATLAS Collaboration"
   venue: "JHEP"
-  date: 2024-03
+  date: 2024-10
   doi: "10.1007/JHEP10(2024)191"
   arxiv: "2403.09452"
   hepdata: "https://www.hepdata.net/record/ins2768921"
+  rivet: "https://rivet.hepforge.org/analyses/ATLAS_2024_I2768921"
   atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/TOPQ-2018-24/"
   type: top
 
@@ -109,21 +117,23 @@
   venue: "ATL-PHYS-PUB-2023-030"
   date: 2023-09
   atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2023-030/"
+  inspirehep: 2705071
   type: top
 
 - title: "Constraints on spin-0 dark matter mediators and invisible Higgs decays using ATLAS 13 TeV $pp$ collision data with two top quarks and missing energy in the final state"
   authors: "ATLAS Collaboration"
   venue: "Eur. Phys. J. C"
-  date: 2023-03
+  date: 2022-11
   doi: "10.1140/epjc/s10052-023-11477-z"
   arxiv: "2211.05426"
   atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2019-12/"
+  hepdata: https://www.hepdata.net/record/ins2180393
   type: search
 
 - title: "Observing $t\\bar{t}Z$ spin correlations at the LHC"
   authors: "B. Ravina, E. Simpson, J. Howarth"
   venue: "Eur. Phys. J. C"
-  date: 2021-06
+  date: 2021-09
   doi: "10.1140/epjc/s10052-021-09605-8"
   arxiv: "2106.09690"
   type: top
@@ -140,7 +150,7 @@
 - title: "Measurements of the inclusive and differential production cross sections of a top-quark-antiquark pair in association with a $Z$ boson at $\\sqrt{s} = 13$ TeV with the ATLAS detector"
   authors: "ATLAS Collaboration"
   venue: "Eur. Phys. J. C"
-  date: 2021-03
+  date: 2021-08
   doi: "10.1140/epjc/s10052-021-09439-4"
   arxiv: "2103.12603"
   hepdata: "https://www.hepdata.net/record/ins1853014"
@@ -160,15 +170,16 @@
 
 - title: "Top quark pair properties & top mass measurements at the LHC"
   authors: "B. Ravina"
-  venue: "PoS(DIS2019)"
+  venue: "Proceedings of Science (DIS)"
   date: 2019-08
   doi: "10.22323/1.352.0162"
   type: proceedings
+  inspirehep: 1756451
 
 - title: "Measurement of the $t\\bar{t}Z$ and $t\\bar{t}W$ cross sections in proton-proton collisions at $\\sqrt{s}=13$ TeV with the ATLAS detector"
   authors: "ATLAS Collaboration"
   venue: "Phys. Rev. D"
-  date: 2019-01
+  date: 2019-04
   doi: "10.1103/PhysRevD.99.072009"
   arxiv: "1901.03584"
   hepdata: "https://www.hepdata.net/record/88175"
@@ -183,6 +194,7 @@
   arxiv: "1709.04183"
   atlas_url: "http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2016-15/"
   briefing: "https://atlas.cern/updates/briefing/searching-signs-stop"
+  hepdata: https://www.hepdata.net/record/79538
   type: search
 
 - title: "Measurement of the top quark coupling to the Z boson, and applications to searches for physics beyond the Standard Model"
@@ -190,3 +202,4 @@
   venue: "PhD thesis, University of Sheffield"
   date: 2020-04
   type: thesis
+  inspirehep: 1828874

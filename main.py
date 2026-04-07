@@ -33,18 +33,28 @@ def define_env(env):
             links.append(f'<a href="https://doi.org/{pub["doi"]}">DOI</a>')
         if pub.get("hepdata"):
             links.append(f'<a href="{pub["hepdata"]}">HEPData</a>')
+        if pub.get("rivet"):
+            links.append(f'<a href="{pub["rivet"]}">Rivet</a>')
         if pub.get("atlas_url"):
             links.append(f'<a href="{pub["atlas_url"]}">ATLAS</a>')
         if pub.get("briefing"):
             links.append(f'<a href="{pub["briefing"]}">Briefing</a>')
         if pub.get("courier"):
             links.append(f'<a href="{pub["courier"]}">CERN Courier</a>')
+        # BibTeX button: prefer arXiv, fall back to InspireHEP literature ID
         if pub.get("arxiv"):
             aid = pub["arxiv"]
             links.append(
                 f'<a href="#" class="bibtex-btn" '
-                f"onclick=\"fetchBibtex(this, '{aid}'); return false;\">BibTeX</a>"
+                f"onclick=\"fetchBibtex(this, '{aid}', null); return false;\">BibTeX</a>"
             )
+        elif pub.get("inspirehep"):
+            iid = pub["inspirehep"]
+            links.append(
+                f'<a href="#" class="bibtex-btn" '
+                f"onclick=\"fetchBibtex(this, null, '{iid}'); return false;\">BibTeX</a>"
+            )
+            links.append(f'<a href="https://inspirehep.net/literature/{iid}">INSPIRE</a>')
         return "\n".join(links)
 
     def _render_pub(pub):
