@@ -45,14 +45,14 @@ def define_env(env):
         if pub.get("arxiv"):
             aid = pub["arxiv"]
             links.append(
-                f'<a href="#" class="bibtex-btn" '
-                f"onclick=\"fetchBibtex(this, '{aid}', null); return false;\">BibTeX</a>"
+                f'<a href="javascript:void(0)" class="bibtex-btn" '
+                f"onclick=\"fetchBibtex(this, '{aid}', null)\">BibTeX</a>"
             )
         elif pub.get("inspirehep"):
             iid = pub["inspirehep"]
             links.append(
-                f'<a href="#" class="bibtex-btn" '
-                f"onclick=\"fetchBibtex(this, null, '{iid}'); return false;\">BibTeX</a>"
+                f'<a href="javascript:void(0)" class="bibtex-btn" '
+                f"onclick=\"fetchBibtex(this, null, '{iid}')\">BibTeX</a>"
             )
             links.append(f'<a href="https://inspirehep.net/literature/{iid}">INSPIRE</a>')
         return "\n".join(links)
