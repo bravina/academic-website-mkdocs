@@ -117,7 +117,10 @@ def define_env(env):
 
         link_parts = []
         if talk.get("indico"):
-            link_parts.append(f'<a href="{talk["indico"]}">Indico</a>')
+            url = talk["indico"]
+            indico_domains = ("indico", "conference.ippp", "agenda.infn")
+            label = "Indico" if any(d in url for d in indico_domains) else "Event"
+            link_parts.append(f'<a href="{url}">{label}</a>')
         if talk.get("slides_url"):
             link_parts.append(f'<a href="{talk["slides_url"]}">Slides</a>')
         if talk.get("recording_url"):
