@@ -111,6 +111,9 @@ plugins:
   #       - Top quark physics
   #       - Quantum information
 
+hooks:
+  - hooks.py
+
 nav:
   - Home: index.md
   - Research: research.md
