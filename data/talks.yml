@@ -6,225 +6,305 @@
 # ============================================================
 
 - title: "EFT interpretations of top measurements at ATLAS and CMS"
-  date: 2026-06-01
-  venue: "HEFT workshop"
-  location: "Valencia (ES)"
+  date: 2026-06-08
+  venue: "HEFT Workshop"
+  location: "Valencia"
+  indico: https://indico.cern.ch/event/1609241/
+
+- title: "Quantum tops at the LHC"
+  date: 2026-03-01
+  venue: "AEC seminar"
+  location: "Bern"
+  indico: https://www.einstein.unibe.ch/research/detailpages/index_eng.html?id=743
+  slides_url: "/assets/uploads/Quantum_Tops_Bern.pdf"
 
 - title: "Top cross sections at ATLAS and CMS, including threshold and off-shell measurements"
-  date: 2026-03-01
+  date: 2026-03-21
   venue: "60th Moriond EW"
   location: "La Thuile (IT)"
+  indico: https://moriond.in2p3.fr/2026/
+  slides_url: https://indico.in2p3.fr/event/39055/contributions/170298/
 
 - title: "Quantum tops at the LHC"
-  date: 2025-12-01
-  venue: "DEPP Seminar, FZU"
-  location: "Prague (CZ)"
+  date: 2025-12-04
+  venue: "DEPP seminar"
+  location: "FZU Prague"
+  indico: https://indico.fzu.cz/event/320/
+  slides_url: https://indico.fzu.cz/event/320/attachments/497/842/Quantum%20Tops%20Prague.pdf
 
 - title: "Toponium at the LHC: a new frontier in top-quark physics"
   date: 2025-12-01
-  venue: "Physics Seminar, CEA"
-  location: "Saclay (FR)"
+  venue: "DPhP seminar"
+  location: "CEA Saclay"
+  indico: https://indico.in2p3.fr/event/37764/
+  slides_url: https://indico.in2p3.fr/event/37764/attachments/98422/151776/Toponium%20at%20the%20LHC-1.pdf
 
 - title: "Toponium at the LHC: a new frontier in top-quark physics"
-  date: 2025-11-01
-  venue: "Physics Seminar, Sorbonne LPNHE"
-  location: "Paris (FR)"
+  date: 2025-11-24
+  venue: "LPNHE seminar"
+  location: "Sorbonne Paris"
+  indico: https://indico.in2p3.fr/event/37626/
+  slides_url: https://indico.in2p3.fr/event/37626/attachments/98156/151301/Toponium%20at%20the%20LHC.pdf
 
 - title: "Quantum tops at the LHC"
-  date: 2025-11-01
-  venue: "HEP Seminar"
+  date: 2025-11-19
+  venue: "HEP seminar"
   location: "Sheffield (UK)"
 
 - title: "Quantum tops at the LHC"
-  date: 2025-10-01
-  venue: "Physics Seminar, Geneva DPNC"
-  location: "Geneva (CH)"
+  date: 2025-10-08
+  venue: "DPNC seminar"
+  location: "Geneva"
+  indico: https://partphys-indico.unige.ch/event/1913/
+  slides_url: https://partphys-indico.unige.ch/event/1913/attachments/3161/4866/QuantumTopsGeneva.pdf
 
 - title: "ATLAS and CMS measurements of the $t\\bar{t}$ threshold"
   date: 2025-09-01
   venue: "QCD at the Extremes"
   location: "Online"
+  indico: https://indico.cern.ch/event/1539849/timetable/#20250901
+  slides_url: https://indico.cern.ch/event/1539849/contributions/6652212/
 
 - title: "Quantum tops at the LHC"
-  date: 2025-09-01
-  venue: "Physics Seminar"
-  location: "Zurich (CH)"
+  date: 2025-09-29
+  venue: "EPAPP seminar"
+  location: "Zurich"
+  indico: https://indico.cern.ch/event/1552702/
+  slides_url: https://indico.cern.ch/event/1552702/contributions/6538303/attachments/3144556/5582215/Quantum%20Tops%20Zurich.pdf
 
 - title: "Quantum uncertainties with top quarks"
-  date: 2025-07-01
+  date: 2025-07-19
   venue: "Wilczek Quantum Center Workshop"
-  location: "Shanghai (CN)"
+  location: "Shanghai"
+  indico: https://conf.koushare.com/conf/wqehep
+  slides_url: https://www.koushare.com/live/details/44767?vid=183117
 
 - title: "Modelling $t\\bar{t}$ at threshold"
-  date: 2025-06-01
+  date: 2025-06-16
   venue: "PhysTeV XIII, Les Houches"
   location: "Les Houches (FR)"
+  indico: https://indico.in2p3.fr/event/34495/page/4259-les-houches-physics-school
 
 - title: "Bound to be discovered: $t\\bar{t}$ at threshold"
-  date: 2025-06-01
-  venue: "ATLAS Plenary"
+  date: 2025-06-16
+  venue: "ATLAS Week"
   location: "CERN"
+  indico: https://indico.cern.ch/event/1535047/
+  slides_url: https://indico.cern.ch/event/1535047/contributions/6491344/
+  recording_url: https://videos.cern.ch/record/3022259
 
 - title: "Quantum uncertainties with top quarks"
-  date: 2025-04-01
+  date: 2025-04-07
   venue: "Quantum Observables for Collider Physics Workshop"
   location: "Florence (IT)"
-
-- title: "Quantum tops at the LHC"
-  date: 2025-03-01
-  venue: "AEC Seminar"
-  location: "Bern (CH)"
+  indico: https://agenda.infn.it/event/44563/
+  slides_url: https://agenda.infn.it/event/44563/contributions/251064/
 
 - title: "Report from the Analysis Model Group"
   date: 2024-10-18
   venue: "ATLAS Week"
   location: "CERN"
+  indico: https://indico.cern.ch/event/1441377/
+  slides_url: https://indico.cern.ch/event/1441377/timetable/#75-analysis-modeling-group-rep
+  recording_url: https://videos.cern.ch/record/3019592
 
 - title: "Measurement of the $t\\bar{t}Z$ cross sections"
   date: 2024-06-28
-  venue: "RAMP Seminar"
+  venue: "RAMP seminar"
   location: "CERN"
+  indico: https://indico.cern.ch/event/1358826/
+  slides_url: https://indico.cern.ch/event/1358826/#2-material-from-the-atlas-topq
 
 - title: "ATLAS results on top spin and entanglement"
   date: 2024-06-04
-  venue: "LHCP"
+  venue: "LHCP XII"
   location: "Boston"
-  slides_url: "https://talks.baptisteravina.com/2024-lhcp"
+  indico: https://indico.cern.ch/event/1253590/
+  slides_url: https://indico.cern.ch/event/1253590/contributions/5838611/
 
 - title: "Quantum information at the LHC"
   date: 2024-05-30
-  venue: "Seminar"
+  venue: "IKTP seminar"
   location: "TU Dresden"
-  slides_url: "https://talks.baptisteravina.com/2024-dresden"
+  indico: https://tu-dresden.de/mn/physik/iktp/das-institut/termine/termine/seminar-baptiste-ravina
+  slides_url: "/assets/uploads/Quantum_information_at_the_LHC_Dresden_seminar.pdf"
 
 - title: "TopCPToolkit: analysis software for Run 3 and beyond"
   date: 2024-04-29
-  venue: "Top Workshop"
+  venue: "ATLAS Top Workshop"
   location: "Benasque"
+  indico: https://indico.cern.ch/event/1374616/
+  slides_url: https://indico.cern.ch/event/1374616/contributions/5865287/
 
 - title: "Fundamental tests of the Standard Model at ATLAS and CMS"
   date: 2024-03-06
-  venue: "DPG"
+  venue: "DPG Conference"
   location: "Karlsruhe"
+  indico: https://karlsruhe24.dpg-tagungen.de/
+  slides_url: https://indico.desy.de/event/42884/contributions/159250/
 
 - title: "A modular framework for analysis with PHYSLITE"
   date: 2023-12-13
-  venue: "ATLAS End-of-Year"
+  venue: "ATLAS End-of-Year Plenary"
   location: "CERN"
+  indico: https://indico.cern.ch/event/1335237
+  slides_url: https://indico.cern.ch/event/1335237/timetable/#12-a-modular-framework-for-pro
 
 - title: "Quantum information at the LHC"
   date: 2023-11-29
-  venue: "Seminar"
+  venue: "LPPC seminar"
   location: "Harvard"
+  indico: https://lppc.physics.harvard.edu/
+  slides_url: "/assets/uploads/Quantum_information_at_the_LHC_Harvard_seminar.pdf"
 
 - title: "Top-antitop reconstruction"
   date: 2023-11-10
-  venue: "Workshop"
+  venue: "Quantum Observables for Collider Physics Workshop"
   location: "GGI Florence"
+  indico: https://agenda.infn.it/event/34555/
+  slides_url: https://agenda.infn.it/event/34555/contributions/212422/
+  recording_url: https://www.youtube.com/watch?v=nusdOEt_h5k
 
 - title: "Precision top physics and entanglement with the ATLAS experiment"
   date: 2023-10-24
-  venue: "CERN Seminar"
+  venue: "LHC seminar"
   location: "CERN"
-  indico: "https://indico.cern.ch/event/1325795/"
-  recording_url: "https://cds.cern.ch/record/2878456"
+  indico: https://indico.cern.ch/event/1312642/
+  recording_url: https://videos.cern.ch/record/3015832
 
 - title: "Entanglement measurements at the LHC"
   date: 2023-10-02
-  venue: "Workshop"
+  venue: "The LHC Precision Program"
   location: "Benasque"
+  indico: https://indico.cern.ch/event/1321700/
+  slides_url: https://indico.cern.ch/event/1321700/contributions/5595620/
 
 - title: "The LHC as a quantum information laboratory"
   date: 2023-09-22
-  venue: "ATLAS-D"
+  venue: "ATLAS Germany"
   location: "Bonn"
+  indico: https://indico.cern.ch/event/1263122/
+  slides_url: https://indico.cern.ch/event/1263122/timetable/#97-entanglement-studies
 
-- title: "Software tutorial (AnalysisTop) 2023"
+- title: "Software tutorial (AnalysisTop)"
   date: 2023-05-10
-  venue: "Top Workshop"
+  venue: "ATLAS Top Workshop"
   location: "NIKHEF Amsterdam"
+  indico: https://indico.cern.ch/event/1257761/
+  slides_url: https://indico.cern.ch/event/1257761/sessions/483399
 
 - title: "Quantum entanglement in $t\\bar{t}$ with ATLAS"
   date: 2023-03-21
-  venue: "Workshop"
-  location: "Merton College, Oxford"
+  venue: "Foundational tests of Quantum Mechanics at the LHC"
+  location: "Oxford"
+  indico: https://indico.cern.ch/event/1246316/
+  slides_url: https://indico.cern.ch/event/1246316/contributions/5312855/
 
 - title: "Quantum Information with Top Quarks and Higgs Bosons"
   date: 2022-11-22
   venue: "Joint Forum Scotland × Lower Saxony"
-  location: ""
+  location: "Online"
+  indico: https://indico.cern.ch/event/1223483
+  slides_url: https://indico.cern.ch/event/1223483/contributions/5147306
 
 - title: "Future combinations: inputs from the top sector"
   date: 2022-09-14
-  venue: "SM Workshop"
+  venue: "ATLAS SM Workshop"
   location: "DESY Hamburg"
+  indico: https://indico.cern.ch/event/1129225/
+  slides_url: https://indico.cern.ch/event/1129225/timetable/#19-future-combinations
 
 - title: "Outlook to the ATLAS top physics programme in Run 3 and beyond"
   date: 2022-09-08
-  venue: "Top Conference"
-  location: "University of Durham"
+  venue: "TOP XV"
+  location: "Durham"
+  indico: https://conference.ippp.dur.ac.uk/event/925/
+  slides_url: https://conference.ippp.dur.ac.uk/event/925/contributions/5729/
 
-- title: "Software tutorial (AnalysisTop) 2022"
+- title: "Software tutorial (AnalysisTop)"
   date: 2022-05-04
-  venue: "Top Workshop"
+  venue: "ATLAS Top Workshop"
   location: "ADEIT Valencia"
+  indico: https://indico.cern.ch/event/1139204/
+  slides_url: https://indico.cern.ch/event/1139204/sessions/436663/#20220504
 
 - title: "Top quark mass & properties"
   date: 2021-09-16
-  venue: "HQL"
-  location: "University of Warwick"
+  venue: "HQL XV"
+  location: "Warwick"
+  indico: https://indico.cern.ch/event/1073157/
+  slides_url: https://indico.cern.ch/event/1073157/contributions/4514636/
+  recording_url: https://indico.cern.ch/event/1073157/contributions/4514636/attachments/2310399/3938438/HQL2021_Ravina.mp4
 
 - title: "Machine learning and anomaly detection at ATLAS"
   date: 2021-02-22
-  venue: "Seminar"
+  venue: "EPAP seminar"
   location: "King's College London"
+  indico: https://indico.kcl.ac.uk/event/140/
+  slides_url: https://talks.baptisteravina.com/?talk=KCL_EPAP_22022021.md
 
 - title: "Anomaly detection and a summer project with Google+IBM"
   date: 2020-07-17
-  venue: "Seminar"
-  location: "University of Glasgow"
+  venue: "ATLAS seminar"
+  location: "Glasgow"
+  indico: https://indico.cern.ch/event/939349/
+  slides_url: https://ravinab.web.cern.ch/ravinab/internal/MachineLearning/Talks/?talk=Glasgow_ATLAS_17072020.md
 
 - title: "Rare top processes"
   date: 2020-01-09
   venue: "ATLAS UK"
-  location: "University of Cambridge"
+  location: "Cambridge"
+  indico: https://indico.cern.ch/event/844500/
+  slides_url: https://indico.cern.ch/event/844500/contributions/3662436/
 
 - title: "Machine learning for collider physics"
   date: 2019-10-28
-  venue: "Seminar"
-  location: "University of Sheffield"
+  venue: "HEP seminar"
+  location: "Sheffield"
+  slides_url: https://talks.baptisteravina.com/?talk=Sheffield_HEP_Seminar.md
 
 - title: "Unfolded measurements in SUSY signal and control regions"
   date: 2019-09-25
-  venue: "ATLAS SUSY"
+  venue: "ATLAS SUSY Workshop"
   location: "Lecce"
+  indico: https://indico.cern.ch/event/801517/
+  slides_url: https://indico.cern.ch/event/801517/contributions/3503585/
 
 - title: "Full Run 2 differential measurement of the $t\\bar{t}Z$ cross section"
   date: 2019-07-02
   venue: "ATLAS UK Top"
-  location: "University of Sussex"
+  location: "Sussex"
+  indico: https://indico.cern.ch/event/824896/
 
 - title: "Inclusive and differential measurements of the $t\\bar{t}Z$ cross section with the full Run 2 ATLAS dataset"
   date: 2019-05-21
   venue: "ATLAS Top"
   location: "Roma Tor Vergata"
+  indico: https://indico.cern.ch/event/795477/
+  slides_url: https://indico.cern.ch/event/795477/contributions/3378770/
 
 - title: "Top quark pair properties & top mass measurements at the LHC"
   date: 2019-04-09
-  venue: "DIS"
+  venue: "DIS XXVII"
   location: "Torino"
+  indico: https://indico.cern.ch/event/749003/
+  slides_url: https://indico.cern.ch/event/749003/contributions/3375165/
 
 - title: "Prospects for $t\\bar{t}Z$ measurements at ATLAS with the full LHC Run 2 dataset"
   date: 2019-04-08
   venue: "IOP HEPP"
   location: "Imperial College London"
+  indico: https://indico.cern.ch/event/797094/
+  slides_url: https://indico.cern.ch/event/797094/contributions/3367766/
 
 - title: "Unfolding techniques for the differential $t\\bar{t}Z$ analysis"
   date: 2019-02-26
-  venue: "$t\\bar{t}Z$ Workshop"
+  venue: "ATLAS $t\\bar{t}Z$ Workshop"
   location: "CERN"
+  indico: https://indico.cern.ch/event/794004/
 
 - title: "New techniques for new physics"
   date: 2019-01-06
   venue: "YETI"
-  location: "Durham University"
+  location: "Durham"
+  indico: https://conference.ippp.dur.ac.uk/event/723/
