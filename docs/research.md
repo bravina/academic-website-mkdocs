@@ -41,4 +41,19 @@ Beyond anomaly detection, I am actively investigating novel neural network archi
 
 The physics results described on this page all rely on [TopCPToolkit](https://topcptoolkit.docs.cern.ch/), a modular analysis framework that I created and continue to develop. It provides a flexible, well-documented pipeline for producing analysis-ready ntuples and is now the most widely used analysis framework in the ATLAS Collaboration, supporting a wide range of measurements, searches, and calibration efforts in Run 3.
 
+!!! tip "Get started with TopCPToolkit"
+    Get the code [on Gitlab](https://gitlab.cern.ch/atlas/amg/software/TopCPToolkit) and check out our [documentation](https://topcptoolkit.docs.cern.ch/latest/)!
+    You can cite us as
+    {% raw %}
+     ```tex
+     @software{TopCPToolkit,
+         author      = {{ATLAS Collaboration}},
+         title       = {TopCPToolkit},
+         publisher   = {Zenodo},
+         doi         = {10.5281/zenodo.19683083},
+         url         = {https://doi.org/10.5281/zenodo.19683083},
+     }
+     ```
+     {% endraw %}
+
 I am also developing [iTopCPToolkit](https://itopcptoolkit.web.cern.ch/), a web application that provides automation and AI-assisted analysis development tools to reduce time spent on routine coding and let physicists focus on physics. Because TopCPToolkit reads PHYSLITE directly, it is also well positioned to support analyses of [ATLAS Open Data](https://opendata.cern.ch/search?experiment=ATLAS), broadening access to LHC physics beyond the collaboration.

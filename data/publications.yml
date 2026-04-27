@@ -3,7 +3,7 @@
 # Required: title, authors, venue, date
 # Optional: doi, arxiv, hepdata, atlas_url, briefing, courier,
 #           featured, type (string OR list of strings),
-#           inspirehep (fallback for arxiv), rivet
+#           inspirehep (fallback for arxiv), rivet, git
 #
 # type: use any string or list for grouping, e.g.:
 #   "top"         — top quark physics
@@ -12,8 +12,17 @@
 #   "ml"          — machine learning
 #   "thesis"      — PhD/MSc thesis
 #   "proceedings" — conference proceedings
+#   "software"    — software and algorithms
 #   ["top", "quantum"] — appears in both sections
 # ============================================================
+
+- title: "TopCPToolkit"
+  authors: "B. Ravina et al."
+  venue: "Zenodo"
+  date: 2026-04
+  doi: "10.5281/zenodo.19683083"
+  type: software
+  git: "https://gitlab.cern.ch/atlas/amg/software/TopCPToolkit"
 
 - title: "Experimental characterization of the hierarchy of quantum correlations in top quark pairs"
   authors: "Y. Afik, B. Ravina, et al."

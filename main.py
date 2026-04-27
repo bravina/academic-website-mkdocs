@@ -41,6 +41,8 @@ def define_env(env):
             links.append(f'<a href="{pub["briefing"]}">Briefing</a>')
         if pub.get("courier"):
             links.append(f'<a href="{pub["courier"]}">CERN Courier</a>')
+        if pub.get("git"):
+            links.append(f'<a href="{pub["git"]}">Code on Git</a>')
         # BibTeX button: prefer arXiv, fall back to InspireHEP literature ID
         if pub.get("arxiv"):
             aid = pub["arxiv"]

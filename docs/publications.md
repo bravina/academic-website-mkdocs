@@ -31,6 +31,10 @@ Full list on [INSPIRE-HEP](https://inspirehep.net/authors/1495662) and [ORCID](h
 
 {{ publications_of_type('proceedings') }}
 
+## Software and algorithms
+
+{{ publications_of_type('software') }}
+
 ## Thesis
 
 {{ publications_of_type('thesis') }}
