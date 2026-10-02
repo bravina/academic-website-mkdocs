@@ -4,10 +4,17 @@
 # Optional: end, location, description
 # ============================================================
 
+- title: "Post-Doctoral Researcher"
+  organization: "TU Dresden"
+  start: "2026"
+  end: ""
+  description: "Development of polarised event generation with SHERPA. Non-relativistic QCD for the top pair threshold."
+  logo: "tu_dresden_logo.svg"
+
 - title: "Senior Research Fellow"
   organization: "CERN"
   start: "2024"
-  end: ""
+  end: "2026"
   description: "Led the ATLAS Top Properties & Mass subgroup. Observation of an excess in top quark pair production at threshold. Simulations of a tile calorimeter for the ALLEGRO detector concept at the FCC."
   logo: "cern_logo.svg"
 

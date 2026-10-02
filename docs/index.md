@@ -1,5 +1,5 @@
 ---
-title: Baptiste Ravina — Particle Physicist at CERN
+title: Baptiste Ravina — Particle Physicist
 template: home.html
 hide:
   - navigation
