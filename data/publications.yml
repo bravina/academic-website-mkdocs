@@ -26,9 +26,10 @@
 
 - title: "Experimental characterization of the hierarchy of quantum correlations in top quark pairs"
   authors: "Y. Afik, B. Ravina, et al."
-  venue: "Submitted to Phys. Rev. D"
-  date: 2026-02
+  venue: "Phys. Rev. D"
+  date: 2026-05
   arxiv: "2602.15115"
+  doi: "10.1103/qqvz-87d2"
   featured: true
   type:
     - top
@@ -39,6 +40,7 @@
   venue: "Rep. Prog. Phys."
   date: 2026-05
   arxiv: "2601.11780"
+  doi: "10.1088/1361-6633/ae60a0"
   atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/TOPQ-2025-11/"
   briefing: "https://atlas.cern/Updates/Briefing/Quasi-Bound-Tops"
   courier: "https://cerncourier.com/atlas-confirms-top-antitop-excess/"

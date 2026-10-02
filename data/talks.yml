@@ -5,11 +5,19 @@
 # Optional: location, indico, slides_url, recording_url
 # ============================================================
 
+- title: "Toponium: spin and colour"
+  date: 2026-09-21
+  venue: "Toponium for Run 3 at the LHC workshop"
+  location: "DESY Hamburg"
+  indico: https://indico.desy.de/event/54892/contributions/211885/
+  slides_url: https://indico.desy.de/event/54892/contributions/211885/attachments/106080/148838/Toponium_%20spin%20and%20colour.pdf
+
 - title: "EFT interpretations of top measurements at ATLAS and CMS"
   date: 2026-06-08
   venue: "HEFT Workshop"
   location: "Valencia"
-  indico: https://indico.cern.ch/event/1609241/
+  indico: https://indico.cern.ch/event/1609241/contributions/7075451/
+  slides_url: https://indico.cern.ch/event/1609241/contributions/7075451/attachments/3293001/5888623/EFT%20interpretations%20of%20ATLAS%20and%20CMS%20top%20measurements.pdf
 
 - title: "Quantum tops at the LHC"
   date: 2026-03-01
