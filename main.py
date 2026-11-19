@@ -204,31 +204,55 @@ def define_env(env):
 
     @env.macro
     def team_alumni():
-        """Render alumni table from team.yml."""
+        """Render the alumni table from team.yml: one row per person.
+
+        People with several stints (an `entries` list, e.g. BSc then MSc)
+        get one line per stint, oldest first, so the row reads as a progression.
+        "Next position" is taken from the most recent stint. Rows are ordered
+        by each person's most recent year. On narrow screens the CSS turns
+        rows into stacked cards (see .alumni-table in custom.css).
+        """
         alumni = team.get("alumni", [])
         if not alumni:
             return ""
-        # Flatten multi-entry alumni into individual rows, carrying the name forward
-        flat = []
-        for a in alumni:
-            if "entries" in a:
-                for e in a["entries"]:
-                    flat.append({**e, "name": a["name"]})
-            else:
-                flat.append(a)
 
-        flat = sorted(flat, key=_year_sort_key, reverse=True)
+        people = []
+        for a in alumni:
+            entries = a.get("entries") or [a]
+            # Oldest first. team.yml lists stints newest first, so reverse before the
+            # (stable) sort: same-year stints then stay in chronological order,
+            # e.g. Steffen Korn: PhD 2023, then Postdoc 2023.
+            entries = sorted(reversed(entries), key=_year_sort_key)
+            people.append({
+                "name": a["name"],
+                "entries": entries,
+                "next": entries[-1].get("next_position", ""),
+                "latest": _year_sort_key(entries[-1]),
+            })
+        people.sort(key=lambda p: p["latest"], reverse=True)
+
         rows = []
-        for a in flat:
-            rows.append(
-                f'| {a["name"]} | {a.get("role_type", "")} '
-                f'| {a.get("project", "")} '
-                f'| {a.get("location", "")} '
-                f'| {a.get("year", "")} '
-                f'| {a.get("next_position", "")} |'
+        for p in people:
+            stints = "".join(
+                f'<div class="alum-stint">'
+                f'<span class="alum-role">{e.get("role_type", "")}</span> '
+                f'<span class="alum-project">{e.get("project", "")}</span> '
+                f'<span class="alum-meta">{e.get("location", "")} · {e.get("year", "")}</span>'
+                f'</div>'
+                for e in p["entries"]
             )
-        header = "| Name | Role | Project | Location | Year | Next position |\n|------|------|---------|----------|------|---------------|\n"
-        return header + "\n".join(rows)
+            nxt = p["next"]
+            next_html = f'<span class="alum-next-label">Next: </span>{nxt}' if nxt else ""
+            rows.append(
+                f'<tr><td class="alum-name">{p["name"]}</td>'
+                f'<td class="alum-stints">{stints}</td>'
+                f'<td class="alum-next">{next_html}</td></tr>'
+            )
+        return (
+            '<table class="alumni-table">'
+            '<thead><tr><th>Name</th><th>Project</th><th>Next position</th></tr></thead>'
+            f'<tbody>{"".join(rows)}</tbody></table>'
+        )
 
     # ==================================================================
     # PILL HELPER

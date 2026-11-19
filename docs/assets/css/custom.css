@@ -154,6 +154,7 @@
    ============================================================ */
 
 .md-typeset h1 {
+  color: var(--md-default-fg-color);   /* Material defaults h1 to a light grey */
   font-family: var(--font-serif);
   font-weight: 700;
   letter-spacing: -0.5px;
@@ -756,12 +757,14 @@ a.pill[data-color="cyan"]:hover   { background: var(--cyan-800);   color: #fff; 
    7. PUBLICATION LIST  (site-wide)
    ============================================================ */
 
-.pub-list {
+/* Selectors must outrank Material's `[dir=ltr] .md-typeset ul` / `ul li` bullets + indents */
+[dir] .md-typeset ul.pub-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-.pub-item {
+[dir] .md-typeset ul.pub-list > .pub-item {
+  margin-left: 0;
   padding: 0.9rem 0;
 }
 .pub-title {
@@ -924,6 +927,66 @@ a.talk-title:hover { color: var(--accent); }
 .team-affiliation {
   font-size: 0.75rem;
   color: var(--text-faint);
+}
+
+/* Alumni table (rendered by team_alumni() in main.py): one row per person,
+   one line per stint. Stacks into cards on narrow screens. */
+.md-typeset .alumni-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+.md-typeset .alumni-table th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0 0.75rem 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.md-typeset .alumni-table td {
+  vertical-align: top;
+  padding: 0.65rem 0.75rem 0.65rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.md-typeset .alumni-table td:last-child,
+.md-typeset .alumni-table th:last-child { padding-right: 0; }
+.alum-name { font-weight: 600; white-space: nowrap; }
+.alum-stint + .alum-stint { margin-top: 0.3rem; }
+.alum-role {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0 0.4rem;
+  border-radius: 4px;
+  background: var(--s100);
+  color: var(--text-dark);
+  white-space: nowrap;
+}
+.alum-meta {
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+.alum-next { color: var(--text-muted); }
+.alum-next-label { display: none; }
+
+@media (max-width: 650px) {
+  .md-typeset .alumni-table,
+  .md-typeset .alumni-table tbody,
+  .md-typeset .alumni-table tr,
+  .md-typeset .alumni-table td { display: block; width: 100%; }
+  .md-typeset .alumni-table thead { display: none; }
+  .md-typeset .alumni-table tr {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .md-typeset .alumni-table td { border: 0; padding: 0; }
+  .alum-name { white-space: normal; margin-bottom: 0.25rem; }
+  .alum-next:not(:empty) { margin-top: 0.3rem; }
+  .alum-next-label { display: inline; color: var(--text-faint); }
 }
 
 
