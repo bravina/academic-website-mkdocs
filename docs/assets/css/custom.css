@@ -83,6 +83,17 @@
 
   /* — Font stacks — */
   --font-serif: 'Source Serif 4', Georgia, serif;        /* headings, display: site-wide */
+
+  /* — Event display (hero canvas, read by assets/js/home.js) — */
+  --evd-ring:  #d3d9d6;   /* detector outlines          */
+  --evd-cell:  #f0f3f1;   /* empty calorimeter / chambers */
+  --evd-track: #0f6e56;   /* jet tracks                  */
+  --evd-soft:  #9aaba4;   /* soft tracks                 */
+  --evd-em:    #d99a1c;   /* EM calorimeter hits         */
+  --evd-had:   #d85a30;   /* hadronic calorimeter hits   */
+  --evd-mu:    #534ab7;   /* muon track + chamber hit    */
+  --evd-e:     #185fa5;   /* electron track              */
+  --evd-met:   #2a2a28;   /* missing transverse momentum */
 }
 
 
@@ -98,6 +109,16 @@
   --text-muted:  #a0a09a;
   --text-dark:   #d8d8d0;
   --text-main:   #e0dfd8;
+
+  --evd-ring:  #3b403e;
+  --evd-cell:  #262a29;
+  --evd-track: #5dcaa5;
+  --evd-soft:  #56675f;
+  --evd-em:    #e8b04a;
+  --evd-had:   #e2734f;
+  --evd-mu:    #9d96f2;
+  --evd-e:     #6db2f2;
+  --evd-met:   #e0dfd8;
 }
 
 
@@ -247,25 +268,23 @@ a.pill[data-color="cyan"]:hover   { background: var(--cyan-800);   color: #fff; 
   align-items: flex-start;
 }
 
-/* Avatar wrapper — grows with viewport */
+/* Avatar wrapper — event display + caption; grows with viewport.
+   The portrait is 50% of the detector's width (keep in sync with L.trkIn in home.js). */
 .hp-avatar-wrap {
   flex-shrink: 0;
-  width: 200px;
-  height: 200px;
-  display: flex;
+  width: min(300px, 100%);
 }
 @media (min-width: 651px) {
   .hp-avatar-wrap {
-    width: 260px;
-    height: 260px;
-    margin-left: -40px;
+    width: 320px;
+    margin-left: -50px;
+    margin-top: -1.5rem;
   }
 }
 @media (min-width: 870px) {
   .hp-avatar-wrap {
-    width: 300px;
-    height: 300px;
-    margin-left: -60px;
+    width: 380px;
+    margin-left: -90px;
   }
 }
 @media (min-width: 1600px) {
@@ -274,13 +293,53 @@ a.pill[data-color="cyan"]:hover   { background: var(--cyan-800);   color: #fff; 
   }
 }
 
-.hp-avatar {
+.hp-evd {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+}
+.hp-evd-canvas {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  display: block;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.hp-evd-canvas:focus-visible {
+  outline: 2px solid var(--accent-mid);
+  outline-offset: 2px;
+}
+
+.md-typeset .hp-avatar {
+  position: absolute;
+  left: 25%;
+  top: 25%;
+  width: 50%;
+  height: 50%;
+  max-width: none;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--accent-light);
   display: block;
+  pointer-events: none;   /* clicks fall through to the canvas */
+}
+
+.hp-evd-cap {
+  min-height: 2.8em;      /* reserve two lines so the hero never jumps */
+  margin-top: 0.2rem;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--text-faint);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.hp-evd-cap-info { color: var(--text-muted); }
+.hp-evd-cap sub, .hp-evd-cap sup { font-size: 0.75em; line-height: 0; }
+.hp-ob {
+  text-decoration: overline;
+  text-decoration-thickness: 1px;
 }
 .hp-avatar-placeholder {
   width: 120px;
@@ -507,6 +566,91 @@ a.pill[data-color="cyan"]:hover   { background: var(--cyan-800);   color: #fff; 
     animation: tl-pulse 2.5s ease-in-out infinite;
   }
 }
+
+/* Scroll-driven fill (assets/js/home.js sets --p from 0 to 1).
+   Without JS the fill stays hidden and every dot keeps the lit style above. */
+.hp-tl-fill {
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--accent-mid);
+  transform-origin: top;
+  transform: scaleY(var(--p, 0));
+  display: none;
+}
+.hp-tl--live .hp-tl-fill { display: block; }
+.hp-tl--live .hp-tl-item::before {
+  background: var(--md-default-bg-color);
+  border-color: var(--border);
+  transition: border-color .35s ease, background-color .35s ease;
+}
+.hp-tl--live .hp-tl-item.reached::before {
+  background: var(--accent-light);
+  border-color: var(--accent-mid);
+}
+.hp-tl--live .hp-tl-item.current::before {
+  background: var(--accent-mid);
+  border-color: var(--accent-light);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hp-tl--live .hp-tl-item::before { transition: none; }
+}
+
+/* Fold-out for earlier entries: undo Material's admonition styling of <details> */
+.md-typeset details.hp-tl-earlier {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+  font-size: inherit;
+  overflow: visible;
+}
+.md-typeset .hp-tl-earlier > summary {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0 0 1.75rem;
+  min-height: 0;
+  border: 0;
+  background: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent);
+  cursor: pointer;
+  list-style: none;
+  overflow: visible;
+}
+.md-typeset .hp-tl-earlier[open] > summary { padding-bottom: 1.25rem; }
+.md-typeset .hp-tl-earlier > summary::-webkit-details-marker { display: none; }
+.md-typeset .hp-tl-earlier > summary::after { content: none; display: none; }
+/* Small "+" / "−" marker sitting on the timeline line */
+.md-typeset .hp-tl-earlier > summary::before {
+  content: "+";
+  position: absolute;
+  left: -34px;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  background: var(--md-default-bg-color);
+  -webkit-mask-image: none;
+  mask-image: none;
+  color: var(--accent-mid);
+  font-family: var(--md-code-font-family);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 12px;
+  text-align: center;
+  transform: none;
+}
+.md-typeset .hp-tl-earlier[open] > summary::before { content: "\2212"; }
+.md-typeset .hp-tl-earlier > summary:hover { text-decoration: underline; text-underline-offset: 3px; }
+.md-typeset .hp-tl-earlier > .hp-tl-item:last-child { padding-bottom: 0; }
+
 .hp-tl-d {
   font-family: var(--md-code-font);
   font-size: 0.72rem;

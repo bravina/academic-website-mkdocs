@@ -290,10 +290,16 @@ def define_env(env):
             for t in tags
         )
 
+        # Event display (animated by docs/assets/js/home.js): the portrait sits
+        # at the interaction point of a stylised detector drawn on the canvas.
         return f"""<div class="hp-hero">
   <div class="hp-hero-row">
     <div class="hp-avatar-wrap">
-      <img class="hp-avatar" src="assets/team/baptiste_ravina.jpg">
+      <div class="hp-evd">
+        <canvas class="hp-evd-canvas" tabindex="0" role="img" title="Click for another collision" aria-label="Animated cross-section of a particle detector showing a simulated top-quark pair collision. Click for another collision."></canvas>
+        <img class="hp-avatar" src="assets/team/baptiste_ravina.jpg" alt="{name}">
+      </div>
+      <div class="hp-evd-cap nomath" aria-hidden="true"></div>
     </div>
     <div>
       <h1>{name}</h1>
@@ -351,8 +357,13 @@ def define_env(env):
 <p style="margin-top:.5rem;"><a href="research/" style="font-size:.88rem;color:var(--teal-600);text-decoration:none;font-weight:500;">Read more about my research →</a></p>"""
 
     @env.macro
-    def landing_career():
-        """Render career timeline from career.yml."""
+    def landing_career(visible=5):
+        """Render career timeline from career.yml.
+
+        The first `visible` entries are shown; the rest fold into a
+        <details> element. docs/assets/js/home.js fills the timeline line
+        and lights up each entry as the visitor scrolls past it.
+        """
         items = []
         for i, c in enumerate(career):
             end = c.get("end", "")
@@ -387,10 +398,19 @@ def define_env(env):
       {desc_html}
     </div>""")
 
+        shown, folded = items[:visible], items[visible:]
+        earlier = ""
+        if folded:
+            earlier = f"""<details class="hp-tl-earlier">
+<summary>Earlier positions and education ({len(folded)})</summary>
+{"".join(folded)}
+</details>"""
+
         return f"""<div class="hp-ey">Career</div>
 <div class="hp-sect">Where I've been</div>
 <div class="hp-tl">
-{"".join(items)}
+<div class="hp-tl-fill" aria-hidden="true"></div>
+{"".join(shown)}{earlier}
 </div>"""
 
     @env.macro
