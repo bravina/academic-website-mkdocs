@@ -1,0 +1,8 @@
+<svg class="hp-anim hp-anim-ml nomath" viewBox="0 0 170 60" aria-hidden="true" focusable="false"><g class="a-master">
+  <ellipse class="m-fit" cx="59" cy="33" rx="27" ry="15" transform="rotate(-14 59 33)" pathLength="1"/>
+  <g class="m-pts"><circle cx="55.4" cy="37.3" r="2" style="--d:0"/><circle cx="54.4" cy="31.6" r="2" style="--d:1"/><circle cx="45.0" cy="34.7" r="2" style="--d:2"/><circle cx="73.8" cy="32.1" r="2" style="--d:3"/><circle cx="72.5" cy="31.2" r="2" style="--d:4"/><circle cx="63.7" cy="32.9" r="2" style="--d:0"/><circle cx="65.7" cy="34.7" r="2" style="--d:1"/><circle cx="45.1" cy="32.8" r="2" style="--d:2"/><circle cx="62.1" cy="31.7" r="2" style="--d:3"/><circle cx="64.0" cy="26.9" r="2" style="--d:4"/><circle cx="62.9" cy="34.6" r="2" style="--d:0"/><circle cx="67.6" cy="39.2" r="2" style="--d:1"/><circle cx="48.3" cy="30.1" r="2" style="--d:2"/><circle cx="53.1" cy="33.4" r="2" style="--d:3"/><circle cx="67.0" cy="32.5" r="2" style="--d:4"/><circle cx="50.3" cy="28.0" r="2" style="--d:0"/><circle cx="53.0" cy="43.1" r="2" style="--d:1"/><circle cx="47.4" cy="37.4" r="2" style="--d:2"/><circle cx="61.3" cy="21.4" r="2" style="--d:3"/><circle cx="60.9" cy="41.7" r="2" style="--d:4"/><circle cx="55.2" cy="27.8" r="2" style="--d:0"/><circle cx="64.7" cy="30.9" r="2" style="--d:1"/></g>
+  <line class="m-scan" x1="0" y1="3" x2="0" y2="57"/>
+  <circle class="m-ring" cx="140" cy="16" r="6.5"/>
+  <circle class="m-out" cx="140" cy="16" r="2.4"/>
+  <text class="m-lab" x="140" y="33">anomaly</text>
+</g></svg>

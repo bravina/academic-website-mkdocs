@@ -469,9 +469,17 @@ def define_env(env):
             bg, fg, _ = color_map.get(c, color_map["teal"])
             logo = r.get("logo", "")
             link = r.get("link", "#")
+            # Optional topic animation, inlined so it can use the page's colours
+            # and react to hover: data/card-anims/<key>.svg (styles in custom.css 6d,
+            # playback in home.js).
+            anim = ""
+            anim_path = os.path.join(data_dir, "card-anims", f'{r.get("key", "")}.svg')
+            if r.get("key") and os.path.exists(anim_path):
+                with open(anim_path) as f:
+                    anim = f.read().strip()
             cards.append(f"""<a class="hp-rc" href="{link}">
-      <div class="hp-rc-i" style="background:var({bg});color:var({fg})">{logo}</div>
-      <h4>{r["title"]}</h4>
+      <div class="hp-rc-top"><div class="hp-rc-i" style="background:var({bg});color:var({fg})">{logo}</div>{anim}</div>
+      <h4>{r["title"]}\u2060<span class="hp-rc-go" aria-hidden="true">→</span></h4>
       <p>{r["description"]}</p>
     </a>""")
         return f"""<div class="hp-sect">What I work on</div>

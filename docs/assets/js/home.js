@@ -409,6 +409,70 @@
     window.removeEventListener("load", this.mark);
   };
 
+  /* ---------- Research cards: rise in, staggered, on first view ---------- */
+  // Each card's topic animation (data/card-anims/*.svg) plays once after the
+  // card rises in, then loops while the card is hovered (after HOVER_DELAY_MS)
+  // or focused. A loop is
+  // always allowed to finish, so it stops on its final frame (= resting state).
+  var ANIM_MS = 5000;
+  // The pointer must rest on a card this long before it plays, so cards
+  // crossed on the way to another one don't all start.
+  var HOVER_DELAY_MS = 1000;
+
+  function Reveal(grid) {
+    var self = this;
+    var cards = grid.querySelectorAll(".hp-rc");
+    this.timers = [];
+    this.abort = new AbortController();
+    this.io = null;
+    if (!("IntersectionObserver" in window) || reduceMotion.matches || !cards.length) return;
+
+    cards.forEach(function (c, i) {
+      c.style.setProperty("--i", i);
+      c.style.setProperty("--anim-dur", ANIM_MS + "ms");
+      if (!c.querySelector(".hp-anim")) return;
+      var hoverTimer = null;
+      c.addEventListener("mouseenter", function () {
+        clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(function () { self.play(c); }, HOVER_DELAY_MS);
+        self.timers.push(hoverTimer);
+      }, { signal: self.abort.signal });
+      c.addEventListener("mouseleave", function () { clearTimeout(hoverTimer); }, { signal: self.abort.signal });
+      // Keyboard focus is deliberate: play straight away
+      c.addEventListener("focusin", function () { self.play(c); }, { signal: self.abort.signal });
+    });
+    grid.classList.add("hp-reveal");
+    this.io = new IntersectionObserver(function (entries, io) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        // Whole grid at once, so the stagger reads left-to-right, top-to-bottom
+        cards.forEach(function (c, i) {
+          c.classList.add("in");
+          if (c.querySelector(".hp-anim")) self.later(function () { self.play(c); }, 450 + i * 350);
+        });
+        io.disconnect();
+      });
+    }, { threshold: 0.2 });
+    this.io.observe(grid);
+  }
+  Reveal.prototype.later = function (fn, ms) { this.timers.push(setTimeout(fn, ms)); };
+  Reveal.prototype.play = function (card) {
+    if (card.classList.contains("hp-anim-run")) return;   // already playing
+    var self = this;
+    card.classList.add("hp-anim-run");
+    function loopEnd() {
+      // Just before the loop ends (all animations hold their final frame by then)
+      if (card.matches(":hover") || card.matches(":focus-within")) self.later(loopEnd, ANIM_MS);
+      else card.classList.remove("hp-anim-run");
+    }
+    this.later(loopEnd, ANIM_MS - 40);
+  };
+  Reveal.prototype.destroy = function () {
+    if (this.io) this.io.disconnect();
+    this.abort.abort();
+    this.timers.forEach(clearTimeout);
+  };
+
   var instances = [];
 
   function init() {
@@ -419,6 +483,9 @@
     });
     document.querySelectorAll(".hp-tl").forEach(function (tl) {
       instances.push(new Timeline(tl));
+    });
+    document.querySelectorAll(".hp-rg").forEach(function (grid) {
+      instances.push(new Reveal(grid));
     });
     document.querySelectorAll(".hp-sub").forEach(function (el) {
       instances.push(new SubLine(el));

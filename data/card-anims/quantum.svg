@@ -1,0 +1,9 @@
+<svg class="hp-anim hp-anim-quantum nomath" viewBox="0 0 170 60" aria-hidden="true" focusable="false"><g class="a-master">
+  <line class="q-axis" x1="12" y1="30" x2="158" y2="30"/>
+  <path class="q-link" d="M32 30 Q85 0 138 30"/>
+  <circle class="q-src" cx="85" cy="30" r="2.6"/>
+  <g class="q-p q-l"><circle class="q-flash" r="5"/><g class="q-spin"><circle r="12" fill="none"/><line x1="0" y1="8" x2="0" y2="-9"/><path d="M-3.4 -5.2 L0 -9.6 L3.4 -5.2"/></g><circle class="q-dot" r="3.4"/></g>
+  <g class="q-p q-r"><circle class="q-flash" r="5"/><g class="q-spin"><circle r="12" fill="none"/><line x1="0" y1="8" x2="0" y2="-9"/><path d="M-3.4 -5.2 L0 -9.6 L3.4 -5.2"/></g><circle class="q-dot" r="3.4"/></g>
+  <g class="q-lab"><path d="M26.5 48.5 L26.5 58.5"/><path d="M32 57.0 L32 50.0 M29.8 52.5 L32 50.0 L34.2 52.5"/><path d="M36.5 48.5 L39.5 53.5 L36.5 58.5"/></g>
+  <g class="q-lab"><path d="M132.5 48.5 L132.5 58.5"/><path d="M138 50.0 L138 57.0 M135.8 54.5 L138 57.0 L140.2 54.5"/><path d="M142.5 48.5 L145.5 53.5 L142.5 58.5"/></g>
+</g></svg>
