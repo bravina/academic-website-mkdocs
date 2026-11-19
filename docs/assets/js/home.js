@@ -375,6 +375,40 @@
      INIT (runs on every instant-navigation page load)
      ================================================================ */
 
+  /* ---------- Hero subtitle: no "·" at the start of a wrapped line ---------- */
+  function SubLine(el) {
+    // Items: role, then affiliations. If the line has to wrap, break after the
+    // role first ("Particle physicist" / "TU Dresden · ATLAS Experiment"), then
+    // wherever else it still wraps. A wrapped item loses its leading "·".
+    var items = el.querySelectorAll(".hp-sub-item");
+    function top(i) {
+      return (items[i].querySelector("a") || items[i]).getBoundingClientRect().top;
+    }
+    function mark() {
+      items.forEach(function (it) { it.classList.remove("hp-line-start"); });
+      if (items.length < 2 || top(items.length - 1) <= top(0) + 2) return;  // fits on one line
+      items[1].classList.add("hp-line-start");
+      for (var i = 2; i < items.length; i++) {
+        if (top(i) > top(i - 1) + 2) items[i].classList.add("hp-line-start");
+      }
+    }
+    // Line breaks move when the width changes or the web font arrives.
+    this.mark = mark;
+    this.ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(mark) : null;
+    if (this.ro) this.ro.observe(el);
+    if (document.fonts) {
+      document.fonts.addEventListener("loadingdone", mark);
+      document.fonts.ready.then(mark);
+    }
+    window.addEventListener("load", mark);
+    mark();
+  }
+  SubLine.prototype.destroy = function () {
+    if (this.ro) this.ro.disconnect();
+    if (document.fonts) document.fonts.removeEventListener("loadingdone", this.mark);
+    window.removeEventListener("load", this.mark);
+  };
+
   var instances = [];
 
   function init() {
@@ -385,6 +419,9 @@
     });
     document.querySelectorAll(".hp-tl").forEach(function (tl) {
       instances.push(new Timeline(tl));
+    });
+    document.querySelectorAll(".hp-sub").forEach(function (el) {
+      instances.push(new SubLine(el));
     });
   }
 

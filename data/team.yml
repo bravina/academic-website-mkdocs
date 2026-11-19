@@ -1,7 +1,8 @@
 # ============================================================
 # Team data
-# group: "collaborator" gets profile cards, "alumni" gets table row
-# For collaborators: name, role, affiliation required
+# Sections: "students" (current students) and "collaborators" get profile
+# cards, "alumni" get one table row per person.
+# For students and collaborators: name, role, affiliation required
 # For alumni (single degree): name, role_type (PhD/MSc/BSc/GSoC/Intern/Postdoc),
 #             project, location, year required
 # For alumni (multiple degrees): name required, plus an "entries" list where
@@ -9,6 +10,12 @@
 # Optional: photo (filename in docs/assets/team/)
 #           next_position (for alumni, top-level or per entry)
 # ============================================================
+
+students:
+  - name: "Rebecca Seip"
+    role: "MSc student"
+    affiliation: "TU Dresden"
+    photo: "rebecca_seip.jpg"
 
 collaborators:
   - name: "James Howarth"
@@ -30,11 +37,6 @@ collaborators:
     role: "Professor"
     affiliation: "Sorbonne Université<br>LPTHE"
     photo: "benjamin_fuks.jpg"
-
-  - name: "Rebecca Seip"
-    role: "MSc student"
-    affiliation: "TU Dresden"
-    photo: "rebecca_seip.jpg"
 
 alumni:
   - name: "Matthias Drescher"

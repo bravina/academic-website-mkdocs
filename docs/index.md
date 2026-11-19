@@ -36,7 +36,6 @@ hide:
 <div class="hp-sec" style="padding-bottom:3rem;">
 <hr class="hp-divider">
 <div class="hp-cta">
-<div class="hp-ey">Get in touch</div>
 <div class="hp-sect">Let's work together</div>
 <p class="hp-cta-sub">Open to new collaborations and student projects.</p>
 <a href="mailto:baptiste.ravina@cern.ch" class="hp-btn-p">baptiste.ravina@cern.ch</a>

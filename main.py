@@ -3,6 +3,7 @@ MkDocs Macros plugin — loads all YAML data and provides rendering macros.
 """
 import yaml
 import os
+import re
 from datetime import date
 
 
@@ -59,73 +60,128 @@ def define_env(env):
             links.append(f'<a href="https://inspirehep.net/literature/{iid}">INSPIRE</a>')
         return "\n".join(links)
 
-    def _render_pub(pub):
-        links_html = _pub_links(pub)
-        date_str = str(pub.get("date", ""))
-        venue = pub.get("venue", "")
-        if date_str:
-            venue += f" ({date_str[:4]})"
-        return f"""<li class="pub-item">
-<div class="pub-title">{pub["title"]}</div>
+    # Topic of each publications.yml `type`: (label, colour). The colour names a
+    # --topic-* token (dots, chips, tags) in custom.css. Chips follow this order.
+    PUB_TYPES = {
+        "top":         ("Top quark physics",        "amber"),
+        "quantum":     ("Quantum information",      "blue"),
+        "search":      ("Searches for new physics", "indigo"),
+        "ml":          ("Machine learning",         "purple"),
+        "software":    ("Software",                 "cyan"),
+        "proceedings": ("Proceedings",              "gray"),
+        "thesis":      ("Thesis",                   "coral"),
+    }
+
+    def _pub_types(pub):
+        t = pub.get("type") or []
+        return t if isinstance(t, list) else [t]
+
+    def _pubs_sorted():
+        return sorted(pubs, key=lambda p: str(p.get("date", "")), reverse=True)
+
+    def _chips(options, label):
+        """Filter chips: options are (key, label, count, colour-or-None)."""
+        buttons = "".join(
+            f'<button type="button" data-f="{k}" aria-pressed="{str(k == "all").lower()}">'
+            + (f'<i style="background:var(--topic-{c})"></i>' if c else "")
+            + f'{n} <small>{cnt}</small></button>'
+            for k, n, cnt, c in options if cnt
+        )
+        return f'<div class="chips" role="group" aria-label="{label}">{buttons}</div>'
+
+    def _pub_count(type_name):
+        return sum(type_name in _pub_types(p) for p in pubs)
+
+    @env.macro
+    def publications_page():
+        """Publications page: topic chips, dot timeline (one dot per entry,
+        ringed if featured) and one list grouped by year. Filtering, the
+        hover preview and ?topic=<type> are handled by assets/js/pages.js."""
+        items = _pubs_sorted()
+        years = [int(str(p.get("date", "0"))[:4]) for p in items]
+        chips = _chips(
+            [("all", "All", len(items), None)]
+            + [(k, n, _pub_count(k), c) for k, (n, c) in PUB_TYPES.items()],
+            "Filter by topic",
+        )
+
+        cols = []
+        for y in range(min(years), max(years) + 1):
+            dots = []
+            for i, p in enumerate(items):
+                if years[i] != y:
+                    continue
+                types = _pub_types(p)
+                c = PUB_TYPES.get(types[0], ("", "gray"))[1] if types else "gray"
+                star = " star" if p.get("featured") else ""
+                venue = str(p.get("venue", "")).replace('"', "&quot;")
+                dots.append(
+                    f'<button type="button" class="pub-dot{star}" data-i="{i}" '
+                    f'style="--c:var(--topic-{c})" aria-label="{venue}, {y}"></button>'
+                )
+            cols.append(f'<div class="pub-yr"><span>’{str(y)[2:]}</span>{"".join(dots)}</div>')
+        strip = (
+            f'<div class="pub-strip"><div class="pub-years" '
+            f'style="grid-template-columns:repeat({len(cols)},minmax(34px,1fr))">{"".join(cols)}</div></div>'
+        )
+
+        groups = {}
+        for i, p in enumerate(items):
+            groups.setdefault(years[i], []).append((i, p))
+        sections = []
+        for y in sorted(groups, reverse=True):
+            lis = "\n".join(_render_pub(p, i) for i, p in groups[y])
+            sections.append(
+                f'<section class="filter-group"><h2 class="yr-h">{y}</h2>\n'
+                f'<ul class="pub-list">\n{lis}\n</ul></section>'
+            )
+        return (
+            f'<div class="filterable pubs-page" data-param="topic">{chips}{strip}'
+            f'<div class="pub-peek" aria-live="polite"></div>'
+            + "\n".join(sections)
+            + '<p class="filter-empty" hidden>No entries for this topic.</p></div>'
+        )
+
+    def _render_pub(pub, i):
+        types = _pub_types(pub)
+        tags = "".join(
+            f'<span class="pub-tag"><i style="background:var(--topic-{PUB_TYPES[t][1]})"></i>{PUB_TYPES[t][0]}</span>'
+            for t in types if t in PUB_TYPES
+        )
+        star = '<span class="pub-star" title="Highlight">★</span>' if pub.get("featured") else ""
+        return f"""<li class="pub-item" id="pub-{i}" data-tags="{' '.join(types)}">
+<div class="pub-title">{pub["title"]}{star}</div>
 <div class="pub-authors">{pub.get("authors", "")}</div>
-<div class="pub-venue">{venue}</div>
-<div class="pub-links">{links_html}</div>
+<div class="pub-venue"><em>{pub.get("venue", "")}</em>{tags}</div>
+<div class="pub-links">{_pub_links(pub)}</div>
 </li>"""
-
-    def _render_pub_list(items):
-        if not items:
-            return '<p style="color:var(--text-muted,#888);">No publications in this category yet.</p>'
-        items_sorted = sorted(items, key=lambda p: str(p.get("date", "")), reverse=True)
-        html = "\n".join(_render_pub(p) for p in items_sorted)
-        return f'<ul class="pub-list">\n{html}\n</ul>'
-
-    def _pub_has_type(pub, type_name):
-        """Return True if pub's type field equals type_name or contains it in a list."""
-        t = pub.get("type")
-        if t is None:
-            return False
-        if isinstance(t, list):
-            return type_name in t
-        return t == type_name
-
-    @env.macro
-    def publications_of_type(type_name):
-        """Render publications matching a specific type (string or list)."""
-        matched = [p for p in pubs if _pub_has_type(p, type_name)]
-        return _render_pub_list(matched)
-
-    @env.macro
-    def publications_featured():
-        """Render publications with featured: true."""
-        matched = [p for p in pubs if p.get("featured")]
-        return _render_pub_list(matched)
-
-    @env.macro
-    def publications_all():
-        """Render all publications."""
-        return _render_pub_list(pubs)
 
     # ==================================================================
     # TALK HELPERS
     # ==================================================================
 
+    # talks.yml `type` → chip label (plural) and tag label. Chips follow this order.
+    TALK_TYPES = {
+        "seminar":    ("Seminars",      "Seminar"),
+        "conference": ("Conferences",   "Conference"),
+        "workshop":   ("Workshops",     "Workshop"),
+        "atlas":      ("ATLAS meetings", "ATLAS meeting"),
+    }
+    MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+              "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
     def _render_talk(talk):
-        d = talk.get("date", "")
-        date_str = str(d)
         try:
-            if isinstance(d, date):
-                display_date = d.strftime("%b %Y")
-            else:
-                parts = date_str.split("-")
-                months = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-                display_date = f"{months[int(parts[1])]} {parts[0]}"
+            month = MONTHS[int(str(talk.get("date", ""))[5:7])]
         except (IndexError, ValueError):
-            display_date = date_str
+            month = ""
 
         venue = talk.get("venue", "")
         loc = talk.get("location", "")
         venue_line = f"{venue} · {loc}" if loc else venue
+        ttype = talk.get("type", "")
+        tag = (f'<span class="talk-type" data-type="{ttype}">{TALK_TYPES[ttype][1]}</span>'
+               if ttype in TALK_TYPES else "")
 
         link_parts = []
         if talk.get("indico"):
@@ -136,61 +192,74 @@ def define_env(env):
         if talk.get("slides_url"):
             link_parts.append(f'<a href="{talk["slides_url"]}">Slides</a>')
         if talk.get("recording_url"):
-            link_parts.append(f'<a href="{talk["recording_url"]}">Recording</a>')
-        links_html = ""
-        if link_parts:
-            links_html = f'<div class="talk-links">{"".join(link_parts)}</div>'
+            link_parts.append(f'<a class="talk-rec" href="{talk["recording_url"]}">Recording</a>')
 
-        return f"""<div class="talk-card">
-<div class="talk-date">{display_date}</div>
-<div class="talk-title">{talk["title"]}</div>
-<div class="talk-venue">{venue_line}</div>
-{links_html}
+        tags = ttype + (" recorded" if talk.get("recording_url") else "")
+        return f"""<div class="talk-row" data-tags="{tags.strip()}">
+<div class="talk-date">{month}</div>
+<div><div class="talk-title">{talk["title"]}</div><div class="talk-venue">{tag}{venue_line}</div></div>
+<div class="talk-links">{"".join(link_parts)}</div>
 </div>"""
 
     @env.macro
-    def talks_by_year():
+    def talks_page():
+        """Talks page: type chips and compact rows grouped by year.
+        Filtering is handled by assets/js/pages.js."""
+        options = [("all", "All", len(talks), None)]
+        options += [(k, plural, sum(t.get("type") == k for t in talks), None)
+                    for k, (plural, _) in TALK_TYPES.items()]
+        options.append(("recorded", "With recording", sum(bool(t.get("recording_url")) for t in talks), None))
+
         by_year = {}
         for t in talks:
-            year = str(t.get("date", ""))[:4]
-            by_year.setdefault(year, []).append(t)
-        html_parts = []
-        for year in sorted(by_year.keys(), reverse=True):
-            year_talks = sorted(by_year[year],
-                                key=lambda t: str(t.get("date", "")),
-                                reverse=True)
-            cards = "\n".join(_render_talk(t) for t in year_talks)
-            html_parts.append(
-                f'<div class="sec-label">{year}</div>\n'
-                f'<div class="talk-grid">\n{cards}\n</div>'
-            )
-        return "\n\n".join(html_parts)
+            by_year.setdefault(str(t.get("date", ""))[:4], []).append(t)
+        sections = []
+        for year in sorted(by_year, reverse=True):
+            rows = "\n".join(_render_talk(t) for t in
+                             sorted(by_year[year], key=lambda t: str(t.get("date", "")), reverse=True))
+            sections.append(f'<section class="filter-group"><h2 class="yr-h">{year}</h2>\n{rows}\n</section>')
+        return (
+            f'<div class="filterable talks-page" data-param="type">{_chips(options, "Filter by type")}'
+            + "\n".join(sections)
+            + '<p class="filter-empty" hidden>No talks of this type.</p></div>'
+        )
 
     # ==================================================================
     # TEAM HELPERS
     # ==================================================================
 
+    def _person_card(p):
+        photo = p.get("photo", "")
+        if photo:
+            avatar = f'<img class="person-av" src="/assets/team/{photo}" alt="" loading="lazy">'
+        else:
+            initials = "".join(w[0].upper() for w in p["name"].split()[:2])
+            avatar = f'<div class="person-av" aria-hidden="true">{initials}</div>'
+        affiliation = str(p.get("affiliation", "")).replace("<br>", ", ")
+        return f"""<div class="person">{avatar}<div>
+<div class="person-name">{p["name"]}</div>
+<div class="person-role">{p.get("role", "")}</div>
+<div class="person-aff">{affiliation}</div>
+</div></div>"""
+
+    @env.macro
+    def team_students():
+        """Current students from team.yml, plus a card inviting new students
+        that links to the email address in profile.yml."""
+        cards = [_person_card(s) for s in team.get("students") or []]
+        email = profile.get("email", "")
+        cards.append(f"""<div class="person person-open"><div class="person-av" aria-hidden="true">+</div><div>
+<div class="person-name">New project?</div>
+<div class="person-role">BSc, MSc, PhD</div>
+<div class="person-aff"><a href="mailto:{email}?subject=Student%20project">Get in touch</a></div>
+</div></div>""")
+        return f'<div class="people people-students">{"".join(cards)}</div>'
+
     @env.macro
     def team_collaborators():
-        """Render collaborator profile cards from team.yml."""
-        collabs = team.get("collaborators", [])
-        if not collabs:
-            return ""
-        cards = []
-        for c in collabs:
-            initials = "".join(w[0].upper() for w in c["name"].split()[:2])
-            photo = c.get("photo", "")
-            if photo:
-                avatar = f'<img class="team-avatar" src="/assets/team/{photo}" alt="{c["name"]}">'
-            else:
-                avatar = f'<div class="team-initials">{initials}</div>'
-            cards.append(f"""<div class="team-card">
-{avatar}
-<div class="team-name">{c["name"]}</div>
-<div class="team-role">{c.get("role", "")}</div>
-<div class="team-affiliation">{c.get("affiliation", "")}</div>
-</div>""")
-        return f'<div class="team-grid">\n{"".join(cards)}\n</div>'
+        """Collaborator cards from team.yml."""
+        cards = [_person_card(c) for c in team.get("collaborators") or []]
+        return f'<div class="people">{"".join(cards)}</div>' if cards else ""
 
     def _year_sort_key(a):
         year_str = str(a.get("year", "0"))
@@ -211,6 +280,10 @@ def define_env(env):
         "Next position" is taken from the most recent stint. Rows are ordered
         by each person's most recent year. On narrow screens the CSS turns
         rows into stacked cards (see .alumni-table in custom.css).
+
+        Chips above the table filter by role_type (assets/js/pages.js, ?degree=):
+        a person matches if any of their stints has that role, and their other
+        stints are faded.
         """
         alumni = team.get("alumni", [])
         if not alumni:
@@ -231,10 +304,31 @@ def define_env(env):
             })
         people.sort(key=lambda p: p["latest"], reverse=True)
 
+        def slug(role):
+            return re.sub(r"[^a-z0-9]+", "-", role.lower()).strip("-")
+
+        # Chips: degrees first, then the other role types in order of appearance
+        roles = []
+        for p in people:
+            for e in p["entries"]:
+                r = e.get("role_type", "")
+                if r and r not in roles:
+                    roles.append(r)
+        first = ["BSc", "MSc", "PhD", "Postdoc"]
+        roles.sort(key=lambda r: first.index(r) if r in first else len(first))
+        # Counts are projects (stints), so the role counts add up to "All"
+        stints = [e for p in people for e in p["entries"]]
+        chips = _chips(
+            [("all", "All", len(stints), None)]
+            + [(slug(r), r, sum(e.get("role_type") == r for e in stints), None) for r in roles],
+            "Filter by role",
+        )
+
         rows = []
         for p in people:
+            tags = " ".join(dict.fromkeys(slug(e.get("role_type", "")) for e in p["entries"]))
             stints = "".join(
-                f'<div class="alum-stint">'
+                f'<div class="alum-stint" data-tag="{slug(e.get("role_type", ""))}">'
                 f'<span class="alum-role">{e.get("role_type", "")}</span> '
                 f'<span class="alum-project">{e.get("project", "")}</span> '
                 f'<span class="alum-meta">{e.get("location", "")} · {e.get("year", "")}</span>'
@@ -244,14 +338,16 @@ def define_env(env):
             nxt = p["next"]
             next_html = f'<span class="alum-next-label">Next: </span>{nxt}' if nxt else ""
             rows.append(
-                f'<tr><td class="alum-name">{p["name"]}</td>'
+                f'<tr data-tags="{tags}"><td class="alum-name">{p["name"]}</td>'
                 f'<td class="alum-stints">{stints}</td>'
                 f'<td class="alum-next">{next_html}</td></tr>'
             )
         return (
+            f'<div class="filterable alumni" data-param="degree">{chips}'
             '<table class="alumni-table">'
             '<thead><tr><th>Name</th><th>Project</th><th>Next position</th></tr></thead>'
             f'<tbody>{"".join(rows)}</tbody></table>'
+            '<p class="filter-empty" hidden>No alumni with this role.</p></div>'
         )
 
     # ==================================================================
@@ -304,9 +400,14 @@ def define_env(env):
         bio = re.sub(r'\*([^*]+)\*', r'<em>\1</em>', bio)
 
         affs = profile.get("affiliations", [])
-        aff_html = " · ".join(
-            f'<a href="{a["url"]}">{a["name"]}</a>' for a in affs
-        )
+        # Each part is an unbreakable item; the line can only wrap between
+        # items, and home.js hides the "·" of an item that starts a new line.
+        sub_items = [f'<span class="hp-sub-item">{role}</span>'] + [
+            f'<span class="hp-sub-item"><span class="hp-sub-sep" aria-hidden="true">· </span>'
+            f'<a href="{a["url"]}">{a["name"]}</a></span>'
+            for a in affs
+        ]
+        sub_html = " ".join(sub_items)
 
         tags = profile.get("tags", [])
         pills_html = "\n".join(
@@ -327,7 +428,7 @@ def define_env(env):
     </div>
     <div>
       <h1>{name}</h1>
-      <div class="hp-sub">{role} · {aff_html}</div>
+      <div class="hp-sub">{sub_html}</div>
       <p class="hp-bio">{bio}</p>
       <div class="pill-row">{pills_html}</div>
     </div>
@@ -356,7 +457,7 @@ def define_env(env):
     <div class="hp-lnks">{links}</div>
   </div>""")
 
-        return f"""<div class="hp-ey">{title}</div>
+        return f"""<div class="hp-sect">{title}</div>
 {"".join(items)}"""
 
     @env.macro
@@ -373,12 +474,54 @@ def define_env(env):
       <h4>{r["title"]}</h4>
       <p>{r["description"]}</p>
     </a>""")
-        return f"""<div class="hp-ey">Research</div>
-<div class="hp-sect">What I work on</div>
+        return f"""<div class="hp-sect">What I work on</div>
 <div class="hp-rg">
 {"".join(cards)}
 </div>
 <p style="margin-top:.5rem;"><a href="research/" style="font-size:.88rem;color:var(--teal-600);text-decoration:none;font-weight:500;">Read more about my research →</a></p>"""
+
+    # ------------------------------------------------------------------
+    # Research page: the topics in research.yml (matched by `key`) give
+    # the jump cards, the heading icons and the "Papers on this topic" links.
+    # ------------------------------------------------------------------
+
+    def _research_entry(key):
+        for r in research:
+            if r.get("key") == key:
+                return r
+        raise KeyError(f"research.yml has no entry with key '{key}'")
+
+    def _research_icon(r):
+        bg, fg, _ = color_map.get(r.get("color", "teal"), color_map["teal"])
+        return (f'<span class="sec-ico" aria-hidden="true" '
+                f'style="background:var({bg});color:var({fg})">{r.get("logo", "")}</span>')
+
+    @env.macro
+    def research_icon(key):
+        """Topic icon for a research.md heading: ## {{ research_icon('top') }} Title {#anchor}"""
+        return _research_icon(_research_entry(key))
+
+    @env.macro
+    def research_cards():
+        """Jump cards to each topic on the research page, with paper counts."""
+        cards = []
+        for r in research:
+            anchor = "#" + r.get("link", "").split("#", 1)[-1]
+            n = _pub_count(r["pubs"]) if r.get("pubs") else 0
+            count = f'<span class="sec-card-n">{n} paper{"" if n == 1 else "s"}</span>' if n else ""
+            cards.append(f'<a class="sec-card" href="{anchor}">{_research_icon(r)}'
+                         f'<span class="sec-card-t">{r["title"]}</span>{count}</a>')
+        return f'<nav class="sec-cards" aria-label="Research topics">{"".join(cards)}</nav>'
+
+    @env.macro
+    def research_papers(key):
+        """Link to the publications page filtered to this topic."""
+        t = _research_entry(key).get("pubs", "")
+        n = _pub_count(t)
+        if not n:
+            return ""
+        return (f'<p class="sec-foot"><a class="to-pubs" href="../publications/?topic={t}">'
+                f'Papers on this topic ({n}) →</a></p>')
 
     @env.macro
     def landing_career(visible=5):
@@ -430,8 +573,7 @@ def define_env(env):
 {"".join(folded)}
 </details>"""
 
-        return f"""<div class="hp-ey">Career</div>
-<div class="hp-sect">Where I've been</div>
+        return f"""<div class="hp-sect">Where I've been</div>
 <div class="hp-tl">
 <div class="hp-tl-fill" aria-hidden="true"></div>
 {"".join(shown)}{earlier}
@@ -558,7 +700,7 @@ def define_env(env):
 </div>""")
 
         return f"""<hr class="hp-divider"><div style="padding-top:2rem;">
-<div class="hp-ey">Latest news</div>
+<div class="hp-sect">Latest news</div>
 {"".join(cards)}
 <p style="margin-top:.5rem;"><a href="blog/" style="font-size:.88rem;color:var(--teal-600);text-decoration:none;font-weight:500;">All posts →</a></p>
 </div>"""

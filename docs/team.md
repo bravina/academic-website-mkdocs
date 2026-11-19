@@ -1,11 +1,16 @@
 ---
 title: Team
-description: Collaborators and students
+description: Students, collaborators and alumni
 hide:
   - navigation
+  - toc
 ---
 
-## Current collaborators
+## Current students
+
+{{ team_students() }}
+
+## Collaborators
 
 {{ team_collaborators() }}
 

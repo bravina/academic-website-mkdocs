@@ -1,13 +1,18 @@
 ---
 title: Research
 description: Research themes and ongoing projects
+hide:
+  - navigation
+  - toc
 ---
 
 
 My research sits at the intersection of precision top quark physics, quantum information science, and machine learning — all within the [ATLAS experiment](https://atlas.cern) at the [Large Hadron Collider](https://home.cern/science/accelerators/large-hadron-collider).
 I am also interested in the future of particle physics, especially at the [FCC-ee](https://fcc.web.cern.ch/), for which I am studying simulation and reconstruction algorithms for tile calorimeters.
 
-## Quantum information science at colliders
+{{ research_cards() }}
+
+## {{ research_icon('quantum') }} Quantum information science at colliders {: #quantum-information-science-at-colliders }
 
 The top quark is unique among quarks: it decays before hadronising, so its spin information is directly accessible through the angular distributions of its decay products. This makes $t\bar{t}$ production a natural laboratory for probing quantum correlations at the highest energies.
 
@@ -23,7 +28,9 @@ I contributed to the [first observation of quantum entanglement in top quark pai
 
 The precision tools developed in this programme played a central role in the [observation of a cross-section enhancement consistent with toponium formation](https://arxiv.org/abs/2601.11780), an unexpected discovery at the LHC.
 
-## Top quark electroweak couplings
+{{ research_papers('quantum') }}
+
+## {{ research_icon('top') }} Top quark and electroweak physics {: #top-quark-and-electroweak-physics }
 
 Rare processes such as $t\bar{t}Z$, $tZq$, $tWZ$, and $t\bar{t}\gamma$ directly probe the electroweak couplings of the top quark. I have led several ATLAS measurements of these processes, most recently the [legacy Run 2 $t\bar{t}Z$ analysis](https://doi.org/10.1007/JHEP07(2024)163), which includes the first measurement of spin correlations in $t\bar{t}Z$ and a comprehensive SMEFT interpretation of differential cross sections.
 
@@ -31,29 +38,37 @@ I also performed the first joint unfolding and EFT interpretation of two distinc
 
 Looking ahead, I contributed to the [HL-LHC physics projections](https://arxiv.org/abs/2504.00672) for the top quark sector on behalf of ATLAS and CMS, and to a [dedicated sensitivity study](https://cds.cern.ch/record/2927962) for $t\bar{t}\gamma$ and $t\bar{t}Z$ at the High-Luminosity LHC. I also prepared the [roadmap for future ATLAS+CMS combinations](https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2023-030/) of top+X results in the EFT framework. These efforts will define the legacy strategy for the HL-LHC and inform the precision top programme at future colliders.
 
-## Machine learning & anomaly detection
+{{ research_papers('top') }}
+
+## {{ research_icon('ml') }} Machine learning & anomaly detection {: #machine-learning-anomaly-detection }
 
 As part of the [Dark Machines](https://darkmachines.org/) initiative, I contributed to a [large-scale benchmark](https://doi.org/10.21468/SciPostPhys.12.1.043) of anomaly detection algorithms for LHC collisions, testing hundreds of unsupervised models (auto-encoders, normalising flows, deep sets) on simulated datasets with the goal of enabling model-independent searches for new physics in LHC Run 3 data.
 
 Beyond anomaly detection, I am actively investigating novel neural network architectures motivated directly by the physics of the final states I study. In particular, I am interested in Lorentz-equivariant architectures and in designing physically motivated objectives and loss functions for the reconstruction of challenging final states: semi-leptonic and di-leptonic $t\bar{t}$ (including neutrino momentum inference), $t\bar{t}+X$, and other multi-object topologies. Improved reconstruction is critical to achieving the precision goals of the quantum information and threshold measurements described above.
 
-## Analysis software for Run 3
+{{ research_papers('ml') }}
+
+## {{ research_icon('software') }} Analysis software for Run 3 {: #analysis-software-for-run-3 }
 
 The physics results described on this page all rely on [TopCPToolkit](https://topcptoolkit.docs.cern.ch/), a modular analysis framework that I created and continue to develop. It provides a flexible, well-documented pipeline for producing analysis-ready ntuples and is now the most widely used analysis framework in the ATLAS Collaboration, supporting a wide range of measurements, searches, and calibration efforts in Run 3.
 
-!!! tip "Get started with TopCPToolkit"
-    Get the code [on Gitlab](https://gitlab.cern.ch/atlas/amg/software/TopCPToolkit) and check out our [documentation](https://topcptoolkit.docs.cern.ch/latest/)!
-    You can cite us as
-    {% raw %}
-     ```tex
-     @software{TopCPToolkit,
-         author      = {{ATLAS Collaboration}},
-         title       = {TopCPToolkit},
-         publisher   = {Zenodo},
-         doi         = {10.5281/zenodo.19683083},
-         url         = {https://doi.org/10.5281/zenodo.19683083},
-     }
-     ```
-     {% endraw %}
+<div class="callout" markdown>
+<h3>Get started with TopCPToolkit</h3>
+
+Get the code [on GitLab](https://gitlab.cern.ch/atlas/amg/software/TopCPToolkit) and read the [documentation](https://topcptoolkit.docs.cern.ch/latest/).
+
+<div class="cite">Cite as <code>doi:10.5281/zenodo.19683083</code> <button type="button" class="copy-bib">Copy BibTeX</button></div>
+{% raw %}
+<pre class="bib-src" hidden>@software{TopCPToolkit,
+    author      = {{ATLAS Collaboration}},
+    title       = {TopCPToolkit},
+    publisher   = {Zenodo},
+    doi         = {10.5281/zenodo.19683083},
+    url         = {https://doi.org/10.5281/zenodo.19683083},
+}</pre>
+{% endraw %}
+</div>
 
 I am also developing [iTopCPToolkit](https://itopcptoolkit.web.cern.ch/), a web application that provides automation and AI-assisted analysis development tools to reduce time spent on routine coding and let physicists focus on physics. Because TopCPToolkit reads PHYSLITE directly, it is also well positioned to support analyses of [ATLAS Open Data](https://opendata.cern.ch/search?experiment=ATLAS), broadening access to LHC physics beyond the collaboration.
+
+{{ research_papers('software') }}

@@ -3,43 +3,12 @@ title: Publications
 description: Selected publications with links and BibTeX export
 hide:
   - navigation
+  - toc
 ---
 
-Full list on [INSPIRE-HEP](https://inspirehep.net/authors/1495662) and [ORCID](https://orcid.org/0000-0002-1622-6640).
+Selected papers, notes and software. Full list on [INSPIRE-HEP](https://inspirehep.net/authors/1495662) and [ORCID](https://orcid.org/0000-0002-1622-6640).
 
-## Highlights
-
-{{ publications_featured() }}
-
-## Top quark physics
-
-{{ publications_of_type('top') }}
-
-## Quantum information
-
-{{ publications_of_type('quantum') }}
-
-## Searches for New Physics
-
-{{ publications_of_type('search') }}
-
-## Machine learning
-
-{{ publications_of_type('ml') }}
-
-## Conference proceedings
-
-{{ publications_of_type('proceedings') }}
-
-## Software and algorithms
-
-{{ publications_of_type('software') }}
-
-## Thesis
-
-{{ publications_of_type('thesis') }}
-
----
+{{ publications_page() }}
 
 <div class="bibtex-modal" id="bibtex-modal" onclick="if(event.target===this)closeBibtex()">
 <div class="bibtex-content">
