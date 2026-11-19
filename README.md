@@ -53,10 +53,11 @@ Edit `data/publications.yml` — add at the top:
   date: 2026-03
   arxiv: "2603.12345"
   doi: "10.1007/JHEP03(2026)001"
-  featured: true  # shows in Featured section
+  featured: true  # star in the list, ringed dot in the timeline, front page
+  type: [top, quantum]  # topic tags and filters, see PUB_TYPES in main.py
 ```
 
-Optional fields: `hepdata`, `atlas_url`, `briefing`, `courier`, `type: thesis`.
+Optional fields: `hepdata`, `atlas_url`, `briefing`, `courier`, `rivet`, `git`, `inspirehep`.
 
 BibTeX export buttons are generated automatically from the `arxiv` field via the INSPIRE-HEP API.
 
@@ -68,13 +69,14 @@ Edit `data/talks.yml` — add at the top:
 - title: "My new talk"
   date: 2026-04-15
   venue: "Top Workshop"
+  type: workshop  # seminar | conference | workshop | atlas
   location: "CERN"
   indico: "https://indico.cern.ch/event/..."
   slides_url: "https://talks.baptisteravina.com/..."
   recording_url: "https://cds.cern.ch/record/..."
 ```
 
-Only `title`, `date`, and `venue` are required. Links render as pill buttons on the talk card when present.
+Only `title`, `date`, and `venue` are required. `type` sets the coloured tag and the filter chip. Links render as small buttons on the talk row when present.
 
 ### New blog post
 
