@@ -26,7 +26,7 @@ I contributed to the [first observation of quantum entanglement in top quark pai
 
 **Community engagement.** These developments fed into a [community white paper](https://doi.org/10.1140/epjp/s13360-025-06752-9) submitted as input to the update of the European Strategy for Particle Physics, making the case for quantum information science as a core component of the future collider physics programme.
 
-The precision tools developed in this programme played a central role in the [observation of a cross-section enhancement consistent with toponium formation](https://arxiv.org/abs/2601.11780), an unexpected discovery at the LHC.
+I was the analysis contact of the first ATLAS search for toponium, coordinating the team of experts behind it. The search led to the [observation of a cross-section enhancement consistent with toponium formation](https://arxiv.org/abs/2601.11780), an unexpected discovery at the LHC, and the precision tools developed in this programme played a central role in it.
 
 {{ research_papers('quantum') }}
 
