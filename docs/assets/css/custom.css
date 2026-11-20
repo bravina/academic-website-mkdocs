@@ -1367,6 +1367,35 @@ a.pill[data-color="cyan"]:hover   { background: var(--cyan-800);   color: #fff; 
 }
 
 
+/* Teaching page (docs/teaching.md, drafted in drafts/teaching.md):
+   one row per course, years in a narrow left column */
+[dir] .md-typeset .teach-list ul {
+  list-style: none;
+  margin: 0.4rem 0 1rem;
+  padding: 0;
+}
+[dir] .md-typeset .teach-list li {
+  position: relative;
+  margin: 0;
+  padding: 0.35rem 0 0.35rem 6.2rem;
+  color: var(--text-muted);
+}
+.md-typeset .teach-list li strong { color: var(--md-default-fg-color); font-weight: 600; }
+.teach-yr {
+  position: absolute;
+  left: 0;
+  font-family: var(--md-code-font);
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  line-height: inherit;
+  top: calc(0.45rem - 2px);   /* puts the year on the course name's baseline */
+}
+@media (max-width: 650px) {
+  [dir] .md-typeset .teach-list li { padding-left: 0; }
+  .teach-yr { position: static; display: block; }
+}
+
+
 /* ============================================================
    10. MILESTONE BLOG CARDS  (site-wide)
    ============================================================ */

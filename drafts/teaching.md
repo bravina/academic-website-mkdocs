@@ -1,47 +1,61 @@
 ---
 title: Teaching
-description: Lecture courses, seminars, and student projects
+description: Courses, summer schools and student supervision
 hide:
   - navigation
+  - toc
 ---
 
+I have taught particle physics at BSc, MSc and PhD level since 2016, at the University of Sheffield, the University of Göttingen and TU Dresden.
 
-## Lecture course: Experimental particle physics
+## Courses
 
-!!! info "Winter semester · MSc level"
+### TU Dresden
 
-A lecture course covering the experimental techniques and key measurements at the Large Hadron Collider. Topics include:
+<div class="teach-list" markdown>
 
-- Accelerator physics and the LHC machine
-- Particle detection: tracking, calorimetry, muon systems
-- Trigger and data acquisition
-- Statistical methods for particle physics
-- Standard Model measurements at the LHC
-- Searches for physics beyond the Standard Model
+- <span class="teach-yr">2026</span> **Beta Spectrometry** laboratory experiment · MSc · course supervisor
 
-**Exercises** are provided weekly, combining pen-and-paper problems with hands-on Python analysis tasks using open LHC data.
+</div>
 
-*Materials and exercise sheets will be posted here at the start of the semester.*
+### University of Göttingen
 
----
+<div class="teach-list" markdown>
 
-## Advanced seminar: Top quark physics and quantum information
+- <span class="teach-yr">2022–2024</span> **Physics of the Top Quark** · MSc · course supervisor, including lectures
+- <span class="teach-yr">2022–2024</span> **Particle Physics Computing Labs** · MSc · course supervisor
+- <span class="teach-yr">2022–2024</span> **Introductory Topics in Particle Physics** · BSc · course supervisor
+- <span class="teach-yr">2023</span> **Introduction to Machine Learning** · MSc · invited lecturer
 
-!!! info "Summer semester · MSc level"
+</div>
 
-A reading seminar exploring the intersection of top quark physics and quantum information theory. Students present and discuss recent papers on:
+### University of Sheffield
 
-- Spin correlations and entanglement in $t\bar{t}$ production
-- Bell inequalities at colliders
-- Quantum state tomography with top quarks
-- Effective Field Theory interpretations of spin observables
-- Connections to quantum computing and quantum simulation
+<div class="teach-list" markdown>
 
-The seminar is suitable for students with a background in particle physics or quantum mechanics. Each participant gives one 45-minute presentation followed by group discussion.
+- <span class="teach-yr">2017–2019</span> **High Energy Particle Physics** · PhD · invited lecturer
+- <span class="teach-yr">2017–2019</span> **Advanced Particle Physics** · MSc · invited lecturer
+- <span class="teach-yr">2017–2019</span> **Dark Matter and the Universe** · BSc/MSc · invited lecturer
+- <span class="teach-yr">2016–2019</span> **Core Physics** and **Python Computing** · BSc · tutor
 
-*Schedule and paper list will be posted at the start of the semester.*
+</div>
 
----
+## Summer school
+
+<div class="teach-list" markdown>
+
+- <span class="teach-yr">2022–2024</span> **International Hadron Collider Physics Summer School (HASCO)**, Göttingen · organiser of three editions, each nine days long for 50–70 BSc, MSc and PhD students
+
+</div>
+
+## Student supervision
+
+Since 2019 I have supervised BSc, MSc and PhD projects, as well as CERN Summer Students. My current students and alumni, with their projects and where they went next, are on the [Team](team.md) page.
+
+<!-- ============================================================
+     Kept from the previous draft, to be revised in the next step
+     ("listing student projects on the teaching page").
+     ============================================================ -->
 
 ## BSc projects for interested students
 
