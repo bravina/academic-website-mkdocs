@@ -23,6 +23,14 @@
   indico: https://indico.cern.ch/event/1609241/contributions/7075451/
   slides_url: https://indico.cern.ch/event/1609241/contributions/7075451/attachments/3293001/5888623/EFT%20interpretations%20of%20ATLAS%20and%20CMS%20top%20measurements.pdf
 
+- title: "Combining top properties and cross section measurements at the threshold in Run 3"
+  date: 2026-05-06
+  venue: "ATLAS Top Workshop"
+  type: atlas
+  location: "CERN"
+  indico: https://indico.cern.ch/event/1632823/contributions/6936284/
+  slides_url: https://indico.cern.ch/event/1632823/contributions/6936284/attachments/3269647/5840548/ATLAS%20Top%20Workshop%20XsecProperties.pdf
+
 - title: "Quantum tops at the LHC"
   date: 2026-03-01
   venue: "AEC seminar"
