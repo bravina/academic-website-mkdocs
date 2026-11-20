@@ -22,11 +22,27 @@ I contributed to the [first observation of quantum entanglement in top quark pai
 
 **Hierarchy of quantum correlations.** In a [recent paper](https://arxiv.org/abs/2602.15115), we established the full hierarchy of quantum correlations in top quark pairs, from separable to Bell-correlated states, providing the most complete experimental characterisation of a two-qubit state at collider energies to date.
 
+<div class="plot-pair" markdown>
+<figure class="plot" markdown="span">
+  [![ATLAS measurement of the entanglement marker D in three ranges of the top-quark-pair invariant mass, compared with two simulations](assets/figures/atlas_nature_entanglement.png){ loading=lazy }](assets/figures/atlas_nature_entanglement.png)
+  <figcaption>The entanglement marker $D$ measured by ATLAS in three ranges of the $t\bar{t}$ invariant mass. Values below the dashed limit indicate entanglement. Image: <a href="https://doi.org/10.1038/s41586-024-07824-z">ATLAS Collaboration, <em>Nature</em> (2024)</a>, CC BY 4.0.</figcaption>
+</figure>
+<figure class="plot" markdown="span">
+  [![Significance of four quantum-correlation observables in three regions of phase space, from an analysis of CMS data](assets/figures/quantum_hierarchy_cms.png){ loading=lazy }](assets/figures/quantum_hierarchy_cms.png)
+  <figcaption>Significance of the observables for each level of the hierarchy of quantum correlations, in three regions of phase space, from our analysis of CMS data. Dotted and dashed lines mark $3\sigma$ and $5\sigma$. Figure: <a href="https://arxiv.org/abs/2602.15115">Y. Afik, B. Ravina et al., <em>Phys. Rev. D</em> (2026)</a>.</figcaption>
+</figure>
+</div>
+
 **Higgs sector.** Quantum information studies in the $H \to WW^*$ and $H \to ZZ^*$ processes would benefit from Monte Carlo simulations of the polarised final states, especially beyond leading-order accuracy. I am exploring these prospects with MadGraph and Sherpa. There is much to be done with such simulations, including also fundamental tests of the Standard Model (such as the _Goldstone Equivalence Theorem_).
 
 **Community engagement.** These developments fed into a [community white paper](https://doi.org/10.1140/epjp/s13360-025-06752-9) submitted as input to the update of the European Strategy for Particle Physics, making the case for quantum information science as a core component of the future collider physics programme.
 
 I was the analysis contact of the first ATLAS search for toponium, coordinating the team of experts behind it. The search led to the [observation of a cross-section enhancement consistent with toponium formation](https://arxiv.org/abs/2601.11780), an unexpected discovery at the LHC, and the precision tools developed in this programme played a central role in it.
+
+<figure class="plot" markdown="span">
+  [![ATLAS dilepton invariant-mass distributions of top-quark pairs, in bins of two spin observables, with the toponium contribution near threshold shown in orange](assets/figures/atlas_toponium_discovery.png){ loading=lazy }](assets/figures/atlas_toponium_discovery.png)
+  <figcaption>The $t\bar{t}$ invariant mass in dilepton events, split into bins of the spin observables $c_\mathrm{hel}$ and $c_\mathrm{han}$. The toponium contribution (orange) accounts for the excess near threshold, with a fitted cross-section of $9.3^{+1.4}_{-1.3}$ pb. Image: <a href="https://arxiv.org/abs/2601.11780">ATLAS Collaboration</a>, CC BY 4.0.</figcaption>
+</figure>
 
 {{ research_papers('quantum') }}
 
@@ -35,6 +51,17 @@ I was the analysis contact of the first ATLAS search for toponium, coordinating 
 Rare processes such as $t\bar{t}Z$, $tZq$, $tWZ$, and $t\bar{t}\gamma$ directly probe the electroweak couplings of the top quark. I have led several ATLAS measurements of these processes, most recently the [legacy Run 2 $t\bar{t}Z$ analysis](https://doi.org/10.1007/JHEP07(2024)163), which includes the first measurement of spin correlations in $t\bar{t}Z$ and a comprehensive SMEFT interpretation of differential cross sections.
 
 I also performed the first joint unfolding and EFT interpretation of two distinct top+X processes simultaneously, $t\bar{t}Z$ and $t\bar{t}\gamma$, in the [combined $t\bar{t}\gamma$ measurement](https://doi.org/10.1007/JHEP10(2024)191), demonstrating a coherent treatment of systematics and correlations across final states and yielding competitive limits on a large set of dimension-6 SMEFT operators.
+
+<div class="plot-pair" markdown>
+<figure class="plot" markdown="span">
+  [![Differential ttZ cross-section as a function of the Z-boson transverse momentum, unfolded to particle level, compared with three predictions](assets/figures/atlas_ttz_ptz_unfolded.png){ loading=lazy }](assets/figures/atlas_ttz_ptz_unfolded.png)
+  <figcaption>The $t\bar{t}Z$ cross-section as a function of the $Z$-boson transverse momentum, unfolded to particle level in three- and four-lepton events. Image: <a href="https://doi.org/10.1007/JHEP07(2024)163">ATLAS Collaboration, <em>JHEP</em> (2024)</a>, CC BY 4.0.</figcaption>
+</figure>
+<figure class="plot" markdown="span">
+  [![Constraints on the real and imaginary parts of the SMEFT coefficients C_tZ and C_tgamma from the combined ttZ and ttgamma interpretation](assets/figures/atlas_ttz_tty_eft_limits.png){ loading=lazy }](assets/figures/atlas_ttz_tty_eft_limits.png)
+  <figcaption>Constraints on the SMEFT coefficients $C_{tZ}$ and $C_{t\gamma}$ from the joint $t\bar{t}Z$ and $t\bar{t}\gamma$ interpretation, fitted one at a time (blue) or together (red). Image: <a href="https://doi.org/10.1007/JHEP10(2024)191">ATLAS Collaboration, <em>JHEP</em> (2024)</a>, CC BY 4.0.</figcaption>
+</figure>
+</div>
 
 Looking ahead, I contributed to the [HL-LHC physics projections](https://arxiv.org/abs/2504.00672) for the top quark sector on behalf of ATLAS and CMS, and to a [dedicated sensitivity study](https://cds.cern.ch/record/2927962) for $t\bar{t}\gamma$ and $t\bar{t}Z$ at the High-Luminosity LHC. I also prepared the [roadmap for future ATLAS+CMS combinations](https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2023-030/) of top+X results in the EFT framework. These efforts will define the legacy strategy for the HL-LHC and inform the precision top programme at future colliders.
 
