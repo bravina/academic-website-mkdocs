@@ -380,14 +380,8 @@ def define_env(env):
         "cyan":    ("--cyan-50",   "--cyan-800",    "--cyan-800"),
     }
 
-    # Maps blog category slugs to pill colours.
-    category_color_map = {
-        "atlas":                  "teal",
-        "top-quark-physics":      "amber",
-        "quantum-information":    "blue",
-        "machine-learning":       "purple",
-        "effective-field-theory": "pink",
-    }
+    # Blog category slug -> pill colour, defined once in mkdocs.yml (extra.blog_category_colors)
+    category_color_map = (env.conf.get("extra") or {}).get("blog_category_colors") or {}
 
     @env.macro
     def landing_hero():
@@ -603,7 +597,8 @@ def define_env(env):
 
         # Check if blog plugin is enabled
         plugins = env.conf.get("plugins", {})
-        if "blog" not in plugins or not plugins["blog"]:
+        # Material registers the plugin as "material/blog"
+        if not any(name.split("/")[-1] == "blog" for name in plugins):
             return ""  # Return empty string if blog is disabled
 
         def _cat_slug(name):

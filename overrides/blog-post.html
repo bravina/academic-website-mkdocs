@@ -1,16 +1,10 @@
 {#-
   Override of blog-post.html
   Adds data-color to category links in the post sidebar so .pill[data-color] CSS applies.
-  Keep category_color_map in sync with main.py and partials/post.html.
+  Colours come from extra.blog_category_colors in mkdocs.yml.
 -#}
 
-{% set category_color_map = {
-  "atlas":                  "teal",
-  "top-quark-physics":      "amber",
-  "quantum-information":    "blue",
-  "machine-learning":       "purple",
-  "effective-field-theory": "pink"
-} %}
+{% set category_color_map = config.extra.blog_category_colors or {} %}
 
 {% extends "main.html" %}
 {% import "partials/nav-item.html" as item with context %}
