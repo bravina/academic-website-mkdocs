@@ -59,6 +59,7 @@ alumni:
     project: "Event classification for rare $t\\bar{t}Z$ decays"
     location: "CERN"
     year: "2025"
+    next_position: "Biomedical engineer"
 
   - name: "Alejandro Pérez García"
     role_type: "MSc"
@@ -132,6 +133,7 @@ alumni:
     project: "$t\\bar{t}Z$ and $tZq$"
     location: "Göttingen"
     year: "2024"
+    next_position: "Software engineer"
 
   - name: "Ireas Tom Raschke"
     entries:
