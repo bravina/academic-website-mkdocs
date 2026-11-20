@@ -35,8 +35,6 @@ theme:
     - navigation.top
     - content.code.copy
     - content.code.annotate
-    - search.suggest
-    - search.highlight
     - toc.follow
   icon:
     logo: material/atom-variant
@@ -47,6 +45,16 @@ extra_css:
   - assets/css/custom.css
 
 extra:
+  generator: false   # hides "Made with Material for MkDocs" in the footer
+  # Pill colour of each blog category (category slug: colour name from the
+  # .pill[data-color] rules in custom.css). Read by main.py (front-page blog
+  # preview) and by the blog templates in overrides/. Unknown categories: teal.
+  blog_category_colors:
+    atlas: teal
+    top-quark-physics: amber
+    quantum-information: blue
+    machine-learning: purple
+    effective-field-theory: pink
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/bravina
@@ -90,7 +98,7 @@ extra_javascript:
   - assets/js/pages.js
 
 plugins:
-  - search
+  # search: removed to hide the search bar in the header
   # - privacy <currently breaks build because of missing files>
   - minify:
       minify_html: true
