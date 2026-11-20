@@ -153,10 +153,22 @@
   --md-accent-fg-color:  #5dcaa5;
 }
 
-/* Strip default inner padding on the homepage (hp- layout owns it) */
+.md-content__inner { padding-bottom: 3rem !important; }
+
+/* Inner pages: one centred column of comfortable reading width, keeping
+   0.8rem gutters on phones. The homepage (<div class="hp"> in index.md)
+   lays itself out, so it keeps the full width. */
 .md-content__inner {
-  max-width: none !important;
-  padding-bottom: 3rem !important;
+  max-width: 42rem;
+  width: calc(100% - 1.6rem);
+  margin-left: auto;
+  margin-right: auto;
+}
+.md-content__inner:has(> .hp) {
+  max-width: none;
+  width: auto;
+  margin-left: 0.8rem;
+  margin-right: 0.8rem;
 }
 
 /* Logo + site-name link clickable */
@@ -1198,6 +1210,40 @@ a.pill[data-color="cyan"]:hover   { background: var(--cyan-800);   color: #fff; 
   text-decoration: none;
 }
 .md-typeset a.to-pubs:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* Figures on the research page: <figure class="plot"> in research.md.
+   White backing because plots are often transparent PNGs with black axes,
+   which would vanish in dark mode. The image links to the full-size file. */
+.md-typeset figure.plot { margin: 1.4rem 0 1.6rem; max-width: 100%; }
+.md-typeset figure.plot > br { display: none; }   /* Markdown adds one between image and caption */
+/* Two plots side by side (<div class="plot-pair">); stacked on phones */
+.md-typeset .plot-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  align-items: start;
+  margin: 1.4rem 0 1.6rem;
+}
+.md-typeset .plot-pair figure.plot { margin: 0; }
+@media (max-width: 650px) {
+  .md-typeset .plot-pair { grid-template-columns: 1fr; }
+}
+.md-typeset figure.plot img {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem;
+  width: 100%;
+  height: auto;
+}
+.md-typeset figure.plot figcaption {
+  max-width: none;
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  font-style: normal;
+  line-height: 1.5;
+  color: var(--text-muted);
+  text-align: left;
+}
 .md-typeset .callout {
   border: 1px solid var(--border);
   border-left: 3px solid var(--topic-cyan);
