@@ -21,6 +21,7 @@ def define_env(env):
     profile = _load("profile.yml")
     research = _load("research.yml")
     career = _load("career.yml")
+    topcp = _load("topcptoolkit.yml")
 
     # ==================================================================
     # PUBLICATION HELPERS
@@ -555,6 +556,142 @@ def define_env(env):
             return ""
         return (f'<p class="sec-foot"><a class="to-pubs" href="../publications/?topic={t}">'
                 f'Papers on this topic ({n}) →</a></p>')
+
+    # ------------------------------------------------------------------
+    # Research page, TopCPToolkit section: data/topcptoolkit.yml.
+    # Interactions (group buttons, release tooltips) in assets/js/pages.js.
+    # ------------------------------------------------------------------
+
+    def _yaml_html(text):
+        """Escape a YAML excerpt and colour its keys."""
+        import html as _html
+        out = []
+        for line in text.rstrip("\n").split("\n"):
+            line = _html.escape(line, quote=False)
+            line = re.sub(r"^(\s*-?\s*)([A-Za-z_'0-9]+)(:)", r'\1<span class="k">\2</span>\3', line)
+            out.append(line)
+        return "\n".join(out)
+
+    @env.macro
+    def topcp_pipeline():
+        """Input -> TopCPToolkit configuration blocks -> output, with one
+        detail panel per group (description, block names, YAML excerpt)."""
+        pl = topcp.get("pipeline", {})
+        groups = pl.get("groups", [])
+        default = pl.get("default") or (groups[0]["key"] if groups else "")
+        buttons, panels = [], []
+        for g in groups:
+            on = g["key"] == default
+            buttons.append(
+                f'<button type="button" class="tct-grp" data-g="{g["key"]}" aria-pressed="{str(on).lower()}" '
+                f'aria-controls="tct-d-{g["key"]}"><b>{g["name"]}</b><small>{g.get("summary", "")}</small></button>')
+            chips = "".join(f"<span>{b}</span>" for b in g.get("blocks", []))
+            panels.append(
+                f'<div class="tct-detail" id="tct-d-{g["key"]}"{"" if on else " hidden"}>'
+                f'<div><h4>{g.get("title", g["name"])}</h4><p>{g.get("text", "")}</p><div class="tct-chips">{chips}</div></div>'
+                f'<pre class="tct-yaml nomath" aria-label="Example configuration">{_yaml_html(g.get("yaml", ""))}</pre></div>')
+        arrow = '<div class="tct-arrow" aria-hidden="true"><i></i><i></i><i></i></div>'
+        return (
+            '<section class="tct-pipe" aria-label="TopCPToolkit pipeline">'
+            '<div class="tct-flow">'
+            f'<div class="tct-node tct-io"><b>PHYSLITE</b><span>{pl.get("input", "")}</span></div>'
+            f'{arrow}'
+            '<div class="tct-box"><div class="tct-box-h"><b>TopCPToolkit</b><span>configuration blocks in YAML</span></div>'
+            f'<div class="tct-groups" role="group" aria-label="Configuration blocks">{"".join(buttons)}</div></div>'
+            f'{arrow}'
+            f'<div class="tct-out"><div class="tct-node"><b>Ntuples</b><span>{pl.get("output", "")}</span></div>'
+            f'<div class="tct-next">{pl.get("next", "")}</div></div>'
+            '</div>'
+            f'{"".join(panels)}'
+            '</section>'
+        )
+
+    @env.macro
+    def topcp_usage():
+        """Adoption figures and analyses by leading ATLAS group."""
+        u = topcp.get("usage", {})
+        n_rel = len(topcp.get("releases", []))
+        first = min(str(r[1]) for r in topcp.get("releases", [["", "9999"]]))
+        from datetime import datetime as _dt
+        since = _dt.strptime(first, "%Y-%m-%d").strftime("%B %Y") if first != "9999" else ""
+        stats = list(u.get("stats", [])) + [{"value": str(n_rel), "label": f"releases since {since}"}]
+        tiles = "".join(f'<div class="tct-stat"><div class="n">{s["value"]}</div><div class="l">{s["label"]}</div></div>'
+                        for s in stats)
+        rows = u.get("groups", [])
+        top = max((r[2] for r in rows), default=1)
+        bars = "".join(
+            f'<div class="tct-bar" tabindex="0" title="{name} ({abbr}): {n} analyses">'
+            f'<span class="nm">{name}<abbr>{abbr if len(abbr) < 6 else ""}</abbr></span>'
+            f'<span class="tr"><span class="fill" style="width:{n / top * 88:.1f}%"></span><span class="v">{n}</span></span></div>'
+            for name, abbr, n in rows)
+        note = u.get("other_note", "")
+        cap = "Analyses using TopCPToolkit by leading ATLAS group" + (f"; {note}" if note else "") + "."
+        if u.get("source"):
+            cap += f' Source: {u["source"]}.'
+        return (f'<div class="tct-stats">{tiles}</div>'
+                f'<div class="tct-bars" aria-label="Analyses using TopCPToolkit, by leading ATLAS group">{bars}</div>'
+                f'<p class="tct-cap">{cap}</p>')
+
+    @env.macro
+    def topcp_releases():
+        """Release timeline (SVG): one dot per release, major versions ringed
+        and the milestones from topcptoolkit.yml labelled."""
+        from datetime import date as _date
+        rel = [(str(v), str(d)) for v, d in topcp.get("releases", [])]
+        if not rel:
+            return ""
+        miles = {str(k): v for k, v in (topcp.get("milestones") or {}).items()}
+        days = lambda d: _date.fromisoformat(d).toordinal()
+        lo = _date(int(min(d for _, d in rel)[:4]), 7, 1).toordinal()
+        hi = _date(int(max(d for _, d in rel)[:4]), 12, 31).toordinal()
+        W, X0, X1, Y = 800, 24, 780, 112
+        x = lambda d: X0 + (days(d) - lo) / (hi - lo) * (X1 - X0)
+        parts = [f'<line x1="{X0}" x2="{X1}" y1="{Y}" y2="{Y}" class="axis"/>']
+        for yr in range(int(min(d for _, d in rel)[:4]) + 1, int(max(d for _, d in rel)[:4]) + 1):
+            xx = x(f"{yr}-01-01")
+            parts.append(f'<line x1="{xx:.1f}" x2="{xx:.1f}" y1="{Y + 4}" y2="{Y + 10}" class="tick"/>'
+                         f'<text x="{xx:.1f}" y="{Y + 26}" text-anchor="middle" class="yr">{yr}</text>')
+        # milestone labels: the first two sit close together, so both go to the right at two heights
+        order = sorted(miles, key=lambda v: dict(rel).get(v, ""))
+        for i, v in enumerate(order):
+            d = dict(rel).get(v)
+            if not d:
+                continue
+            xx = x(d)
+            lift = 26 if i % 2 else 62
+            last = i == len(order) - 1 and xx > X0 + 0.5 * (X1 - X0)
+            anchor, dx = ("middle", 0) if last else ("start", -4)
+            ty = Y - 12 - lift
+            parts.append(f'<line x1="{xx:.1f}" x2="{xx:.1f}" y1="{ty + 5}" y2="{Y - 9}" class="lead"/>'
+                         f'<text x="{xx + dx:.1f}" y="{ty - 12}" text-anchor="{anchor}" class="ann">v{v[:-2] if v.endswith(".0") else v}</text>'
+                         f'<text x="{xx + dx:.1f}" y="{ty + 2}" text-anchor="{anchor}" class="ann2">{miles[v]}</text>')
+        last_x, stack = -99, 0
+        for v, d in sorted(rel, key=lambda r: r[1]):
+            _, minor, patch = (v.split(".") + ["0", "0"])[:3]
+            major = minor == "0" and patch == "0"
+            xx = x(d)
+            stack = stack + 1 if xx - last_x < 7 else 0
+            last_x = xx
+            yy = Y - stack * 9
+            label = _date.fromisoformat(d).strftime("%-d %b %Y")
+            note = miles.get(v, "")
+            cls = "dot major" if major else "dot patch" if patch != "0" else "dot"
+            r = 6.5 if major else 3.5 if patch != "0" else 4.5
+            parts.append(f'<circle cx="{xx:.1f}" cy="{yy}" r="9" class="hit" tabindex="0" '
+                         f'data-v="{v}" data-d="{label}" data-note="{note}" aria-label="v{v}, {label}"/>'
+                         f'<circle cx="{xx:.1f}" cy="{yy}" r="{r}" class="{cls}"/>')
+            if major:
+                parts.append(f'<circle cx="{xx:.1f}" cy="{yy}" r="9.5" class="ring"/>')
+        first, last = rel[-1], rel[0]
+        desc = f"{len(rel)} TopCPToolkit releases from v{first[0]} to v{last[0]}"
+        return (
+            '<div class="tct-rel-wrap"><div class="tct-rel">'
+            f'<svg viewBox="0 0 {W} 150" role="img" aria-label="{desc}">{"".join(parts)}</svg>'
+            '<div class="tct-tip" aria-hidden="true"></div></div></div>'
+            '<div class="tct-legend"><span><i class="m"></i>major version</span>'
+            '<span><i></i>minor release</span><span><i class="p"></i>patch</span></div>'
+            '<p class="tct-cap">From the <a href="https://topcptoolkit.docs.cern.ch/latest/changelog/">TopCPToolkit changelog</a>.</p>'
+        )
 
     @env.macro
     def landing_career(visible=5):

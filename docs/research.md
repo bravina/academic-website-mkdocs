@@ -79,6 +79,14 @@ Beyond anomaly detection, I am actively investigating novel neural network archi
 
 The physics results described on this page all rely on [TopCPToolkit](https://topcptoolkit.docs.cern.ch/), a modular analysis framework that I created and continue to develop. It provides a flexible, well-documented pipeline for producing analysis-ready ntuples and is now the most widely used analysis framework in the ATLAS Collaboration, supporting a wide range of measurements, searches, and calibration efforts in Run 3.
 
+{{ topcp_pipeline() }}
+
+{{ topcp_usage() }}
+
+<p class="tct-h">Releases</p>
+
+{{ topcp_releases() }}
+
 <div class="callout" markdown>
 <h3>Get started with TopCPToolkit</h3>
 

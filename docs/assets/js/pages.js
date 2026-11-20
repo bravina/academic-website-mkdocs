@@ -5,6 +5,7 @@
  *    data-param) so filtered views can be linked, e.g. from the research page.
  *  - .pubs-page: dot timeline (hover/focus previews a paper, click jumps to it).
  *  - .copy-bib: copies the sibling .bib-src text (research page).
+ *  - .tct-pipe / .tct-rel: TopCPToolkit pipeline groups and release tooltips.
  * Runs on every page load, including Material's instant navigation.
  */
 (function () {
@@ -123,12 +124,48 @@
     });
   }
 
+  // TopCPToolkit pipeline (research page): one detail panel per block group
+  function setupPipeline(root) {
+    var buttons = root.querySelectorAll(".tct-grp");
+    var canHover = window.matchMedia("(hover: hover)");
+    function pick(key) {
+      buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.g === key)); });
+      root.querySelectorAll(".tct-detail").forEach(function (d) { d.hidden = d.id !== "tct-d-" + key; });
+    }
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () { pick(b.dataset.g); });
+      b.addEventListener("mouseenter", function () { if (canHover.matches) pick(b.dataset.g); });
+    });
+  }
+
+  // TopCPToolkit release timeline: tooltip on hover or keyboard focus
+  function setupReleases(box) {
+    var svg = box.querySelector("svg"), tip = box.querySelector(".tct-tip");
+    var vb = svg.viewBox.baseVal;
+    function show(e) {
+      var c = e.target, scale = svg.getBoundingClientRect().width / vb.width;
+      tip.innerHTML = "<b>v" + c.dataset.v + "</b> · " + c.dataset.d + (c.dataset.note ? "<br>" + c.dataset.note : "");
+      tip.style.left = (c.cx.baseVal.value * scale) + "px";
+      tip.style.top = (c.cy.baseVal.value * scale) + "px";
+      tip.style.opacity = 1;
+    }
+    function hide() { tip.style.opacity = 0; }
+    box.querySelectorAll(".hit").forEach(function (c) {
+      c.addEventListener("mouseenter", show);
+      c.addEventListener("focus", show);
+      c.addEventListener("mouseleave", hide);
+      c.addEventListener("blur", hide);
+    });
+  }
+
   function init() {
     document.querySelectorAll(".filterable").forEach(function (root) {
       var apply = setupFilter(root);
       if (root.classList.contains("pubs-page")) setupTimeline(root, apply);
     });
     document.querySelectorAll(".copy-bib").forEach(setupCopyBib);
+    document.querySelectorAll(".tct-pipe").forEach(setupPipeline);
+    document.querySelectorAll(".tct-rel").forEach(setupReleases);
   }
 
   if (typeof document$ !== "undefined") document$.subscribe(init);

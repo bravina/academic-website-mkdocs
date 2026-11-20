@@ -29,6 +29,7 @@ DATA_PAGE_MAP = {
     "research.yml":     "research.md",
     "talks.yml":        "talks.md",
     "team.yml":         "team.md",
+    "topcptoolkit.yml": "research.md",
 }
 
 

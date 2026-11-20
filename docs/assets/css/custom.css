@@ -1310,6 +1310,169 @@ a.pill[data-color="cyan"]:hover   { background: var(--cyan-800);   color: #fff; 
   text-decoration: none;
 }
 .md-typeset a.to-pubs:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* --- TopCPToolkit section (macros topcp_* in main.py, data/topcptoolkit.yml,
+       interactions in pages.js) --- */
+/* Pipeline: input -> configuration blocks -> output */
+.tct-pipe {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  background: var(--surface-dim);
+  margin: 1.2rem 0 1.4rem;
+}
+.tct-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) 34px minmax(0, 2.2fr) 34px minmax(0, 0.95fr);
+  align-items: center;
+}
+.tct-node {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--md-default-bg-color);
+  padding: 0.6rem 0.7rem;
+  text-align: center;
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+.tct-node b { display: block; font-weight: 600; color: var(--md-default-fg-color); }
+.tct-node span { color: var(--text-muted); font-size: 0.68rem; }
+.tct-io { border-radius: 999px; }
+.tct-next { font-size: 0.64rem; color: var(--text-faint); text-align: center; margin-top: 0.35rem; }
+.tct-arrow { position: relative; height: 2px; background: var(--border); margin: 0 4px; overflow: hidden; }
+.tct-arrow::after {
+  content: ""; position: absolute; right: -1px; top: -4px;
+  border: 5px solid transparent; border-left: 6px solid var(--border); border-right: 0;
+}
+.tct-arrow i {
+  position: absolute; top: -2px; left: -8px; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent-mid); animation: tct-travel 1.8s linear infinite;
+}
+.tct-arrow i:nth-child(2) { animation-delay: 0.6s; }
+.tct-arrow i:nth-child(3) { animation-delay: 1.2s; }
+@keyframes tct-travel { to { left: 100%; } }
+.tct-box {
+  border: 1.5px solid var(--accent-mid);
+  border-radius: 12px;
+  background: var(--md-default-bg-color);
+  padding: 0.7rem;
+}
+.tct-box-h { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; margin: 0 0.2rem 0.55rem; }
+.tct-box-h b { font-family: var(--font-serif); font-size: 0.95rem; font-weight: 600; }
+.tct-box-h span { font-family: var(--md-code-font); font-size: 0.62rem; color: var(--text-faint); }
+.tct-groups { display: grid; gap: 5px; }
+.md-typeset .tct-grp {
+  font: inherit;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-dim);
+  color: var(--md-default-fg-color);
+  padding: 0.35rem 0.6rem;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 5.2rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.5rem;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+.tct-grp b { font-size: 0.74rem; font-weight: 600; }
+.tct-grp small { font-size: 0.66rem; line-height: 1.35; color: var(--text-muted); }
+.md-typeset .tct-grp:hover { border-color: var(--accent-mid); }
+.md-typeset .tct-grp[aria-pressed="true"] { border-color: var(--accent-mid); background: var(--accent-light); }
+[data-md-color-scheme="slate"] .md-typeset .tct-grp[aria-pressed="true"] { background: #173a33; }
+.tct-detail { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 1rem; margin-top: 0.9rem; align-items: start; }
+.tct-detail[hidden] { display: none; }   /* display:grid above would otherwise override [hidden] */
+.md-typeset .tct-detail h4 { font-family: var(--font-serif); font-size: 1rem; margin: 0 0 0.3rem; }
+.md-typeset .tct-detail p { font-size: 0.78rem; color: var(--text-muted); margin: 0 0 0.5rem; }
+.tct-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.tct-chips span {
+  font-size: 0.62rem; border: 1px solid var(--border); border-radius: 4px;
+  padding: 0 0.35rem; color: var(--text-muted); background: var(--md-default-bg-color);
+}
+.md-typeset pre.tct-yaml {
+  margin: 0;
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  overflow: auto;
+  max-height: 16rem;
+  font-family: var(--md-code-font);
+  font-size: 0.6rem;
+  line-height: 1.55;
+  color: var(--text-dark);
+}
+.tct-yaml .k { color: var(--accent); }
+
+/* Adoption figures and groups bar chart */
+.tct-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.tct-stat { padding: 0.75rem 0.9rem; min-width: 0; }
+.tct-stat + .tct-stat { border-left: 1px solid var(--border); }
+.tct-stat .n { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.tct-stat .l { font-size: 0.7rem; color: var(--text-muted); line-height: 1.35; margin-top: 0.3rem; }
+.tct-bars { margin-top: 1rem; display: grid; gap: 4px; }
+.tct-bar { display: grid; grid-template-columns: 12.5rem minmax(0, 1fr); align-items: center; gap: 0.6rem; font-size: 0.72rem; padding: 2px 0; border-radius: 4px; }
+.tct-bar .nm { color: var(--text-muted); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.md-typeset .tct-bar .nm abbr { text-decoration: none; border-bottom: 0; cursor: inherit; font-family: var(--md-code-font); font-size: 0.62rem; color: var(--text-faint); margin-left: 0.3rem; }
+.tct-bar .tr { display: flex; align-items: center; gap: 0.4rem; }
+.tct-bar .fill { height: 12px; background: var(--accent-mid); border-radius: 0 4px 4px 0; min-width: 2px; transition: opacity 0.2s; }
+.tct-bar .v { font-variant-numeric: tabular-nums; font-weight: 600; font-size: 0.7rem; }
+.tct-bars:hover .tct-bar .fill { opacity: 0.45; }
+.tct-bars .tct-bar:hover .fill, .tct-bars .tct-bar:focus-visible .fill { opacity: 1; }
+.md-typeset .tct-cap { font-size: 0.7rem; color: var(--text-muted); margin: 0.6rem 0 0; line-height: 1.5; }
+.md-typeset .tct-h {
+  font-family: var(--md-code-font); font-size: 0.64rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-faint); margin: 1.8rem 0 0.4rem;
+}
+
+/* Release timeline (SVG) */
+.tct-rel-wrap { overflow-x: auto; }
+.tct-rel { position: relative; min-width: 620px; }
+.tct-rel svg { width: 100%; height: auto; display: block; overflow: visible; }
+.tct-rel .axis, .tct-rel .tick { stroke: var(--border); stroke-width: 1; }
+.tct-rel .yr { font-family: var(--md-code-font); font-size: 11px; fill: var(--text-faint); }
+.tct-rel .dot { fill: var(--accent-mid); stroke: var(--md-default-bg-color); stroke-width: 2; }
+.tct-rel .dot.patch { fill: var(--md-default-bg-color); stroke: var(--accent-mid); stroke-width: 1.5; }
+.tct-rel .ring { fill: none; stroke: var(--accent-mid); stroke-width: 1.5; }
+.tct-rel .dot, .tct-rel .ring { pointer-events: none; }   /* the larger invisible .hit circle takes the pointer */
+.tct-rel .hit { fill: transparent; cursor: pointer; }
+.tct-rel .hit:focus { outline: none; }
+.tct-rel .hit:hover + .dot, .tct-rel .hit:focus-visible + .dot { stroke: var(--md-default-fg-color); }
+.tct-rel .lead { stroke: var(--text-faint); stroke-width: 1; stroke-dasharray: 2 2; }
+.tct-rel .ann { font-size: 13px; font-weight: 600; fill: var(--md-default-fg-color); }
+.tct-rel .ann2 { font-size: 12px; fill: var(--text-muted); }
+.tct-tip {
+  position: absolute; pointer-events: none; z-index: 2;
+  background: var(--md-default-fg-color); color: var(--md-default-bg-color);
+  font-size: 0.64rem; line-height: 1.35; padding: 0.3rem 0.5rem; border-radius: 6px;
+  white-space: nowrap; transform: translate(-50%, -125%); opacity: 0; transition: opacity 0.12s;
+}
+.tct-tip b { font-family: var(--md-code-font); font-weight: 500; }
+.tct-legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-size: 0.66rem; color: var(--text-muted); margin-top: 0.3rem; }
+.tct-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--accent-mid); margin-right: 0.35rem; vertical-align: -1px; }
+.tct-legend i.p { background: var(--md-default-bg-color); border: 1.5px solid var(--accent-mid); }
+.tct-legend i.m { width: 13px; height: 13px; vertical-align: -3px; box-shadow: 0 0 0 2px var(--md-default-bg-color), 0 0 0 3.5px var(--accent-mid); }
+
+@media (max-width: 700px) {
+  .tct-flow { grid-template-columns: minmax(0, 1fr); }
+  .tct-arrow { width: 2px; height: 22px; margin: 2px auto; }
+  .tct-arrow::after { right: -4px; top: auto; bottom: -1px; border: 5px solid transparent; border-top: 6px solid var(--border); border-bottom: 0; }
+  .tct-arrow i { left: -2px; top: -8px; animation-name: tct-travel-down; }
+  .md-typeset .tct-grp { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .tct-detail { grid-template-columns: minmax(0, 1fr); }
+  .tct-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tct-stat:nth-child(3) { border-left: 0; }
+  .tct-stat:nth-child(n+3) { border-top: 1px solid var(--border); }
+  .tct-bar { grid-template-columns: 7.8rem minmax(0, 1fr); }
+  .tct-bar .nm { white-space: normal; line-height: 1.25; }
+  .md-typeset .tct-bar .nm abbr { display: none; }
+}
+@keyframes tct-travel-down { to { top: 100%; } }
+@media (prefers-reduced-motion: reduce) {
+  .tct-arrow i { display: none; }
+  .md-typeset .tct-grp, .tct-bar .fill { transition: none; }
+}
+
 /* Figures on the research page: <figure class="plot"> in research.md.
    White backing because plots are often transparent PNGs with black axes,
    which would vanish in dark mode. The image links to the full-size file. */

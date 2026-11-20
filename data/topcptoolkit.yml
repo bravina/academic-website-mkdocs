@@ -1,0 +1,228 @@
+# ============================================================
+# TopCPToolkit section of the research page
+# (macros topcp_pipeline, topcp_usage and topcp_releases in main.py)
+# ============================================================
+
+# ---- Pipeline diagram: input -> configuration blocks -> output ----
+# Each group is a button; choosing it shows `text`, the `blocks` names and
+# the `yaml` excerpt (real configuration, trimmed; energies in MeV).
+pipeline:
+  input: "or DAOD_PHYS, including ATLAS Open Data"   # shown under "PHYSLITE"
+  output: "analysis trees, histograms, metadata"
+  next: "e.g. FastFrames, TRExFitter"
+  default: objects            # group shown first
+  groups:
+    - key: core
+      name: Core
+      summary: "systematics, pileup, data quality, trigger"
+      title: "Core services"
+      text: "What every analysis needs before looking at objects: the list of systematic variations, pileup reweighting, event cleaning with the Good Run Lists, and the trigger chains for each data-taking year."
+      blocks: [Common Services, Pileup Reweighting, Event Cleaning, Trigger, Trigger Matching]
+      yaml: |
+        CommonServices:
+          - runSystematics: false
+            systematicsHistogram: listOfSystematics
+        PileupReweighting: {}
+        EventCleaning:
+          - runEventCleaning: true
+            userGRLFiles:
+              - GoodRunsLists/data24_13p6TeV/20241118/physics_25ns_data24.xml
+        Trigger:
+          - triggerChainsPerYear:
+              '2023':
+                - HLT_e26_lhtight_ivarloose_L1eEM26M || HLT_e60_lhmedium_L1eEM26M
+                - HLT_mu24_ivarmedium_L1MU14FCH || HLT_mu50_L1MU14FCH
+
+    - key: objects
+      name: Objects
+      summary: "jets, leptons, photons, taus, MET"
+      title: "Physics objects"
+      text: "Calibrated jets, electrons, muons, photons, taus and missing transverse momentum, with the recommended identification and isolation working points, flavour tagging and kinematic cuts."
+      blocks: [Jets, Electrons, Muons, Photons, Tau Jets, Missing ET, Jet Reclustering]
+      yaml: |
+        Jets:
+          - containerName: AnaJets
+            jetCollection: AntiKt4EMPFlowJets
+            FlavourTagging:
+              - btagWP: Continuous2D
+            PtEtaSelection:
+              - minPt: 20000
+                maxEta: 2.5
+        Electrons:
+          - containerName: AnaElectrons
+            WorkingPoint:
+              - selectionName: tight
+                identificationWP: TightLH
+                isolationWP: Tight_VarRad
+        MissingET:
+          - containerName: AnaMET
+            jets: AnaJets
+            electrons: AnaElectrons.tight
+
+    - key: truth
+      name: Truth
+      summary: "particle level, parton history"
+      title: "Truth information"
+      text: "Particle-level objects and parton histories from the simulation, for unfolded measurements and modelling studies, built with the same blocks as the detector-level objects."
+      blocks: [PL Electrons, PL Muons, PL Neutrinos, PL Jets, PL Overlap Removal, Parton History]
+      yaml: |
+        PL_Electrons:
+          - notFromTau: false
+            PtEtaSelection:
+              - useDressedProperties: true
+                minPt: 25000
+                maxEta: 2.5
+        PL_Jets:
+          - PtEtaSelection:
+              - minPt: 25000
+                maxEta: 2.5
+        PL_OverlapRemoval:
+          - electrons: TruthElectrons
+            muons: TruthMuons
+            jets: AntiKt4TruthDressedWZJets
+
+    - key: selection
+      name: Selection
+      summary: "overlap removal, cuts, cut flows"
+      title: "Event selection"
+      text: "Overlap removal between objects, then event selections written as short, readable cuts, with cut flows recorded along the way."
+      blocks: [Overlap Removal, Object Cut Flow, Event Selection, Event Cut Flow]
+      yaml: |
+        OverlapRemoval:
+          - inputLabel: preselectOR
+            jets: AnaJets.baselineJvt
+            electrons: AnaElectrons.tight
+            muons: AnaMuons.tight
+        EventSelection:
+          - selectionName: OSee
+            selectionCuts: |
+              EL_N 28000 >= 1
+              EL_N 18000 == 2
+              MU_N 18000 == 0
+              OS
+              MLL > 81000
+              MLL < 101000
+
+    - key: analysis
+      name: Analysis
+      summary: "event reconstruction, custom algorithms"
+      title: "Analysis algorithms"
+      text: "Event reconstruction and custom analysis code: neural networks such as SPA-Net to assign jets to the top quarks in lepton+jets events, kinematic methods such as the ellipse method for the two neutrinos in dilepton events, spin observables, or your own algorithms."
+      blocks: [SPA-Net, Ellipse method, KLFitter, NuFlows, HyPER, Neutrino weighting, Spin density matrix, Custom blocks]
+      yaml: |
+        SpaNet:
+          - topology: TtbarLjetsTEANuOpt
+            jets: AnaJets.baselineJvt
+            electrons: AnaElectrons.tight
+            muons: AnaMuons.tight
+            met: AnaMET
+        EllipseMethod:
+          - jets: AnaJets.baselineJvt
+            electrons: AnaElectrons.tight
+            muons: AnaMuons.tight
+            met: AnaMET
+            TopConstraintStart: 171.0
+            TopConstraintEnd: 174.0
+
+    - key: output
+      name: Output
+      summary: "scale factors, thinning, trees"
+      title: "Output"
+      text: "Lepton scale factors, thinning of the object collections, and the output trees: which collections and variables to write, and under which names."
+      blocks: [Lepton SF, Per Event SF, Thinning, Output]
+      yaml: |
+        LeptonSF:
+          - muons: AnaMuons.tight
+            electrons: AnaElectrons.tight
+        Thinning:
+          - containerName: AnaJets
+            outputName: OutJets
+            selectionName: baselineJvt
+        Output:
+          - treeName: reco
+            containers:
+              el_: OutElectrons
+              mu_: OutMuons
+              jet_: OutJets
+              met_: AnaMET
+
+# ---- Adoption figures (ATLAS analysis survey) ----
+usage:
+  source: "ATLAS analysis survey, Nov. 2026"
+  stats:
+    - value: "79"
+      label: "ATLAS analyses"
+    - value: "47%"
+      label: "single most-used framework"
+    - value: "11"
+      label: "ATLAS physics and performance groups"
+  # Analyses using TopCPToolkit, by leading ATLAS group (bar chart)
+  groups:
+    - [Exotics, EXOT, 25]
+    - [Top quark, TOPQ, 15]
+    - [Higgs & multi-boson, HMBS, 12]
+    - [Standard Model, STDM, 10]
+    - [Higgs, HIGP, 6]
+    - [Heavy ions, HION, 5]
+    - [Five other groups, "JETM, BPHY, EGAM, FTAG, MUON", 6]
+  other_note: "the five other groups are JETM, BPHY, EGAM, FTAG and MUON, with one or two analyses each"
+
+# ---- Releases (from the changelog), newest first ----
+# Add new releases at the top; the count in the adoption figures follows.
+milestones:
+  "1.0.0": "First release"
+  "2.0.0": "Text-based (YAML) configuration"
+  "3.0.0": "Code made public"
+releases:
+  - [3.10.0, 2026-11-09]
+  - [3.9.0, 2026-10-28]
+  - [3.8.1, 2026-10-15]
+  - [3.8.0, 2026-10-03]
+  - [3.7.0, 2026-09-08]
+  - [3.6.0, 2026-08-17]
+  - [3.5.0, 2026-07-26]
+  - [3.4.0, 2026-07-03]
+  - [3.3.0, 2026-06-11]
+  - [3.2.0, 2026-05-15]
+  - [3.1.0, 2026-04-30]
+  - [3.0.0, 2026-04-24]
+  - [2.24.0, 2026-02-28]
+  - [2.23.0, 2025-11-17]
+  - [2.22.0, 2025-09-22]
+  - [2.21.0, 2025-07-23]
+  - [2.20.0, 2025-05-22]
+  - [2.19.0, 2025-05-13]
+  - [2.18.0, 2025-04-28]
+  - [2.17.1, 2025-03-20]
+  - [2.17.0, 2025-03-17]
+  - [2.16.1, 2025-02-13]
+  - [2.16.0, 2025-01-31]
+  - [2.15.1, 2024-12-06]
+  - [2.15.0, 2024-11-27]
+  - [2.14.0, 2024-10-11]
+  - [2.13.0, 2024-09-10]
+  - [2.12.0, 2024-08-20]
+  - [2.11.0, 2024-07-19]
+  - [2.10.0, 2024-06-19]
+  - [2.9.2, 2024-05-24]
+  - [2.9.1, 2024-05-15]
+  - [2.9.0, 2024-05-10]
+  - [2.8.0, 2024-04-22]
+  - [2.7.0, 2024-04-02]
+  - [2.6.2, 2024-03-29]
+  - [2.6.1, 2024-02-16]
+  - [2.6.0, 2024-02-14]
+  - [2.5.0, 2024-01-19]
+  - [2.4.0, 2023-12-21]
+  - [2.3.0, 2023-12-01]
+  - [2.2.0, 2023-11-24]
+  - [2.1.0, 2023-11-17]
+  - [2.0.0, 2023-11-01]
+  - [1.7.0, 2023-10-20]
+  - [1.6.0, 2023-10-10]
+  - [1.5.0, 2023-09-26]
+  - [1.4.0, 2023-09-17]
+  - [1.3.0, 2023-08-28]
+  - [1.2.0, 2023-08-18]
+  - [1.1.0, 2023-08-17]
+  - [1.0.0, 2023-08-11]
