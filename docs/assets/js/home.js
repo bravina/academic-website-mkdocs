@@ -473,6 +473,76 @@
     this.timers.forEach(clearTimeout);
   };
 
+  /* ---------- Featured results spotlight ---------- */
+  // One result at a time; advances every SPOT_MS while visible on screen and
+  // not hovered or focused. Tabs switch directly (arrow keys move between
+  // them). No automatic rotation for visitors who prefer reduced motion.
+  var SPOT_MS = 8000;
+
+  function Spotlight(root) {
+    var self = this;
+    this.slides = root.querySelectorAll(".hp-spot-slide");
+    this.tabs = root.querySelectorAll(".hp-spot-tab");
+    this.cur = 0;
+    this.elapsed = 0;
+    this.abort = new AbortController();
+    this.raf = null;
+    this.io = null;
+    if (this.tabs.length < 2) return;
+    var sig = { signal: this.abort.signal };
+
+    this.tabs.forEach(function (t, k) {
+      t.addEventListener("click", function () { self.show(k, false); }, sig);
+      t.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight") { e.preventDefault(); self.show(self.cur + 1, true); }
+        if (e.key === "ArrowLeft") { e.preventDefault(); self.show(self.cur - 1, true); }
+      }, sig);
+    });
+
+    var hover = false, focusIn = false, onScreen = true;
+    root.addEventListener("mouseenter", function () { hover = true; }, sig);
+    root.addEventListener("mouseleave", function () { hover = false; }, sig);
+    root.addEventListener("focusin", function () { focusIn = true; }, sig);
+    root.addEventListener("focusout", function () {
+      setTimeout(function () { focusIn = root.contains(document.activeElement); }, 0);
+    }, sig);
+    if ("IntersectionObserver" in window) {
+      this.io = new IntersectionObserver(function (es) { onScreen = es[0].isIntersecting; }, { threshold: 0.3 });
+      this.io.observe(root);
+    }
+
+    var last = performance.now();
+    function tick(now) {
+      var dt = Math.min(now - last, 100);   // ignore long gaps (background tab)
+      last = now;
+      var auto = !reduceMotion.matches;
+      if (auto && !hover && !focusIn && onScreen && !document.hidden) {
+        self.elapsed += dt;
+        if (self.elapsed >= SPOT_MS) self.show(self.cur + 1, false);
+      }
+      self.tabs[self.cur].style.setProperty("--p", auto ? Math.min(self.elapsed / SPOT_MS, 1) : 1);
+      self.raf = requestAnimationFrame(tick);
+    }
+    this.raf = requestAnimationFrame(tick);
+  }
+  Spotlight.prototype.show = function (i, focus) {
+    var n = this.slides.length, cur = ((i % n) + n) % n;
+    this.cur = cur;
+    this.elapsed = 0;
+    this.slides.forEach(function (s, k) { s.classList.toggle("on", k === cur); });
+    this.tabs.forEach(function (t, k) {
+      t.setAttribute("aria-selected", String(k === cur));
+      t.tabIndex = k === cur ? 0 : -1;
+      t.style.setProperty("--p", 0);
+    });
+    if (focus) this.tabs[cur].focus();
+  };
+  Spotlight.prototype.destroy = function () {
+    if (this.raf) cancelAnimationFrame(this.raf);
+    if (this.io) this.io.disconnect();
+    this.abort.abort();
+  };
+
   var instances = [];
 
   function init() {
@@ -486,6 +556,9 @@
     });
     document.querySelectorAll(".hp-rg").forEach(function (grid) {
       instances.push(new Reveal(grid));
+    });
+    document.querySelectorAll(".hp-spot").forEach(function (el) {
+      instances.push(new Spotlight(el));
     });
     document.querySelectorAll(".hp-sub").forEach(function (el) {
       instances.push(new SubLine(el));

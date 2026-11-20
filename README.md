@@ -64,10 +64,20 @@ Add an entry to `data/publications.yml`:
   arxiv: "2603.12345"
   doi: "10.1007/JHEP03(2026)001"
   type: [top, quantum]   # topic tags and filters, see PUB_TYPES in main.py
-  featured: true         # star in the list, ringed dot in the timeline, homepage
+  featured: true         # star in the list, ringed dot in the timeline, homepage spotlight
 ```
 
 Optional links: `hepdata`, `atlas_url`, `briefing`, `courier`, `rivet`, `git`, and `inspirehep` (an INSPIRE record ID, used when there is no arXiv number). The BibTeX button fetches the entry from INSPIRE-HEP when clicked.
+
+Featured papers rotate in the homepage spotlight. `featured: 1`, `2`, ... sets their order (`featured: true` entries follow, newest first), and four optional fields control how each one appears there:
+
+```yaml
+  featured: 1
+  headline: "An excess at the $t\\bar{t}$ threshold"   # short plain-language title (default: title)
+  summary: "One sentence on why it matters."
+  figure: atlas_toponium_discovery.png              # file in docs/assets/figures/
+  short_title: "Toponium"                           # tab label (default: headline)
+```
 
 ### Talk
 

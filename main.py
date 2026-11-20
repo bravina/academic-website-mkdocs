@@ -431,28 +431,59 @@ def define_env(env):
 
     @env.macro
     def landing_featured():
-        """Render featured publications. Title adapts to count."""
+        """Homepage spotlight: one featured result at a time, with tabs.
+
+        Uses the optional headline / summary / figure / short_title fields of
+        featured entries in publications.yml (see the comment at its top);
+        rotation and tabs are driven by assets/js/home.js (Spotlight).
+        """
         featured = [p for p in pubs if p.get("featured")]
         if not featured:
             return ""
+        # Numbered entries first (1, 2, ...), then `featured: true` ones, newest first
         featured.sort(key=lambda p: str(p.get("date", "")), reverse=True)
+        featured.sort(key=lambda p: p["featured"] if type(p["featured"]) is int else float("inf"))
         title = "Featured result" if len(featured) == 1 else "Featured results"
 
-        items = []
-        for pub in featured:
-            date_str = str(pub.get("date", ""))
-            year = date_str[:4] if date_str else ""
-            venue = pub.get("venue", "")
-            links = _pub_links(pub)
-            items.append(f"""<div class="hp-feat">
-    <div class="hp-feat-lab">{venue} · {year}</div>
-    <h3>{pub["title"]}</h3>
-    <div class="hp-jnl">{pub.get("authors", "")}</div>
-    <div class="hp-lnks">{links}</div>
-  </div>""")
+        slides, tabs = [], []
+        for i, pub in enumerate(featured):
+            year = str(pub.get("date", ""))[:4]
+            headline = pub.get("headline") or pub["title"]
+            short = pub.get("short_title") or headline
+            if pub.get("arxiv"):
+                url = f'https://arxiv.org/abs/{pub["arxiv"]}'
+            elif pub.get("doi"):
+                url = f'https://doi.org/{pub["doi"]}'
+            else:
+                url = pub.get("atlas_url", "publications/")
+            summary = f'<p>{pub["summary"]}</p>' if pub.get("summary") else ""
+            fig = ""
+            if pub.get("figure"):
+                fig = (f'<div class="hp-spot-fig"><img src="assets/figures/{pub["figure"]}" '
+                       f'alt="Figure from: {pub["title"]}" loading="lazy"></div>')
+            on = i == 0
+            slides.append(f"""<article class="hp-spot-slide{' on' if on else ''}{'' if fig else ' no-fig'}" id="hp-spot-{i}" role="tabpanel" aria-labelledby="hp-spot-tab-{i}">
+{fig}<div class="hp-spot-story">
+<span class="hp-spot-lab">{pub.get("venue", "")} · {year}</span>
+<h3>{headline}</h3>{summary}
+<a class="hp-spot-go" href="{url}">Read the paper →</a>
+</div>
+</article>""")
+            tabs.append(f'<button type="button" class="hp-spot-tab" role="tab" id="hp-spot-tab-{i}" '
+                        f'aria-controls="hp-spot-{i}" aria-selected="{str(on).lower()}" tabindex="{0 if on else -1}">'
+                        f'<span class="hp-spot-bar" aria-hidden="true"></span>{short}<small>{year}</small></button>')
 
+        tablist = (f'<div class="hp-spot-tabs" role="tablist" aria-label="Choose a result" '
+                   f'style="--n:{len(tabs)}">{"".join(tabs)}</div>'
+                   if len(tabs) > 1 else "")
         return f"""<div class="hp-sect">{title}</div>
-{"".join(items)}"""
+<section class="hp-spot" aria-roledescription="carousel" aria-label="{title}">
+<div class="hp-spot-stage">
+{"".join(slides)}
+</div>
+{tablist}
+</section>
+<p class="hp-spot-all"><a href="publications/">All publications →</a></p>"""
 
     @env.macro
     def landing_research():

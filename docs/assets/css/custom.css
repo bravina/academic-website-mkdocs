@@ -18,7 +18,7 @@
    6.  Homepage layout       [hp- prefix]
      6a. Hero
      6b. Section chrome (headings, dividers)
-     6c. Featured publication block
+     6c. Featured results spotlight
      6d. Research-area cards
      6e. Timeline / CV
      6f. Blog cards
@@ -446,56 +446,156 @@ a.pill[data-color="cyan"]:hover   { background: var(--cyan-800);   color: #fff; 
 }
 
 
-/* --- 6c. Featured publication block -------------------------- */
+/* --- 6c. Featured results spotlight -------------------------- */
+/* One result at a time (figure | story), tabs underneath. Markup from
+   landing_featured() in main.py; rotation in home.js (Spotlight). All slides
+   share one grid cell, so the box keeps the height of the tallest. */
 
-.hp-feat {
-  border-left: 3px solid var(--accent-mid);
-  padding: 1.25rem 1.5rem;
-  background: var(--surface-dim);
-  margin: 0.75rem 0;
+.hp-spot {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 1rem;
 }
-[data-md-color-scheme="slate"] .hp-feat {
-  background: var(--s100);
+.hp-spot-stage { display: grid; }
+.hp-spot-slide {
+  grid-area: 1 / 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s;
 }
-.hp-feat-lab {
+.hp-spot-slide.no-fig { grid-template-columns: minmax(0, 1fr); }
+.hp-spot-slide.on {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease;
+}
+.hp-spot-fig {
+  background: #fff;   /* plots are drawn for a white page, also in dark mode */
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--border);
+}
+.md-typeset .hp-spot-fig img {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: contain;
+  display: block;
+  transform: scale(0.98);
+  transition: transform 6s ease-out;
+}
+.hp-spot-slide.on .hp-spot-fig img { transform: scale(1); }
+.hp-spot-story {
+  padding: 1.3rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-width: 0;
+}
+.hp-spot-lab {
   font-family: var(--md-code-font);
   font-size: 0.62rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 0.4rem;
 }
-.hp-feat h3 {
+.md-typeset .hp-spot-story h3 {
   font-family: var(--font-serif);
-  font-size: 1.05rem;
+  font-size: 1.35rem;
   font-weight: 600;
-  margin-bottom: 0.15rem;
-  line-height: 1.3;
+  line-height: 1.25;
+  margin: 0;
+  text-wrap: balance;
 }
-.hp-feat .hp-jnl {
-  font-size: 0.82rem;
-  color: var(--text-faint);
-  margin-bottom: 0.3rem;
-}
-.hp-lnks {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-top: 0.5rem;
-}
-.hp-lnks a {
-  font-size: 0.72rem;
-  font-weight: 500;
-  padding: 3px 12px;
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  text-decoration: none;
+.md-typeset .hp-spot-story p {
+  font-size: 0.9rem;
+  line-height: 1.55;
   color: var(--text-muted);
-  transition: all 0.15s;
+  margin: 0;
 }
-.hp-lnks a:hover {
-  border-color: var(--accent-mid);
+.hp .hp-spot-go {
+  margin-top: auto;
+  font-size: 0.82rem;
+  font-weight: 600;
   color: var(--accent);
+  text-decoration: none;
+}
+.hp .hp-spot-go:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Tabs, with a progress line for the auto-advance (--p set by home.js) */
+.hp-spot-tabs {
+  display: grid;
+  grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));   /* --n = number of results */
+  border-top: 1px solid var(--border);
+  background: var(--surface-dim);
+}
+.md-typeset .hp-spot-tab {
+  position: relative;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-muted);
+  background: none;
+  border: 0;
+  padding: 0.7rem 0.9rem 0.8rem;
+  text-align: left;
+  cursor: pointer;
+}
+.md-typeset .hp-spot-tab + .hp-spot-tab { border-left: 1px solid var(--border); }
+.hp-spot-tab small {
+  display: block;
+  font-family: var(--md-code-font);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  margin-top: 0.1rem;
+}
+.md-typeset .hp-spot-tab[aria-selected="true"] {
+  color: var(--text-main);
+  background: var(--md-default-bg-color);
+}
+.hp-spot-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: var(--accent-mid);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+.hp-spot-tab[aria-selected="true"] .hp-spot-bar { transform: scaleX(var(--p, 1)); }
+.hp .hp-spot-all { margin: 1rem 0 0; }
+.hp .hp-spot-all a {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--teal-600);
+  text-decoration: none;
+}
+
+@media (max-width: 650px) {
+  .hp-spot-slide { grid-template-columns: minmax(0, 1fr); }
+  .hp-spot-fig { border-right: 0; border-bottom: 1px solid var(--border); }
+  .hp-spot-story { padding: 1rem 1.1rem 1.2rem; }
+  .md-typeset .hp-spot-story h3 { font-size: 1.2rem; }
+  .md-typeset .hp-spot-tab { padding: 0.6rem 0.6rem 0.7rem; font-size: 0.72rem; }
+  /* never narrower than the longest word, so a tab name doesn't break mid-word */
+  .hp-spot-tabs { grid-template-columns: repeat(var(--n, 3), minmax(min-content, 1fr)); }
+}
+@media (max-width: 420px) {
+  .md-typeset .hp-spot-tab { padding: 0.55rem 0.4rem 0.65rem; font-size: 0.66rem; }
+}
+@media (max-width: 350px) {   /* smallest phones: hyphenate rather than clip */
+  .hp-spot-tabs { grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); }
+  .md-typeset .hp-spot-tab { hyphens: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hp-spot-slide, .hp-spot-slide.on, .md-typeset .hp-spot-fig img { transition: none; }
 }
 
 

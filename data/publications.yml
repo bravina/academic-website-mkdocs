@@ -5,6 +5,15 @@
 #           featured, type (string OR list of strings),
 #           inspirehep (fallback for arxiv), rivet, git
 #
+# featured: true, or a number to set the order in the homepage
+#           spotlight (1 = shown first); numbered entries come before
+#           `true` ones, which are ordered newest first.
+# Homepage spotlight, all optional (fallbacks in brackets):
+#   headline:    short plain-language title       [title]
+#   summary:     one sentence on why it matters   [none]
+#   figure:      file in docs/assets/figures/     [no figure]
+#   short_title: tab label, one or two words      [headline]
+#
 # type: use any string or list for grouping, e.g.:
 #   "top"         — top quark physics
 #   "quantum"     — quantum information
@@ -30,7 +39,11 @@
   date: 2026-05
   arxiv: "2602.15115"
   doi: "10.1103/qqvz-87d2"
-  featured: true
+  featured: 2
+  headline: "The full hierarchy of quantum correlations"
+  summary: "From separable to Bell-correlated states: the most complete characterisation of a two-qubit state at collider energies, using CMS data."
+  figure: quantum_hierarchy_cms.png
+  short_title: "Quantum hierarchy"
   type:
     - top
     - quantum
@@ -44,7 +57,11 @@
   atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/TOPQ-2025-11/"
   briefing: "https://atlas.cern/Updates/Briefing/Quasi-Bound-Tops"
   courier: "https://cerncourier.com/atlas-confirms-top-antitop-excess/"
-  featured: true
+  featured: 1
+  headline: "An excess at the $t\\bar{t}$ threshold"
+  summary: "More top-quark pairs than expected right at threshold, consistent with toponium formation. I led the search as analysis contact."
+  figure: atlas_toponium_discovery.png
+  short_title: "Toponium"
   type: top
 
 - title: "Observation of a cross-section enhancement near the $t\\bar{t}$ production threshold in $\\sqrt{s}=13$ TeV $pp$ collisions with the ATLAS detector"
@@ -89,7 +106,11 @@
   atlas_url: "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/TOPQ-2021-24/"
   briefing: "https://atlas.cern/Updates/Briefing/Top-Entanglement"
   courier: "https://cerncourier.com/a/highest-energy-observation-of-entanglement/"
-  featured: true
+  featured: 3
+  headline: "Entanglement in top quarks"
+  summary: "The first observation of entanglement between quarks, and the highest-energy observation of entanglement to date."
+  figure: atlas_nature_entanglement.png
+  short_title: "Entanglement"
   type:
     - top
     - quantum
