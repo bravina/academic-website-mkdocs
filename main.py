@@ -235,7 +235,7 @@ def define_env(env):
         else:
             initials = "".join(w[0].upper() for w in p["name"].split()[:2])
             avatar = f'<div class="person-av" aria-hidden="true">{initials}</div>'
-        affiliation = str(p.get("affiliation", "")).replace("<br>", ", ")
+        affiliation = p.get("affiliation", "")
         return f"""<div class="person">{avatar}<div>
 <div class="person-name">{p["name"]}</div>
 <div class="person-role">{p.get("role", "")}</div>
