@@ -17,6 +17,14 @@ students:
     affiliation: "TU Dresden"
     photo: "rebecca_seip.jpg"
 
+  - name: "Robin Schuster"
+    role: "BSc student"
+    affiliation: "TU Dresden"
+
+  - name: "Julian Herrmann"
+    role: "MSc student"
+    affiliation: "TU Dresden"
+
 collaborators:
   - name: "James Howarth"
     role: "Royal Society URF"
