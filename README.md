@@ -1,160 +1,117 @@
 # baptisteravina.com
 
-Personal academic website built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
+Personal academic website, built with [MkDocs](https://www.mkdocs.org/) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/). Most content lives in YAML files under `data/` and is turned into HTML by Jinja macros in `main.py`, so routine updates (a paper, a talk, a student) mean editing one YAML file.
 
 ## Quick start
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install mkdocs-material mkdocs-macros-plugin
-mkdocs serve
-# Opens at http://127.0.0.1:8000
+pip install -r requirements.txt   # pinned versions
+mkdocs serve                      # http://127.0.0.1:8000
 ```
+
+## Deployment
+
+Every push to `main` builds and publishes the site through GitHub Pages ([.github/workflows/deploy.yml](.github/workflows/deploy.yml)). The workflow also writes the `CNAME` file for `baptisteravina.com`.
 
 ## Project structure
 
 ```
 .
-├── mkdocs.yml                  # Site config
-├── main.py                     # Jinja macros (renders YAML → HTML)
+├── mkdocs.yml               # Site configuration, navigation, blog category colours
+├── main.py                  # Jinja macros: YAML → HTML for every data-driven section
+├── hooks.py                 # "Last updated" date of a page follows its data file
+├── requirements.txt         # Pinned Python dependencies
 ├── data/
-│   ├── publications.yml        # ← edit to add papers
-│   └── talks.yml               # ← edit to add talks
-├── overrides/
-│   └── home.html               # Custom landing page template
+│   ├── profile.yml          # Homepage hero: name, role, affiliations, bio, tags, email
+│   ├── research.yml         # Research topics: front-page cards, research-page icons
+│   ├── career.yml           # Homepage career timeline
+│   ├── publications.yml     # Publications page and homepage "Featured results"
+│   ├── talks.yml            # Talks page
+│   ├── team.yml             # Team page: students, collaborators, alumni
+│   └── card-anims/          # One animation per research topic (SVG, named after its key)
 ├── docs/
-│   ├── index.md                # Landing page (uses home.html)
-│   ├── research.md             # Research themes
-│   ├── publications.md         # Rendered from data/publications.yml
-│   ├── talks.md                # Rendered from data/talks.yml
-│   ├── team.md                 # Collaborators + alumni
-│   ├── teaching.md             # Courses, seminars, BSc projects
-│   ├── outreach.md             # Public talks, masterclasses, media
-│   ├── assets/
-│   │   ├── css/custom.css      # Site-wide styling
-│   │   └── js/mathjax.js       # LaTeX config ($...$ notation)
-│   └── blog/
-│       ├── index.md            # Blog index
-│       └── posts/              # ← drop blog posts here
-└── site/                       # Built output (gitignored)
+│   ├── index.md             # Homepage (layout from overrides/home.html)
+│   ├── research.md          # Research page: text written by hand, plus macros
+│   ├── publications.md      # publications_page() + the BibTeX pop-up
+│   ├── talks.md             # talks_page()
+│   ├── team.md              # team_students(), team_collaborators(), team_alumni()
+│   └── assets/
+│       ├── css/custom.css   # All site styling (colours are CSS variables at the top)
+│       ├── js/home.js       # Homepage: event display, timeline, card animations
+│       ├── js/pages.js      # Filter chips, publication timeline, copy-BibTeX button
+│       ├── js/mathjax.js    # LaTeX configuration
+│       ├── figures/         # Research-page figures
+│       ├── team/            # Portraits
+│       ├── logos/           # Career timeline logos
+│       └── uploads/         # Slides hosted on the site
+├── overrides/               # Theme templates (homepage, blog post and post list)
+└── drafts/                  # Not built: teaching and outreach pages, blog posts
 ```
 
 ## Adding content
 
-### New publication (~30 seconds)
+### Publication
 
-Edit `data/publications.yml` — add at the top:
+Add an entry to `data/publications.yml`:
 
 ```yaml
-- title: "My new measurement of X"
-  authors: "ATLAS Collaboration (B. Ravina)"
+- title: "My new measurement of $t\\bar{t}Z$"
+  authors: "ATLAS Collaboration"
   venue: "JHEP"
   date: 2026-03
   arxiv: "2603.12345"
   doi: "10.1007/JHEP03(2026)001"
-  featured: true  # star in the list, ringed dot in the timeline, front page
-  type: [top, quantum]  # topic tags and filters, see PUB_TYPES in main.py
+  type: [top, quantum]   # topic tags and filters, see PUB_TYPES in main.py
+  featured: true         # star in the list, ringed dot in the timeline, homepage
 ```
 
-Optional fields: `hepdata`, `atlas_url`, `briefing`, `courier`, `rivet`, `git`, `inspirehep`.
+Optional links: `hepdata`, `atlas_url`, `briefing`, `courier`, `rivet`, `git`, and `inspirehep` (an INSPIRE record ID, used when there is no arXiv number). The BibTeX button fetches the entry from INSPIRE-HEP when clicked.
 
-BibTeX export buttons are generated automatically from the `arxiv` field via the INSPIRE-HEP API.
+### Talk
 
-### New talk (~30 seconds)
-
-Edit `data/talks.yml` — add at the top:
+Add an entry to `data/talks.yml`:
 
 ```yaml
 - title: "My new talk"
   date: 2026-04-15
-  venue: "Top Workshop"
-  type: workshop  # seminar | conference | workshop | atlas
+  venue: "ATLAS Top Workshop"
+  type: atlas              # seminar | conference | workshop | atlas
   location: "CERN"
-  indico: "https://indico.cern.ch/event/..."
-  slides_url: "https://talks.baptisteravina.com/..."
-  recording_url: "https://cds.cern.ch/record/..."
+  indico: "https://indico.cern.ch/event/.../contributions/.../"
+  slides_url: "https://indico.cern.ch/.../slides.pdf"
+  recording_url: "https://..."
 ```
 
-Only `title`, `date`, and `venue` are required. `type` sets the coloured tag and the filter chip. Links render as small buttons on the talk row when present.
+Only `title`, `date` and `venue` are required. `type` sets the coloured tag and the filter chip. Slides stored on the site go in `docs/assets/uploads/` and are linked as `/assets/uploads/file.pdf`.
 
-### New blog post
+### Team member
 
-Create `docs/blog/posts/YYYY-slug.md`:
+Edit `data/team.yml`:
 
-```yaml
----
-date: 2026-03-25
-categories:
-  - ATLAS
-  - Quantum information
----
+- **Current students** go under `students:` and **collaborators** under `collaborators:`, with `name`, `role` and `affiliation`. For a photo, add the file to `docs/assets/team/` and set `photo:`; without one, the card shows initials.
+- **Alumni** go under `alumni:` with `role_type` (BSc, MSc, PhD, ...), `project`, `location`, `year` and, if known, `next_position`. Someone with several projects gets an `entries:` list instead, one item per project. Each role type automatically gets a filter chip.
 
-# Title of my post
+### Research
 
-![Hero image](https://example.com/image.png){ .blog-hero }
+- **Text:** edit `docs/research.md` directly. Each topic heading carries its icon and a fixed anchor, for example `## {{ research_icon('top') }} Top quark and electroweak physics {: #top-quark-and-electroweak-physics }`. Keep the anchor in sync with the topic's `link` in `research.yml`.
+- **Topics:** each entry in `data/research.yml` has a `key` (used by the macros), the publication `type` it counts (`pubs`), an icon (`logo`), a colour and the front-page card text.
+- **Figures:** put the image in `docs/assets/figures/` and use the `<figure class="plot">` blocks already in `research.md` as a template. Wrap two figures in `<div class="plot-pair">` to show them side by side.
 
-Summary paragraph — shown in the blog index.
+### Career
 
-<!-- more -->
+Edit `data/career.yml`; entries appear in the order written. Logos go in `docs/assets/logos/`.
 
-Full content below the fold.
-```
+## Blog (currently off)
 
-**Categories** (pick from): `ATLAS`, `Machine learning`, `Top physics`, `Quantum information`. These are enforced in `mkdocs.yml` — a typo will fail the build. Categories appear as pills on each post and as navigation links in the blog sidebar.
+The blog posts live in `drafts/blog/`. To turn the blog on:
 
-**Hero images**: Use `{ .blog-hero }` after the image to make it span the full width. Optional but recommended for visual impact.
+1. Move `drafts/blog/` to `docs/blog/`.
+2. Uncomment the `blog` plugin and the `Blog` navigation entry in `mkdocs.yml`.
 
-### New team member
+The homepage then shows the latest post. Category pills take their colour from `extra.blog_category_colors` in `mkdocs.yml`; the allowed categories are listed under the plugin's `categories_allowed`.
 
-Edit `docs/team.md`. Current collaborators get a profile card:
+## LaTeX
 
-```html
-<div class="team-card">
-<div class="team-initials">XX</div>  <!-- or <img class="team-avatar" src="assets/team/photo.jpg"> -->
-<div class="team-name">Name</div>
-<div class="team-role">Role</div>
-<div class="team-affiliation">University</div>
-</div>
-```
-
-Alumni go into the Markdown table — one row per person.
-
-### Teaching and outreach
-
-Edit `docs/teaching.md` and `docs/outreach.md` directly. These are standard Markdown pages with no special templating.
-
-## LaTeX support
-
-Use `$...$` for inline math and `$$...$$` for display math. Works everywhere including publication titles in `data/publications.yml`. The `\(...\)` notation also works.
-
-The mathjax config (`docs/assets/js/mathjax.js`) handles instant loading — LaTeX renders on first page load without needing a refresh.
-
-## Build and deploy
-
-```bash
-# Build static site
-mkdocs build
-# Output: site/
-
-# Deploy to GitHub Pages
-mkdocs gh-deploy
-
-# Or deploy to any static host (Netlify, CERN, etc.)
-# Build command: mkdocs build
-# Publish directory: site
-```
-
-## Customisation
-
-**Profile photo**: Replace the `hp-avatar-placeholder` div in `overrides/home.html` with `<img class="hp-avatar" src="assets/team/baptiste.jpg">` and place the image in `docs/assets/team/`.
-
-**Team photos**: Same approach — replace `<div class="team-initials">XX</div>` with `<img class="team-avatar" src="assets/team/name.jpg">` in `docs/team.md`.
-
-**Landing page**: Edit `overrides/home.html`. This is a Jinja template extending `main.html` — it keeps the navigation header but replaces the content area. The career timeline, featured result, research cards, and blog preview are all plain HTML.
-
-**Colours**: CSS variables in `docs/assets/css/custom.css` — search for `--accent` and `--teal-*`.
-
-**Featured result**: Hardcoded in `overrides/home.html`. Update when you have a new highlight paper.
-
-**Blog preview on landing page**: Also in `overrides/home.html`. Update the latest post manually, or automate with a build hook in `main.py`.
+Use `$...$` inline and `$$...$$` for display maths, in Markdown pages and in YAML titles alike. In YAML strings, backslashes must be doubled: `"$t\\bar{t}Z$"`. Add `class="nomath"` to an element to keep MathJax away from it.
