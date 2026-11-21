@@ -1,5 +1,5 @@
 """
-MkDocs Macros plugin — loads all YAML data and provides rendering macros.
+Macros (Zensical macros / mkdocs-macros) — loads all YAML data and provides rendering macros.
 """
 import yaml
 import os
@@ -7,51 +7,46 @@ import re
 import subprocess
 from datetime import date, datetime
 
-# "Last updated" date of data-driven pages: the page shows the date of the
-# latest commit to the data file(s) it is built from, instead of the date of
-# its .md file. Pages not listed here keep the git-revision-date-localized
-# date of their .md file.
-DATA_PAGE_MAP = {
-    "career.yml":       "career.md",
-    "profile.yml":      "index.md",
-    "publications.yml": "publications.md",
-    "research.yml":     "research.md",
-    "talks.yml":        "talks.md",
-    "team.yml":         "team.md",
-    "topcptoolkit.yml": "research.md",
+# "Last updated" date of each page: the latest commit to the page's .md file
+# or to any data it is built from (paths relative to the project root). Pages
+# not listed here keep the git-revision-date-localized date of their .md file.
+PAGE_SOURCES = {
+    "index.md":        ["data/profile.yml", "data/career.yml", "data/research.yml",
+                        "data/publications.yml", "data/card-anims"],
+    "research.md":     ["data/research.yml", "data/topcptoolkit.yml", "data/publications.yml"],
+    "publications.md": ["data/publications.yml"],
+    "talks.md":        ["data/talks.yml"],
+    "team.md":         ["data/team.yml"],
 }
 
 
-def _data_revision_date(project_dir, page_path):
-    """Latest commit date (e.g. "April 2, 2026") of the data files mapped to
-    page_path, or None if there are none or git has no history for them."""
-    latest = None
-    for yml, md in DATA_PAGE_MAP.items():
-        if md != page_path:
-            continue
-        try:
-            ts = subprocess.run(
-                ["git", "log", "-1", "--format=%ci", "--", os.path.join("data", yml)],
-                capture_output=True, text=True, cwd=project_dir,
-            ).stdout.strip()
-        except OSError:
-            ts = ""
-        if ts:
-            latest = ts if latest is None else max(latest, ts)
-    if not latest:
+def _page_revision_date(project_dir, page_path):
+    """Date (e.g. "April 2, 2026") of the latest commit touching the page's
+    .md file or its sources, or None if the page isn't listed or has no history."""
+    sources = PAGE_SOURCES.get(page_path)
+    if not sources:
         return None
-    return datetime.strptime(latest[:19], "%Y-%m-%d %H:%M:%S").strftime("%B %-d, %Y")
+    try:
+        stamp = subprocess.run(
+            ["git", "log", "-1", "--format=%cI", "--", os.path.join("docs", page_path), *sources],
+            capture_output=True, text=True, cwd=project_dir,
+        ).stdout.strip()
+    except OSError:
+        return None
+    if not stamp:
+        return None
+    return datetime.fromisoformat(stamp).strftime("%B %-d, %Y")
 
 
 def define_env(env):
     data_dir = os.path.join(env.project_dir, "data")
 
     # Zensical calls define_env once per page, with that page as env.page:
-    # set its "last updated" date from its data files (see DATA_PAGE_MAP).
+    # set its "last updated" date from its sources (see PAGE_SOURCES).
     page = getattr(env, "page", None)
     page_path = getattr(page, "path", None)
     if page_path:
-        revision = _data_revision_date(env.project_dir, page_path)
+        revision = _page_revision_date(env.project_dir, page_path)
         if revision:
             page.meta["git_revision_date_localized"] = revision
 

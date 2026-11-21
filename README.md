@@ -24,7 +24,8 @@ The site moved from MkDocs + Material for MkDocs to Zensical with the output kep
 - Search is switched off explicitly (`search: enabled: false`); Zensical enables it otherwise.
 - `overrides/main.html` requests the same Google Fonts weights as before, and `overrides/.icons/` keeps the footer's social icons as they were.
 - Two rules at the top of section 3 in `custom.css` undo Zensical theme changes: the permanent scrollbar gutter and the empty repository slot in the header.
-- MkDocs hooks don't run in Zensical, so the "last updated" date of data-driven pages is set in `main.py` (`DATA_PAGE_MAP`).
+- MkDocs hooks don't run in Zensical, so the "last updated" date of data-driven pages is set in `main.py` (`PAGE_SOURCES`: the latest commit to the page or the data it is built from).
+- The deploy workflow also gzips the sitemap (`sitemap.xml.gz`, as MkDocs produced) and deletes the empty `search.json` Zensical writes even with search off.
 - Links written in raw HTML (including macro output) are resolved relative to the Markdown file, like Markdown links: from `research.md`, link to `publications.md?topic=…`, not `../publications/`.
 
 ## Project structure
@@ -33,7 +34,7 @@ The site moved from MkDocs + Material for MkDocs to Zensical with the output kep
 .
 ├── mkdocs.yml               # Site configuration (read by Zensical), navigation, blog colours
 ├── main.py                  # Jinja macros: YAML → HTML for every data-driven section;
-│                            #   also dates each page by its data file (DATA_PAGE_MAP)
+│                            #   also dates each page by its sources (PAGE_SOURCES)
 ├── requirements.txt         # Pinned Python dependencies
 ├── data/
 │   ├── profile.yml          # Homepage hero: name, role, affiliations, bio, tags, email

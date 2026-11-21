@@ -10,7 +10,15 @@ window.MathJax = {
   }
 };
 
+// Typeset the maths of each page reached by instant navigation. The first
+// document$ emission is the initial page, which MathJax already typesets at
+// startup; typesetting it again nested a second copy of every formula.
+let initialPage = true
 document$.subscribe(() => {
+  if (initialPage) {
+    initialPage = false
+    return
+  }
   MathJax.startup.output.clearCache()
   MathJax.typesetClear()
   MathJax.texReset()

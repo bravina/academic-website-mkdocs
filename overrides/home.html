@@ -1,3 +1,9 @@
 {% extends "main.html" %}
 
+{#- The home page title already contains the name ("Baptiste Ravina —
+    Particle Physicist"): don't append " - Baptiste Ravina" (site_name). -#}
+{% block htmltitle %}
+  <title>{{ page.meta.title if page.meta and page.meta.title else config.site_name }}</title>
+{% endblock %}
+
 {% block tabs %}{{ super() }}{% endblock %}

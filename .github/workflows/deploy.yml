@@ -36,6 +36,8 @@ jobs:
       - run: |
           zensical build
           echo "baptisteravina.com" > site/CNAME
+          gzip -9 -k -n site/sitemap.xml   # compressed sitemap, as MkDocs produced
+          rm -f site/search.json           # empty index: search is switched off
 
       - uses: actions/upload-pages-artifact@v3
         with:
