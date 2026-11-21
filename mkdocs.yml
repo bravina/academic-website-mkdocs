@@ -7,6 +7,7 @@ site_author: Baptiste Ravina
 
 theme:
   name: material
+  variant: classic   # Zensical: keep the Material look (default is "modern")
   custom_dir: overrides
   language: en
   palette:
@@ -98,7 +99,8 @@ extra_javascript:
   - assets/js/pages.js
 
 plugins:
-  # search: removed to hide the search bar in the header
+  - search:            # Zensical enables search unless switched off
+      enabled: false
   # - privacy <currently breaks build because of missing files>
   - minify:
       minify_html: true
@@ -120,9 +122,6 @@ plugins:
   #       - Machine learning
   #       - Top quark physics
   #       - Quantum information
-
-hooks:
-  - hooks.py
 
 nav:
   - Home: index.md

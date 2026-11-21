@@ -34,7 +34,7 @@ jobs:
       - run: pip install -r requirements.txt
 
       - run: |
-          mkdocs build
+          zensical build
           echo "baptisteravina.com" > site/CNAME
 
       - uses: actions/upload-pages-artifact@v3

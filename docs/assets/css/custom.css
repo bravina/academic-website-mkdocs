@@ -9,7 +9,7 @@
    -----------------
    1.  Design tokens (colors, fonts)
    2.  Dark-mode overrides
-   3.  MkDocs theme overrides
+   3.  Theme overrides (Material / Zensical)
    4.  Global typography
        Note: body font (Source Sans 3) and code font (JetBrains Mono) are
        set via mkdocs.yml theme.font and applied site-wide by MkDocs Material.
@@ -140,7 +140,7 @@
 
 
 /* ============================================================
-   3. MKDOCS THEME OVERRIDES
+   3. THEME OVERRIDES (Material / Zensical)
    ============================================================ */
 
 [data-md-color-scheme="default"] {
@@ -152,6 +152,13 @@
   --md-primary-fg-color: #1d9e75;
   --md-accent-fg-color:  #5dcaa5;
 }
+
+/* Zensical's theme reserves a scrollbar gutter on every page; Material for
+   MkDocs did not. Keep the original layout (no permanent 15px gutter). */
+html { scrollbar-gutter: auto; }
+/* Zensical's header always renders a repository-source slot; without a repo_url
+   it is empty but still takes room and pushes the theme toggle left. */
+.md-header__source:not(:has(*)) { display: none; }
 
 .md-content__inner { padding-bottom: 3rem !important; }
 

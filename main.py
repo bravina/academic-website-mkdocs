@@ -4,11 +4,56 @@ MkDocs Macros plugin — loads all YAML data and provides rendering macros.
 import yaml
 import os
 import re
-from datetime import date
+import subprocess
+from datetime import date, datetime
+
+# "Last updated" date of data-driven pages: the page shows the date of the
+# latest commit to the data file(s) it is built from, instead of the date of
+# its .md file. Pages not listed here keep the git-revision-date-localized
+# date of their .md file.
+DATA_PAGE_MAP = {
+    "career.yml":       "career.md",
+    "profile.yml":      "index.md",
+    "publications.yml": "publications.md",
+    "research.yml":     "research.md",
+    "talks.yml":        "talks.md",
+    "team.yml":         "team.md",
+    "topcptoolkit.yml": "research.md",
+}
+
+
+def _data_revision_date(project_dir, page_path):
+    """Latest commit date (e.g. "April 2, 2026") of the data files mapped to
+    page_path, or None if there are none or git has no history for them."""
+    latest = None
+    for yml, md in DATA_PAGE_MAP.items():
+        if md != page_path:
+            continue
+        try:
+            ts = subprocess.run(
+                ["git", "log", "-1", "--format=%ci", "--", os.path.join("data", yml)],
+                capture_output=True, text=True, cwd=project_dir,
+            ).stdout.strip()
+        except OSError:
+            ts = ""
+        if ts:
+            latest = ts if latest is None else max(latest, ts)
+    if not latest:
+        return None
+    return datetime.strptime(latest[:19], "%Y-%m-%d %H:%M:%S").strftime("%B %-d, %Y")
 
 
 def define_env(env):
     data_dir = os.path.join(env.project_dir, "data")
+
+    # Zensical calls define_env once per page, with that page as env.page:
+    # set its "last updated" date from its data files (see DATA_PAGE_MAP).
+    page = getattr(env, "page", None)
+    page_path = getattr(page, "path", None)
+    if page_path:
+        revision = _data_revision_date(env.project_dir, page_path)
+        if revision:
+            page.meta["git_revision_date_localized"] = revision
 
     def _load(filename):
         path = os.path.join(data_dir, filename)
@@ -554,7 +599,8 @@ def define_env(env):
         n = _pub_count(t)
         if not n:
             return ""
-        return (f'<p class="sec-foot"><a class="to-pubs" href="../publications/?topic={t}">'
+        # Relative to this Markdown file: Zensical resolves it to the page URL
+        return (f'<p class="sec-foot"><a class="to-pubs" href="publications.md?topic={t}">'
                 f'Papers on this topic ({n}) →</a></p>')
 
     # ------------------------------------------------------------------
@@ -763,10 +809,12 @@ def define_env(env):
         import glob
         import re
 
-        # Check if blog plugin is enabled
-        plugins = env.conf.get("plugins", {})
-        # Material registers the plugin as "material/blog"
-        if not any(name.split("/")[-1] == "blog" for name in plugins):
+        # Check if the blog plugin is enabled: Zensical lists configured blogs
+        # under plugins["blogs"]["config"]; MkDocs registered "material/blog".
+        plugins = env.conf.get("plugins", {}) or {}
+        zensical_blogs = (plugins.get("blogs") or {}).get("config") if isinstance(plugins, dict) else None
+        mkdocs_blog = any(str(name).split("/")[-1] == "blog" for name in plugins)
+        if not (zensical_blogs or mkdocs_blog):
             return ""  # Return empty string if blog is disabled
 
         def _cat_slug(name):

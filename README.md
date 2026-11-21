@@ -1,6 +1,6 @@
 # baptisteravina.com
 
-Personal academic website, built with [MkDocs](https://www.mkdocs.org/) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/). Most content lives in YAML files under `data/` and is turned into HTML by Jinja macros in `main.py`, so routine updates (a paper, a talk, a student) mean editing one YAML file.
+Personal academic website, built with [Zensical](https://zensical.org/) (the successor of Material for MkDocs, using its classic look). Zensical reads the MkDocs-style `mkdocs.yml`. Most content lives in YAML files under `data/` and is turned into HTML by Jinja macros in `main.py`, so routine updates (a paper, a talk, a student) mean editing one YAML file.
 
 ## Quick start
 
@@ -8,20 +8,32 @@ Personal academic website, built with [MkDocs](https://www.mkdocs.org/) and [Mat
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt   # pinned versions
-mkdocs serve                      # http://127.0.0.1:8000
+zensical serve                    # http://localhost:8000
+zensical build                    # static site in site/
 ```
 
 ## Deployment
 
 Every push to `main` builds and publishes the site through GitHub Pages ([.github/workflows/deploy.yml](.github/workflows/deploy.yml)). The workflow also writes the `CNAME` file for `baptisteravina.com`.
 
+## Zensical notes
+
+The site moved from MkDocs + Material for MkDocs to Zensical with the output kept identical. The settings that make that so:
+
+- `theme.variant: classic` in `mkdocs.yml` keeps the Material look (Zensical's default is "modern").
+- Search is switched off explicitly (`search: enabled: false`); Zensical enables it otherwise.
+- `overrides/main.html` requests the same Google Fonts weights as before, and `overrides/.icons/` keeps the footer's social icons as they were.
+- Two rules at the top of section 3 in `custom.css` undo Zensical theme changes: the permanent scrollbar gutter and the empty repository slot in the header.
+- MkDocs hooks don't run in Zensical, so the "last updated" date of data-driven pages is set in `main.py` (`DATA_PAGE_MAP`).
+- Links written in raw HTML (including macro output) are resolved relative to the Markdown file, like Markdown links: from `research.md`, link to `publications.md?topic=…`, not `../publications/`.
+
 ## Project structure
 
 ```
 .
-├── mkdocs.yml               # Site configuration, navigation, blog category colours
-├── main.py                  # Jinja macros: YAML → HTML for every data-driven section
-├── hooks.py                 # "Last updated" date of a page follows its data file
+├── mkdocs.yml               # Site configuration (read by Zensical), navigation, blog colours
+├── main.py                  # Jinja macros: YAML → HTML for every data-driven section;
+│                            #   also dates each page by its data file (DATA_PAGE_MAP)
 ├── requirements.txt         # Pinned Python dependencies
 ├── data/
 │   ├── profile.yml          # Homepage hero: name, role, affiliations, bio, tags, email
@@ -46,7 +58,8 @@ Every push to `main` builds and publishes the site through GitHub Pages ([.githu
 │       ├── team/            # Portraits
 │       ├── logos/           # Career timeline logos
 │       └── uploads/         # Slides hosted on the site
-├── overrides/               # Theme templates (homepage, blog post and post list)
+├── overrides/               # Theme templates: homepage, fonts (main.html), footer,
+│                            #   blog post and list, social icons (.icons/)
 └── drafts/                  # Not built: teaching and outreach pages, blog posts
 ```
 

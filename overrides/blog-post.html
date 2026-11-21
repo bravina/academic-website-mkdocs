@@ -1,7 +1,9 @@
 {#-
   Override of blog-post.html
   Adds data-color to category links in the post sidebar so .pill[data-color] CSS applies.
-  Colours come from extra.blog_category_colors in mkdocs.yml.
+  Colours come from extra.blog_category_colors in mkdocs.yml, keyed by the
+  category title in lower case with hyphens (written to work in Zensical's
+  MiniJinja as well as Jinja2).
 -#}
 
 {% set category_color_map = config.extra.blog_category_colors or {} %}
@@ -80,8 +82,8 @@
                           <span class="md-ellipsis">
                             {{ lang.t("blog.categories.in") }}
                             {% for category in page.categories %}
-                              {% set slug = category.url.split("/") | reject("equalto", "") | list | last %}
-                              {% set color = category_color_map.get(slug, "teal") %}
+                              {% set slug = category.title | lower | replace(" ", "-") %}
+                              {% set color = category_color_map[slug] | d("teal") %}
                               <a href="{{ category.url | url }}" class="pill" data-color="{{ color }}">
                                 {{- category.title -}}
                               </a>
